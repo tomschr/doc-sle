@@ -1,0 +1,1762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="urn:x-suse:xslt:profiling:docbook50-profile.xsl"
+ type="text/xml"
+ title="Profiling step"?>
+<!DOCTYPE part
+[
+  <!ENTITY % entities SYSTEM "entity-decl.ent">
+    %entities;
+]>
+<part  version="5.0" xml:lang="en" xml:id="ay.xml.reference"
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+ <title>&ay; XML Reference</title>
+ <chapter xml:id="CreateProfile.General">
+  <title>General Options</title>
+  <para>
+   The general section includes all settings that influence the installation
+   workflow. The overall structure of this sections looks like the following:
+  </para>
+<screen>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE profile&gt;
+&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns"&gt;
+ &lt;general&gt;
+  &lt;ask-list&gt;<co xml:id="co.ay.general.ask"/>
+   ...
+  &lt;/ask-list&gt;
+  &lt;cio_ignore&gt;<co xml:id="co.ay.general.cio_ignore" arch="zseries"/>
+   ...
+  &lt;/cio_ignore&gt;
+  &lt;mode&gt;<co xml:id="co.ay.general.mode"/>
+   ...
+  &lt;/mode&gt;
+  &lt;proposals&gt;<co xml:id="co.ay.general.proposal"/>
+   ...
+  &lt;/proposals&gt;
+  &lt;self_update&gt;<co xml:id="co.ay.general.self_update"/>
+   ...
+  &lt;/self_update&gt;
+  &lt;self_update_url&gt;
+   ...
+  &lt;/self_update_url&gt;
+  &lt;signature-handling&gt;<co xml:id="co.ay.general.signature"/>
+   ...
+  &lt;/signature-handling&gt;
+  &lt;storage&gt;<co xml:id="co.ay.general.storage"/>
+   ...
+  &lt;/storage&gt;
+  &lt;wait&gt;<co xml:id="co.ay.general.wait"/>
+   ...
+  &lt;/wait&gt;
+ &lt;/general&gt;
+&lt;profile&gt;</screen>
+  <calloutlist>
+   <callout arearefs="co.ay.general.ask">
+    <para>
+<!-- Ask the User for Values during Installation -->
+     <xref linkend="CreateProfile.Ask" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.cio_ignore" arch="zseries">
+    <para>
+<!-- Blacklisting Unused Devices on IBM z Systems -->
+     <xref linkend="CreateProfile.General.cio_ignore"
+            xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.mode">
+    <para>
+<!-- The Mode Section -->
+     <xref linkend="CreateProfile.General.mode" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.proposal">
+    <para>
+<!-- Configuring the Installation Settings Screen -->
+     <xref linkend="CreateProfile.General.proposal" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.self_update">
+    <para>
+<!--The Self Update Section -->
+     <xref linkend="CreateProfile.General.self_update"
+            xrefstyle="HeadingOnPaqge"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.signature">
+    <para>
+<!-- CreateProfile.General.signature -->
+     <xref linkend="CreateProfile.General.signature" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.storage">
+    <para>
+<!-- The Storage Section -->
+     <xref linkend="CreateProfile.General.storage" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+   <callout arearefs="co.ay.general.wait">
+    <para>
+<!-- The Wait Section -->
+     <xref linkend="CreateProfile.General.wait" xrefstyle="HeadingOnPage"/>
+    </para>
+   </callout>
+  </calloutlist>
+  <sect1 xml:id="CreateProfile.Ask">
+   <title>Ask the User for Values during Installation</title>
+
+   <para>
+    You have the option to let the user decide on values of specific parts of
+    the control file during the installation using the <tag
+    class="element">ask-list</tag> element. If you use this feature, a pop-up
+    will prompt the user to enter the specified data. This can, for example, be
+    used for a fully automated installation during which the user should set
+    the password for the local account. As an alternative to overwriting values
+    from the control file, you can store the user input to a file.
+   </para>
+
+   <para>
+    The values from the control file that can be changed or set are identified
+    with their XML path in the control file. The <tag
+    class="element">hostname</tag> element for example resides in the following
+    data structure:
+   </para>
+
+<screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile
+  xmlns="http://www.suse.com/1.0/yast2ns"
+  xmlns:config="http://www.suse.com/1.0/configns">
+ <networking>
+  <dns>
+   <hostname><replaceable>HOST_NAME</replaceable></hostname>
+  <dns>
+ </networking>
+ ...
+<profile>]]></screen>
+
+   <para>
+    To create a dialog that sets the <replaceable>HOST_NAME</replaceable> you
+    need to refer to <literal>networking,dns,hostname</literal>. The respective
+    value needs to be provided with the tag <tag
+    class="element">pathlist</tag>. For more information refer to the lists and
+    examples below.
+   </para>
+
+   <para>
+    The following elements can be set:
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">back_label</tag>
+     </term>
+     <listitem>
+      <para>
+       Set a custom label for the <guimenu>Back</guimenu> button. This setting
+       is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <back_label>Edit</back_label>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">default</tag>
+     </term>
+     <listitem>
+      <para>
+       Set a value that gets preselected. If the input type is a text box, it
+       will be prefilled with this value. In a selection box the value will be
+       preselected. A check box will be true or false according to the
+       specified value. This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <default>
+    &wsI;
+   </default>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">default_value_script</tag>
+     </term>
+     <listitem>
+      <para>
+       It is possible to run scripts for setting the default value for a
+       question. This feature is useful to calculate a default value,
+       especially in combination with the timeout option. This setting is
+       optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <default_value_scrip>
+    ...
+   </default_value_script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      <para>
+       See <xref linkend="CreateProfile.Ask.default_value"/> for a list of tags
+       that let you set up a default value script.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">dialog</tag>
+     </term>
+     <listitem>
+      <para>
+       You can ask more than one question per pop-up dialog. To do so, specify
+       a dialog ID with an integer value. All questions with the same dialog ID
+       belong to the same pop-up dialog. If you define more than one <tag
+       class="element">ask</tag> section, the dialog ID also determines the
+       order in which the dialogs appear. This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <dialog config:type="integer">1</dialog>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">element</tag>
+     </term>
+     <listitem>
+      <para>
+       FIXME This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <element config:type="integer">1</element>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">file</tag>
+     </term>
+     <listitem>
+      <para>
+       Instead of changing a value provided by the control file, you can
+       alternatively store the user input in a file, to use it in a scripts
+       later on. Specify the location to this file with this element.
+      </para>
+      <para>
+       If you ask for input during the initial stage and plan to use the value
+       in the second stage of the installation, you need to copy the
+       answer-file in a chroot script that is running as
+       <literal>chrooted=false</literal>. During the initial phase the data is
+       stored to a RAM disk that will be lost after having rebooted into the
+       second stage. The installed system is mounted to
+       <filename>/mnt</filename> in the initial phase. Use the command
+       <command>cp /tmp/my_answer /mnt/tmp/</command> to copy the file from the
+       RAM disk to the installed system.
+      </para>
+      <para>
+       This setting is required to store the user input to a file. If you
+       rather want to change a value from the control file, you need to specify
+       a <tag class="element">path</tag> instead. At least one of the two needs
+       to be specified.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <file>/tmp/answer_hostname</file>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">frametitle</tag>
+     </term>
+     <listitem>
+      <para>
+       <remark condition="clarity">
+        2017-05-23 - fs: The relationship between &lt;dialog&gt;,
+        &lt;element&gt;, and &lt;frametitle&gt; is unclear. The terminology
+        used here (dialog, question, element, frame) is also confusing. Maybe
+        an image or screenshot can help.
+       </remark>
+       You can have more than one question per dialog. Each question on a
+       dialog has a frame that can have a frame title, a small caption for each
+       question. You can put multiple elements into one frame. They need to
+       have the same frame title.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <frametitle>Name of your computer</frametitle>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">height</tag>
+     </term>
+     <listitem>
+      <para>
+       Set a custom height for the dialog. The value specified here
+       approximately equals the number of lines. This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <height config:type="integer">1</height>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">help</tag>
+     </term>
+     <listitem>
+      <para>
+       An optional help text that is shown in the dialog. This setting is
+       optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <default>
+    Enter the host name without the domain name.
+   </default>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">ok_label</tag>
+     </term>
+     <listitem>
+      <para>
+       Set a custom label for the <guimenu>OK</guimenu> button. This setting is
+       optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <ok_label>Finish</ok_label>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">password</tag>
+     </term>
+     <listitem>
+      <para>
+       If this boolean is set to <literal>true</literal>, a password dialog is
+       shown. This also requires that <tag class="element">type</tag> is set to
+       <literal>string</literal> (see above). This setting is optional. The
+       default value is <literal>false</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <password config:type="boolean">true</password>
+   <type>string</type>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">pathlist</tag>
+     </term>
+     <listitem>
+      <para>
+       A list of <literal>path</literal> elements used to identify the element
+       for which a value should be set. For the <tag
+       class="element">hostname</tag> element, which resides in the
+       <literal>&lt;networking&gt;&lt;dns&gt;</literal> section (see this
+       section's introduction (<xref linkend="CreateProfile.Ask"/> for a
+       detailed example), the path needs to be set to
+       <literal>networking,dns,hostname</literal>.
+      </para>
+      <para>
+       This setting is required to change a value from the control file. If you
+       rather store the user input to a file, you need to specify <tag
+       class="element">file</tag> instead. At least one of the two needs to be
+       specified.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <pathlist config:type="list">
+    <path>networking,dns,hostname</path>
+    <path>...</path>
+   </pathlist>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      <tip>
+       <title>Setting the Path for Changing a User Password</title>
+       <para>
+        If you want to let the users change the password for a specific user
+        account, you need to refer to it by a number. User accounts are listed
+        in the <tag class="element">users</tag> section of the control file
+        (also see <xref linkend="Configuration.Security.users"/>. The first
+        user listed in this section can be identified with the path
+        <literal>users,0,user_password</literal>, the second one with
+        <literal>users,1,user_password</literal>, ... .
+       </para>
+      </tip>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">question</tag>
+     </term>
+     <listitem>
+      <para>
+       The request or question that will be shown to the user. It is strongly
+       recommended to enter a meaningful question here&mdash;by default a path
+       representation of the element is shown.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <question>
+    Enter the host name
+   </question>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">script</tag>
+     </term>
+     <listitem>
+      <para>
+       Defines a script that runs after the user has confirmed the pop-up
+       dialog with <guimenu>OK</guimenu>. Such a script can, for example, be
+       used to check the values entered by the user for sanity. This setting is
+       optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    ...
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      <para>
+       See <xref linkend="CreateProfile.Ask.script"/> for a list of tags that
+       let you set up a script.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">selection</tag>
+     </term>
+     <listitem>
+      <para>
+       The selection element contains a list of predefined values the user can
+       choose from. This element is required if the corresponding element is of
+       the type <literal>symbol</literal>. It is optional for the type
+       <literal>string</literal> and cannot be used for elements of the type
+       <literal>boolean</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <selection config:type="list">
+    <entry>
+     <value>btrfs</value>
+     <label>Btrfs File System</label>
+    </entry>
+    <entry>
+     <value>ext3</value>
+     <label>Extended3 File System</label>
+    </entry>
+   </selection>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">stage</tag>
+     </term>
+     <listitem>
+      <para>
+       Specify the installation stage in which to ask for input. Possible
+       values are <literal>initial</literal> for the installation phase and
+       <literal>cont</literal> for the configuration phase. Refer to <xref
+       linkend="overviewandconcept"/> for details on the stages.
+      </para>
+      <para>
+       <literal>initial</literal> means that the user will be asked for input
+       shortly after the pre-script has run (see <xref linkend="process"/> for
+       more information). Values provided during this phrase will be written in
+       clear text into the control file on the hard disk. Therefore it is
+       suggested to not ask for passwords during this phase.
+      </para>
+      <para>
+       <literal>cont</literal> means, that the user will be asked for input
+       after the system has booted for the very first time. Note that the hard
+       disk is already configured and partitioned at this stage. Therefore file
+       system related questions will have no effect when being asked in the
+       second stage.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <stage>cont</stage>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">title</tag>
+     </term>
+     <listitem>
+      <para>
+       The title of the user dialog. This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <title>
+    Host Name
+   </title>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">type</tag>
+     </term>
+     <listitem>
+      <para>
+       Data type of the element you want to change. Possible values are
+       <literal>symbol</literal>, <literal>boolean</literal>,
+       <literal>string</literal>, and <literal>integer</literal>. The <tag
+       class="element">filesystem</tag> tag in the <tag
+       class="element">partition</tag> section is of the type <tag
+       class="attvalue">symbol</tag> , while the <tag
+       class="element">encrypted</tag> element in the <tag
+       class="element">user</tag> configuration is of the type <tag
+       class="attvalue">boolean</tag> . If type is <literal>symbol</literal>,
+       you must provide the <tag class="element">selection</tag> element too
+       (see <xref linkend="ex.general.ask"/> for a code sample).
+      </para>
+      <para>
+       To look-up the type of an element, check the <tag
+       class="attribute">config:type</tag> attribute of the respective tag in
+       the &ay; control file.
+      </para>
+      <para>
+       This setting is optional. The default value is
+       <literal>string</literal>.
+      </para>
+      <para>
+       In addition to the types listed above you can also use <tag
+       class="element">static_text</tag> . A <tag
+       class="element">static_text</tag> is a text that does not require any
+       user input and can be used to show information in addition to the help
+       text.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <type>string</type>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">width</tag>
+     </term>
+     <listitem>
+      <para>
+       Set a custom width for the dialog. The value specified here
+       approximately equals the number of characters. This setting is optional.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <width config:type="integer">1</width>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">timeout</tag>
+     </term>
+     <listitem>
+      <para>
+       Specify an integer that is used as a timeout in seconds. If the user
+       does not answer the question before the timeout, the default value is
+       taken. When the user touches or changes any widget in the dialog, the
+       timeout is turned off and the dialog needs to be closed with the
+       <guimenu>OK</guimenu> button. This setting is optional. A missing value
+       is interpreted as <literal>0</literal>, which means that there is no
+       timeout.
+      </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <timeout config:type="integer">30</timeout>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+
+   <sect2 xml:id="CreateProfile.Ask.script">
+    <title>Scripts</title>
+    <para>
+     The <tag class="element">script</tag> tag lets you run a custom script
+     that runs when a user has entered input to a pop-up dialog. Use the
+     following tags to define the script:
+    </para>
+    <variablelist>
+     <varlistentry>
+      <term><tag class="element">debug</tag>
+      </term>
+      <listitem>
+       <para>
+        A boolean that turns on debugging for the script execution. If set to
+        <literal>true</literal>, <tag class="element">feedback</tag> also needs
+        to be set to <literal>true</literal>. Setting this value is optional.
+        The default value is <literal>false</literal>.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <debug config:type="boolean">true</debug>
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">environment</tag>
+      </term>
+      <listitem>
+       <para>
+        A boolean that passes the user input value as an environment variable
+        named <envar>VAL</envar> to the script. Setting this value is optional.
+        The default value is <literal>false</literal>.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <environment config:type="boolean">true</environment>
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">feedback</tag>
+      </term>
+      <listitem>
+       <para>
+        A boolean that turns on feedback for the script execution. STDOUT will
+        be displayed in a pop-up window that must be confirmed after the script
+        execution. Setting this value is optional. The default value is
+        <literal>false</literal>.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <feedback config:type="boolean">true</feedback>
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">filename</tag>
+      </term>
+      <listitem>
+       <para>
+        The file name of the script. It will be stored in a temporary directory
+        under <filename>/tmp</filename>. If you only have a single script,
+        setting this value is optional and the script will be stored as
+        <filename>ask_script.sh</filename>. If you have more than one script,
+        setting a unique file name for each script is mandatory.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <filename>hostname_processing.sh</filename>
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">source</tag>
+      </term>
+      <listitem>
+       <para>
+        The source code of the script. Providing a script is required,
+        otherwise nothing will be executed.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <source>&lt;![CDATA[
+#!/bin/sh
+echo "Checking values"
+exit 0
+    </source>]]&gt;
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+       <para>
+        When using the script to check the input value, also set
+        <tag class="element">rerun_on_error</tag> to <literal>true</literal>.
+        This will keep the dialog open until the script returns
+        <literal>0</literal> (zero). See <xref linkend="ex.general.verify"/>
+        for an example.
+       </para>
+       <para>
+        By letting the script create a file named
+        <filename>/tmp/next_dialog</filename> containing the ID of an ask
+        dialog, you can define which dialog will be launched next. The special
+        value <literal>-1</literal> will terminate the ask sequence, if no such
+        file is present dialogs will appear in normal order.
+       </para>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">rerun_on_error</tag>
+      </term>
+      <listitem>
+       <para>
+        A boolean that keeps the dialog open until the script has an exit code
+        of 0 (zero). So you can parse and check the data the user provided in
+        the script and display an error with the feedback option.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <rerun_on_error config:type="boolean">true</rerun_on_error>
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </sect2>
+
+   <sect2 xml:id="CreateProfile.Ask.default_value">
+    <title>Default Value Scripts</title>
+    <para>
+     Setting a default value by script is useful to set values that need to be
+     calculated, for example because they depend on the hardware or the user
+     input. Use the <tag class="element">default_value_script</tag> to run such
+     a script. Use the following tags to define such a script:
+    </para>
+    <variablelist>
+     <varlistentry>
+      <term><tag class="element">interpreter</tag>
+      </term>
+      <listitem>
+       <para>
+        The interpreter to use. This setting is optional. The default value is
+        <literal>shell</literal> (<filename>/bin/sh</filename>). You may either
+        specify a name (for example <literal>python</literal>) or a path (for
+        example <literal>/bin/bash</literal>).
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <default_value_scrip>
+    <interpreter>perl</interpreter>
+   </default_value_script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">source</tag>
+      </term>
+      <listitem>
+       <para>
+        The source code of the script. Whatever you send to STDOUT with
+        <command>echo</command>will be used as default value, provided the
+        script exits with code <literal>0</literal> (zero). For exit codes
+        other than <literal>0</literal> the output will be ignored. Make sure
+        to use <command>echo -n</command> to avoid a newline at the end of the
+        string. Also take care of only using valid values. Providing a script
+        is required, otherwise nothing will be executed.
+       </para>
+<screen><![CDATA[<general>
+ <ask-list config:type="list">
+  <ask>
+   <script>
+    <source>&lt;![CDATA[
+echo -n "tux_workstation"
+exit 0
+    </source>]]&gt;
+   </script>
+  </ask>
+ </ask-list>
+ ...
+</general>]]></screen>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </sect2>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.mode">
+   <title>The Mode Section</title>
+
+   <para>
+    The mode section configures the behavior of &ay; with regards to user
+    confirmations and rebooting. The following elements are allowed in the
+    <tag class="element">mode</tag> section:
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">activate_systemd_default_target</tag>
+     </term>
+     <listitem>
+      <para>
+       If you set this entry to <literal>false</literal>, the default
+       <systemitem class="daemon">systemd</systemitem> target will not be
+       activated via the call <command>systemctl isolate</command>. Setting
+       this value is optional. The default is <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <activate_systemd_default_target config:type="boolean">
+   true
+  </activate_systemd_default_target>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">confirm</tag>
+     </term>
+     <listitem>
+      <para>
+       By default, the installation stops at the <guimenu>Installation
+       Settings</guimenu> screen. Up to this point, no changes have been done
+       on the system and settings may be changed on this screen. To proceed and
+       finally start the installation, the user needs to confirm the settings.
+       By setting this value to <literal>false</literal> the settings are
+       automatically accepted and the installation starts. Only set to
+       <literal>false</literal> if you want to carry out a fully unattended
+       installation. Setting this value is optional. The default is
+       <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <confirm config:type="boolean">true</confirm>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">confirm_base_product_license</tag>
+     </term>
+     <listitem>
+      <para>
+       If you set this to <literal>true</literal>, the EULA of the base product
+       will be shown. The user needs to accept this license. Otherwise the
+       installation will be canceled. Setting this value is optional. The
+       default is <literal>false</literal>. This settings applies to the base
+       product license only. Use the flag <literal>confirm_license</literal> in
+       the <literal>add-on</literal> section for additional licenses (see
+       <xref
+      linkend="Software.Selections.additional"/> for details).
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <confirm_base_product_license config:type="boolean">
+   false
+  </confirm_base_product_license>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">final_halt</tag>
+     </term>
+     <listitem>
+      <para>
+       If you set this to <literal>true</literal>, the machine will shut down
+       at the very end of the installation (when everything is installed and
+       configured at the end of the second stage). Setting this value is
+       optional. The default is <literal>true</literal>. It makes no sense to
+       set both, this, and <literal>final_reboot</literal> to
+       <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <final_halt config:type="boolean">true</final_halt>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">final_reboot</tag>
+     </term>
+     <listitem>
+      <para>
+       If you set this to <literal>true</literal>, the machine will reboot at
+       the end of the installation (when everything is installed and configured
+       at the end of the second stage). Setting this value is optional. The
+       default is <literal>true</literal>. It makes no sense to set both, this,
+       and <literal>final_halt</literal> to <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <final_reboot config:type="boolean">true</final_reboot>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">final_restart_services</tag>
+     </term>
+     <listitem>
+      <para>
+       If you set this entry to <literal>false</literal>, services will
+       <emphasis>not</emphasis> be restarted at the end of the installation
+       (when everything is installed and configured at the end of the second
+       stage). Setting this value is optional. The default is
+       <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <final_restart_services config:type="boolean">
+   true
+  </final_restart_services>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry os="osuse">
+     <term><tag class="element">forceboot</tag>
+     </term>
+     <listitem>
+      <para>
+       Some &opensuse; releases use kexec to avoid the reboot after the first
+       stage. They immediately boot into the installed system. You can force a
+       reboot by setting this to <literal>true</literal>. Setting this value is
+       optional. The default is set by the product.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <forceboot config:type="boolean">false</forceboot>
+ </mode>
+ ...
+</general>]]></screen>
+      <important>
+       <title>Drivers May Need a Reboot</title>
+       <para>
+        <remark>2013-03-18 - fs: bnc #802387</remark>
+        Some drivers, for example the proprietary drivers for Nvidia and ATI
+        graphics cards, need a reboot and will not work properly when using
+        kexec. Therefore the default on &productname; products is to always do
+        a proper reboot.
+       </para>
+      </important>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">halt</tag>
+     </term>
+     <listitem>
+      <para>
+       Shuts down the machine after the first stage. All packages and the
+       bootloaders have been installed and all your chroot scripts have run.
+       Instead of rebooting into stage two, the machine is turned off. If you
+       turn it on again, the machine boots and the second stage of the
+       autoinstallation starts. Setting this value is optional. The default is
+       <literal>false</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <halt config:type="boolean">false</halt>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">max_systemd_wait</tag>
+     </term>
+     <listitem>
+      <para>
+       Specifies how long &ay; waits (in seconds) at most for
+       <systemitem
+       class="daemon">systemd</systemitem> to set up the
+       default target. Setting this value is optional and should normally not
+       be required. The default is <literal>30</literal> (seconds).
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <max_systemd_wait config:type="integer">30</max_systemd_wait>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">ntp_sync_time_before_installation</tag>
+     </term>
+     <listitem>
+      <para>
+       Specify the NTP server with which to synchronize time before starting
+       the installation. Time synchronization will only be done if this option
+       is set. Keep in mind that you need a network connection and access to a
+       time server. Setting this value is optional. By default no time
+       synchronization will be done.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <ntp_sync_time_before_installation>
+   &ntpname;
+  </max_systemd_wait>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">second_stage</tag>
+     </term>
+     <listitem>
+      <para>
+       A regular installation of &productname; is performed in a single stage.
+       The auto-installation process, however, is divided into two stages.
+       After the installation of the basic system the system boots into the
+       second stage where the system configuration is done. Set this option to
+       <literal>false</literal> to disable the second stage. Setting this value
+       is optional. The default is <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <mode>
+  <second_stage config:type="boolean">true</second_stage>
+ </mode>
+ ...
+</general>]]></screen>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.proposal">
+   <title>Configuring the Installation Settings Screen</title>
+
+   <para>
+    &ay; allows you to configure the <guimenu>Installation Settings</guimenu>
+    screen, which shows a summary of the installation settings. On this screen,
+    the user can change the settings before confirming them to start the
+    installation. Using the <tag class="element">proposal</tag> tag, you can
+    control which settings (<quote>proposals</quote>) are shown in the
+    installation screen. A list of valid proposals for your products is
+    available from the <filename>/control.xml</filename> file on the
+    installation medium. This setting is optional. By default all configuration
+    options will be shown.
+   </para>
+
+<screen><![CDATA[<proposals config:type="list">
+ <proposal>partitions_proposal</proposal>
+ <proposal>timezone_proposal</proposal>
+ <proposal>software_proposal</proposal>
+</proposals>]]></screen>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.self_update">
+   <title>The Self Update Section</title>
+
+   <para>
+    During the installation, &yast; is able to update itself to solve bugs in
+    the installer that were discovered after the release. Check out
+    <xref
+    linkend="sec.i.yast2.self_update"/> to find further information
+    about this feature. Use the following tags to configure the self update:
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">self_update</tag>
+     </term>
+     <listitem>
+      <para>
+       This option allows to enable (set it to <literal>true</literal>) or
+       disable (set it to <literal>false</literal>9 the self-update. Setting
+       this value is optional. The default is <literal>true</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <self_update config:type="boolean">true<self_update/>
+ ...
+</general>]]></screen>
+      <para>
+       Alternatively, you can specify the boot parameter
+       <literal>self_update</literal> on the kernel command line.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">self_update_url</tag>
+     </term>
+     <listitem>
+      <para>
+       Location of the update repository to use during &yast; self-update.
+       Check out <xref linkend="sec.i.yast2.self_update"/> to find further
+       information about this feature.
+      </para>
+      <important>
+       <title>Installer Self-Update Repository Only</title>
+       <para>
+        The <option>self_update_url</option> parameter expects only the
+        installer self-update repository URL. Do not supply any other
+        repository URL&mdash;for example the URL of the software update
+        repository.
+       </para>
+      </important>
+<screen><![CDATA[<general>
+ <self_update_url>
+  http://example.com/updates/$arch
+ </self_update_url>
+ ...
+</general>]]></screen>
+      <para>
+       The URL may contain the variable <envar>$arch</envar>. It will be
+       replaced by the system's architecture, such as
+       <literal>x86_64</literal>, <literal>s390x</literal>, etc.
+      </para>
+      <para>
+       Alternatively, you can specify the boot parameter
+       <literal>self_update</literal> together with
+       <literal>self_update=1</literal> on the kernel command line.
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.signature">
+   <title>The Signature Handling Section</title>
+
+   <para>
+    By default &ay; will only install signed packages from sources with known
+    GPG keys. Use this section to overwrite the default settings.
+   </para>
+
+   <warning>
+    <title>Overwriting the Signature Handling Defaults</title>
+    <para>
+     Installing unsigned packages, packages with failing checksum checks, or
+     when accepting packages from sources you do not trust is a major security
+     risk. Packages may have been modified and may install malicious software
+     on your machine. Only overwrite the defaults in this section if you are
+     sure the repository and the packages can be trusted. &suse; is not
+     responsible for any problems arising from software installed with
+     integrity checks disabled.
+    </para>
+   </warning>
+
+   <para>
+    Default values for all options are false. If an option is set to false and
+    a package or repository fails the respective test, it is silently ignored
+    and will not be installed.
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">accept_unsigned_file</tag>
+     </term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, &ay; will accept unsigned files like
+       the content file.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <accept_unsigned_file config:type="boolean">
+   false
+  </accept_unsigned_file>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">accept_file_without_checksum</tag>
+     </term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, &ay; will accept files without a
+       checksum in the content file.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <accept_file_without_checksum config:type="boolean">
+   false
+  </accept_file_without_checksum>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">accept_verification_failed</tag>
+     </term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, &ay; will accept signed files even
+       when the signature verification fails.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <accept_verification_failed config:type="boolean">
+   false
+  </accept_verification_failed>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">accept_unknown_gpg_key</tag>
+     </term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, &ay; will accept new gpg keys of the
+       installation sources, for example the key used to sign the content file.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <accept_unknown_gpg_key config:type="boolean">
+   false
+  </accept_unknown_gpg_key>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">accept_non_trusted_gpg_key</tag>
+     </term>
+     <listitem>
+      <para>
+       Set this option to <literal>true</literal> to accept known keys you have
+       not yet trusted.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <accept_non_trusted_gpg_key config:type="boolean">
+   false
+  </accept_non_trusted_gpg_key>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">import_gpg_key</tag>
+     </term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, &ay; will accept and import new gpg
+       keys on the installation source in its database.
+      </para>
+<screen><![CDATA[<general>
+ <signature-handling>
+  <import_gpg_key config:type="boolean">
+   false
+  </import_gpg_key>
+ <signature-handling>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.storage">
+   <title>The Storage Section</title>
+
+   <para>
+    This section lets you enable multipath support for the installation. You
+    may also configure the partition alignment settings here.
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">btrfs_set_default_subvolume_name</tag>
+     </term>
+     <listitem>
+      <para>
+       See <xref linkend="ay.btrfs_subvolumes"/> for more information.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">partition_alignment</tag>
+     </term>
+     <listitem>
+      <para>
+       By default the partition alignment is determined by the kernel
+       (<literal>align_optimal</literal>). This can lead to problems with some
+       machines or firmware being unable to boot with that alignment. Use
+       <literal>align_cylinder</literal> in this case. This setting will ensure
+       that partitions always start on a cylinder boundary. Setting this value
+       is optional. The default is <literal>align_optimal</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <storage>
+  <partition_alignment config:type="symbol">
+   align_cylinder
+  </partition_alignment>
+ <storage>
+ ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">start_multipath</tag>
+     </term>
+     <listitem>
+      <para>
+       When installing on a network storage that is accessed via multiple
+       paths, you need to enable multipath for the installation by setting this
+       parameter to <literal>true</literal>. Setting this value is optional.
+       The default is <literal>false</literal>.
+      </para>
+<screen><![CDATA[<general>
+ <storage>
+  <start_multipath config:type="boolean">false</start_multipath>
+ <storage>
+ ...
+<general>]]></screen>
+      <para>
+       Alternatively, you can use the following parameter on the Kernel command
+       line: <literal>LIBSTORAGE_MULTIPATH_AUTOSTART=ON</literal>
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.wait">
+   <title>The Wait Section</title>
+
+   <para>
+    In the second stage of the installation the system is configured by running
+    modules, for example the network configuration. Within the <tag
+    class="element">wait</tag> section you can define scripts that will get
+    executed before and after a specific module has run. You can also configure
+    a span of time in which the system is inactive (<quote>sleeps</quote>)
+    before and after each module.
+   </para>
+
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">pre-modules</tag>
+     </term>
+     <listitem>
+      <para>
+       Defines scripts and sleep time executed before a configuration module
+       starts. The following code shows an example setting the sleep tome to
+       ten seconds and executing an echo command before running the network
+       configuration module.
+      </para>
+<screen><![CDATA[<general>
+ <wait>
+  <pre-modules config:type="list">
+   <module>
+    <name>networking</name>
+    <sleep>
+     <time config:type="integer">10</time>
+     <feedback config:type="boolean">true</feedback>
+    </sleep>
+    <script>
+     <source>echo foo</source>
+     <debug config:type="boolean">false</debug>
+    </script>
+   </module>
+  </pre-modules>
+  ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">post-modules</tag>
+     </term>
+     <listitem>
+      <para>
+       Defines scripts and sleep time executed after a configuration module
+       starts. The following code shows an example setting the sleep time to
+       ten seconds and executing an echo command after running the network
+       configuration module.
+      </para>
+<screen><![CDATA[<general>
+ <wait>
+  <post-modules config:type="list">
+   <module>
+    <name>networking</name>
+    <sleep>
+     <time config:type="integer">10</time>
+     <feedback config:type="boolean">true</feedback>
+    </sleep>
+    <script>
+     <source>echo foo</source>
+     <debug config:type="boolean">false</debug>
+    </script>
+   </module>
+  </post-modules>
+  ...
+<general>]]></screen>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.cio_ignore" arch="zseries">
+   <title>Blacklisting Unused Devices on IBM &zseries;</title>
+
+   <para>
+    On IBM &zseries; you can prevent the kernel from looking at unused hardware
+    devices, by running <command>cio_ignore</command> and blacklisting them.
+    This is done by setting the &ay; parameter with the same name to
+    <literal>true</literal>. Setting this value is optional and only applies to
+    installations on IBM &zseries; hardware. The default is
+    <literal>false</literal>.
+   </para>
+
+<screen><![CDATA[<general>
+ <cio_ignore config:type="boolean">false</cio_ignore>
+ ...
+<general>]]></screen>
+  </sect1>
+  <sect1 xml:id="CreateProfile.General.example_common">
+   <title>Examples for the <tag class="element">general</tag> Section</title>
+
+   <para>
+    Find examples covering several use cases in this section.
+   </para>
+
+   <example xml:id="ex.general.common">
+    <title>General Options</title>
+    <para>
+     This example shows the most commonly used options in the general section.
+     The scripts in the pre and post module sections are only dummy scripts
+     illustrating the concept.
+    </para>
+<screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <general>
+  <! -- Use cio_ignore on IBM &zseries; only -->
+  <cio_ignore config:type="boolean">false</cio_ignore>
+  <mode>
+   <halt config:type="boolean">false</halt>
+   <forceboot config:type="boolean">false</forceboot>
+   <final_reboot config:type="boolean">false</final_reboot>
+   <final_halt config:type="boolean">false</final_halt>
+   <confirm_base_product_license config:type="boolean">
+    false
+   </confirm_base_product_license>
+   <confirm config:type="boolean">true</confirm>
+   <second_stage config:type="boolean">true</second_stage>
+  </mode>
+  <proposals config:type="list">
+   <proposal>partitions_proposal</proposal>
+  </proposals>
+  <self_update config:type="boolean">true</self_update>
+  <self_update_url>http://example.com/updates/$arch<self_update_url/>
+  <signature-handling>
+   <accept_unsigned_file config:type="boolean">
+    true
+   </accept_unsigned_file>
+   <accept_file_without_checksum config:type="boolean">
+    true
+   </accept_file_without_checksum>
+   <accept_verification_failed config:type="boolean">
+    true
+   </accept_verification_failed>
+   <accept_unknown_gpg_key config:type="boolean">
+    true
+   </accept_unknown_gpg_key>
+   <import_gpg_key config:type="boolean">true</import_gpg_key>
+   <accept_non_trusted_gpg_key config:type="boolean">
+   true
+   </accept_non_trusted_gpg_key>
+  </signature-handling>
+  <storage>
+   <partition_alignment config:type="symbol">
+    align_cylinder
+   </partition_alignment>
+  </storage>
+  <wait>
+   <pre-modules config:type="list">
+    <module>
+     <name>networking</name>
+     <sleep>
+      <time config:type="integer">10</time>
+      <feedback config:type="boolean">true</feedback>
+     </sleep>
+     <script>
+     <source>&gt;![CDATA[
+echo "Sleeping 10 seconds"
+      ]]&gt;</source>
+     <debug config:type="boolean">false</debug>
+     </script>
+    </module>
+   </pre-modules>
+   <post-modules config:type="list">
+    <module>
+     <name>networking</name>
+     <sleep>
+      <time config:type="integer">10</time>
+      <feedback config:type="boolean">true</feedback>
+     </sleep>
+     <script>
+      <source>&gt;![CDATA[
+echo "Sleeping 10 seconds"
+      ]]&gt;</source>
+      <debug config:type="boolean">false</debug>
+     </script>
+    </module>
+   </post-modules>
+  </wait>
+ </general>
+</profile>]]></screen>
+   </example>
+
+   <example xml:id="ex.general.ask">
+    <title>Asking for User Input</title>
+    <para>
+     This example shows how to use the <tag class="element">ask-list</tag>
+     elements to query the user for an LDAP server, the host name, and the file
+     system for the root partition.
+    </para>
+<screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <general>
+  ...
+  <ask-list config:type="list">
+   <ask>
+    <pathlist config:type="list">
+     <path>ldap,ldap_server</path>
+    </pathlist>
+    <stage>cont</stage>
+    <help>Choose your server depending on your department</help>
+    <selection config:type="list">
+     <entry>
+      <value>ldap1.mydom.de</value>
+      <label>LDAP for development</label>
+     </entry>
+     <entry>
+      <value>ldap2.mydom.de</value>
+      <label>LDAP for sales</label>
+     </entry>
+    </selection>
+    <default>ldap2.mydom.de</default>
+    <default_value_script>
+     <source> &gt;![CDATA[
+echo -n "ldap1.mydom.de"
+      ]]&lt;</source>
+    </default_value_script>
+   </ask>
+   <ask>
+    <pathlist config:type="list">
+     <path>networking,dns,hostname</path>
+    </pathlist>
+    <question>Enter Hostname</question>
+    <stage>initial</stage>
+    <default>enter your hostname here</default>
+   </ask>
+   <ask>
+    <pathlist config:type="list">
+     <path>partitioning,0,partitions,0,filesystem</path>
+    </pathlist>
+    <question>File System</question>
+    <type>symbol</type>
+    <selection config:type="list">
+     <entry>
+      <value config:type="symbol">reiser</value>
+      <label>default File System (recommended)</label>
+     </entry>
+     <entry>
+      <value config:type="symbol">ext3</value>
+      <label>Fallback File System</label>
+     </entry>
+    </selection>
+   </ask>
+  </ask-list>
+  ...
+ </general>
+</profile>]]></screen>
+   </example>
+
+   <example xml:id="ex.general.choose_file">
+    <title>Letting the User Choose a Control File</title>
+    <para>
+     This example lets the user choose an &ay; control file. The modified.xml
+     file will be read again after the ask-dialogs are done. This way you can
+     fetch a complete new control file.
+    </para>
+<screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <general>
+  ...
+  <ask-list config:type="list">
+   <ask>
+    <selection config:type="list">
+     <entry>
+      <value>part1.xml</value>
+      <label>Simple partitioning</label>
+     </entry>
+     <entry>
+      <value>part2.xml</value>
+      <label>encrypted /tmp</label>
+     </entry>
+     <entry>
+      <value>part3.xml</value>
+      <label>LVM</label>
+     </entry>
+    </selection>
+    <title>XML Profile</title>
+    <question>Choose a profile</question>
+    <stage>initial</stage>
+    <default>part1.xml</default>
+    <script>
+     <filename>fetch.sh</filename>
+     <environment config:type="boolean">true</environment>
+     <source>&lt;![CDATA[
+wget http://10.10.0.162/$VAL -O /tmp/profile/modified.xml 2>/dev/null
+     ]]&gt;</source>
+     <debug config:type="boolean">false</debug>
+     <feedback config:type="boolean">false</feedback>
+    </script>
+   </ask>
+  </ask-list>
+  ...
+ </general>
+</profile>]]></screen>
+   </example>
+
+   <example xml:id="ex.general.verify">
+    <title>Validating User Input</title>
+    <para>
+     In this example the user input for the host name is checked. If the user
+     enters <literal>myhost</literal> he gets an error message (<quote>Illegal
+     host name</quote>). After confirming the error message, the host name
+     dialog is shown again.
+    </para>
+<screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <general>
+  ...
+  <ask-list config:type="list">
+   <ask>
+    <script>
+     <filename>my.sh</filename>
+     <rerun_on_error config:type="boolean">true</rerun_on_error>
+     <environment config:type="boolean">true</environment>
+     <source>&gt;![CDATA[
+if [ "$VAL" = "myhost" ]; then
+ echo "Illegal Hostname!";
+ exit 1;
+fi
+exit 0]]&lt;</source>
+     <debug config:type="boolean">false</debug>
+     <feedback config:type="boolean">true</feedback>
+    </script>
+    <dialog config:type="integer">0</dialog>
+    <element config:type="integer">0</element>
+    <pathlist config:type="list">
+     <path>networking,dns,hostname</path>
+    </pathlist>
+    <question>Enter Hostname</question>
+    <default>enter your hostname here</default>
+   </ask>
+  </ask-list>
+  ...
+ </general>
+</profile>]]></screen>
+   </example>
+  </sect1>
+ </chapter>
+</part>
