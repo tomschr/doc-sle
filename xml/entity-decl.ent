@@ -240,6 +240,7 @@
 <!ENTITY susefirewall  "SuSEFirewall2">
 <!ENTITY suseconnect   "SUSEConnect">
 <!ENTITY mariadb       "Maria DB">
+<!ENTITY kube       "Kubernetes">
 
 <!-- Not sure if the following is useful, but given that most Linux
      commands are lowercased and SuSEfirewall2 is just an outlier it might
@@ -358,6 +359,7 @@
    for &scc; with repository and registration targets. Learn how to install and
    configure a local &smt; server, how to mirror and manage repositories, how
    to manage client machines, and how to configure clients to use &smt;.">
+<!ENTITY abstract_kube "The &kube; guide introduces the &kube; platform, its benefits, installation and usage. ">
 <!ENTITY note.mkswap.swap '<note xmlns="http://docbook.org/ns/docbook">
   <title>Changed UUID for Swap Partitions when Formatting via <command>mkswap</command></title>
   <para>Do not reformat existing swap partitions with <command>mkswap</command>

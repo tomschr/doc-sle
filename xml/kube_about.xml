@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE preface
+[
+  <!ENTITY % entities SYSTEM "entity-decl.ent">
+    %entities;
+]>
+
+<chapter version="5.0" xml:id="cha.kubernetes"
+  xmlns="http://docbook.org/ns/docbook"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>About &kube;</title>
+ <info>
+  <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
+   <dm:bugtracker></dm:bugtracker>
+   <dm:translation>no</dm:translation>
+  </dm:docmanager>
+ </info>
+ 
+ <para>
+  &kube; is a platform for automating deployment and managment of containers across cluster nodes. &kube; enables you to deploy your application  quickly, scale your applications on the fly and limit hardware usage to required resources only.
+ </para>
+ <para>
+  Throughout the document the following terms are used: 
+ </para>
+ <variablelist>
+  <title>&kube; Terminology</title>
+  <varlistentry>
+   <term>Master Node</term>
+   <listitem>
+    <para>
+     Is a cluster node that manages the cluster.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term>Worker Node</term>
+   <listitem>
+    <para>
+     Is a cluster node that provides services to run containers. The node is managed by the master node.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term>Service</term>
+   <listitem>
+    <para>
+     A service is an abstraction that defines a logical set of pods and policy by which to access them. A services is assigned an virtual IP address that does not change and thus enables you to acces the services even though the pods reserved to provide the service changed. 
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term>Pod</term>
+   <listitem>
+    <para>
+     A pod is a group of containers that share the used storage and options how to run the containers. Typically a pod groups containers that tightly cooperate, share same namespace and volumes. Containers within one pot share an IP address and port space and they can communicate with each other by using standard interprocess communication. Pods are specified in YAML files, for details refer to <xref linkend=""/>.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><literal>Kubelet</literal></term>
+   <listitem>
+    <para>
+     Is a service that ensures that containers in particular pods are running and healthy.
+    </para>
+   </listitem>
+   
+  </varlistentry>
+  <varlistentry>
+   <term><literal>kube-apiserver</literal></term>
+   <listitem>
+    <para>
+     Runs on the master node. It provides an REST API through which all other components interact. The &kube; API server validates and configures data for pods, services, controllers, etc.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term>&kube; API object</term>
+   <listitem>
+    <para>
+     is an entity that represent a state of your cluster. The objects are used to describe wich containers are running in which pod, resources available to these containers, restart policies, upgrades, etc. Objects are defined by using the &kube; API. Each object includes a specification, which describes the desired state, and a status, which describes the actual state of the objects. While the specification is managed by you, the status is managned by &kube;. For more details about &kube; API objects refer to <xref lineknd=""/>. An object can be a pod, service, volume and a namespace.
+    </para>
+   </listitem>
+  </varlistentry>  
+  <varlistentry>
+   <term><literal>kube-proxy</literal></term>
+   <listitem>
+    <para>
+     Runs on each node and serves as a proxy and a loadbalancer for services running on the node.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term>Node Controller</term>
+   <listitem>
+    <para>
+     Runs on the master node. The controller keeps a "list" of running nodes and monitors health of particular nodes.
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><literal>etcd</literal></term>
+   <listitem>
+    <para>
+     Is highly-available key-value storage that stores all cluster data (like pods, services).
+    </para>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><literal>kube-scheduler</literal></term>
+   <listitem>
+    <para>
+     Watches newly created pods that do not have assigned nodes. Then it selects nodes and assigns them to the pods. 
+    </para>
+   </listitem>
+  </varlistentry>
+ </variablelist>
+ 
+ <para>
+  To create a desired &kube; cluster, you need to define a desired state of the cluster. The state typically includes application you want to run, container images to use, the number of replicas, network and disk resources, etc. To define a state you need to create objects by using the &kube; API, for example the command-line interface <command>kubectl</command>.
+ </para>
+ <para>
+   To apply the defined state, &kube; provides a so-called <emphasis>&kube; Control Plane</emphasis> that runs on the master node. The <emphasis>&kube; Control Plane</emphasis> starts or restarts containers automatically, scales the number of replicas of applications to achieve the desired state.
+  </para>
+ 
+ <sect1 xml:id="kubernetes.architecture">
+  <title>Architecture</title>
+  <para>
+   The typical &kube; cluster consists of a master node and several worker nodes. The master node is intended for management of the cluster, workers are the nodes that run containers and provide the computing power. Each node uses a different set of daemons and services to fulfill its task. The following figure illustrates the used services and daemons that run on particular node types.
+  </para>
+  <figure xml:id="kubernetes.architecture.diagram">
+   <title>&kube; Architecture</title>
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="kubernetes.architecture.svg" format="SVG"/>
+    </imageobject>
+   </mediaobject>
+  </figure>
+  <para>
+   The <emphasis role="bold">addons</emphasis> include pods and services that implement cluster features. With most of them being optional, there are exceptions like a cluster DNS. The cluster DNS serves records for &kube; services. Containers started by &kube; automatically include the cluster DNS in the DNS search.  
+  </para>
+  
+ </sect1>
+
+</chapter>
