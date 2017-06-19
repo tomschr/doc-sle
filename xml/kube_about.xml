@@ -91,10 +91,27 @@
    </listitem>
   </varlistentry>
   <varlistentry>
-   <term>Node Controller</term>
+   <term><literal>kube-controller-manager</literal></term>
    <listitem>
     <para>
-     Runs on the master node. The controller keeps a "list" of running nodes and monitors health of particular nodes.
+     Runs controllers on the master node. The <literal>kube-controller-manager</literal> runs the following controllers:
+     <itemizedlist>
+      <listitem>
+       <para>
+        <emphasis>node controller</emphasis> - keeps a "list" of running nodes and monitors health of particular nodes.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <emphasis>replication controller</emphasis> - manages a proper count of pods for every replication.
+       </para>
+      </listitem>
+      <listitem>
+       <para>
+        <emphasis>endpoints controller</emphasis> - joins services with pods.
+       </para>
+      </listitem>
+     </itemizedlist>     
     </para>
    </listitem>
   </varlistentry>
@@ -137,9 +154,21 @@
    </mediaobject>
   </figure>
   <para>
-   The <emphasis role="bold">addons</emphasis> include pods and services that implement cluster features. With most of them being optional, there are exceptions like a cluster DNS. The cluster DNS serves records for &kube; services. Containers started by &kube; automatically include the cluster DNS in the DNS search.  
+   The <emphasis role="bold">addons</emphasis> include pods and services that implement cluster features. With most of them being optional, there are exceptions like a cluster DNS. The cluster DNS serves records for &kube; services. Containers started by &kube; automatically include the cluster DNS in the DNS search. Other addons that you can use are the following: <literal>kube-ui</literal>, which provides a read-only overview of the cluster state; a logging mechanism, which saves containers' logs to a central log store. 
+  </para>
+  <para>
+   The <literal>supervisord</literal> is a process that monitors and controls 
+  </para>
+  <para>
+   The <literal>fluentd</literal> daemon enables cluster-level logging, for more details refer to <xref linkend="cluster.level.logging"/>.
   </para>
   
+ </sect1>
+ <sect1 xml:id="cluster.communication">
+  <title>Communication Within the Cluster</title>
+  <para>
+   There are two types of communication within the cluster&mdash;from cluster nodes to the master node and vice versa.
+  </para>
  </sect1>
 
 </chapter>
