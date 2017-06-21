@@ -169,6 +169,18 @@
   <para>
    There are two types of communication within the cluster&mdash;from cluster nodes to the master node and vice versa.
   </para>
+  <para>
+   Cluster nodes send request to the master node to the <literal>kube-apiserver</literal> to its HTTPS port. You should provision your cluster nodes with a public root certificate in order to establish secure connection to the master node. <literal>kube-apiserver</literal> verifies authenticity of each request.
+  </para>
+  <para>
+   On the master node's side there are two communication paths&mdash;<literal>kube-apiserver</literal> to the <literal>kubelet</literal> and <literal>kube-apiserver</literal> to nodes, pods and services.
+   </para>
+   <para> 
+   <literal>kube-apiserver</literal> connects to the <literal>kubelet</literal> to collect logs of pods, to attach to running containers and to use the <literal>kubelet</literal>'s port-forwarding functionality. As by default the connection is not secure, it is recommended to use the SSH tunneling.
+  </para>
+  <para>
+  
+  </para>
  </sect1>
 
 </chapter>
