@@ -34,47 +34,34 @@
   <title>Introduction</title>
   <info/>
   <para>
-   &ay; is a system for installing one or more &productname; systems
-   automatically and without user intervention. &ay; installations are
-   performed using an &ay; control file (also called
-   <quote>profile</quote>) with installation and configuration data. That
-   control file can be created using the configuration interface of &ay;
-   and can be provided to &yast; during installation in different ways.
+   &ay; is a system for unattended mass deployment of &productname;
+   systems. &ay; installations are performed using an &ay; control file (also
+   called <quote>profile</quote>) with installation and configuration
+   data. That control file can be created using the configuration interface of
+   &ay; and can be provided to &yast; during installation in different ways.
   </para>
   <sect1 xml:id="motiv">
    <title>Motivation</title>
 
    <para>
-    In an article in issue 78, the Linux Journal
-    (<link xlink:href="http://www.linuxjournal.com/"/>) writes:
+    Standard installation of &productname; are based on a wizard workflow.
+    This is user-friendly and efficient when installing few machines.
+    However, it becomes repetitive and time-consuming when installing many
+    machines.
    </para>
 
    <para>
-    <quote>A standard Linux installation asks many questions about what to
-    install, what hardware to configure, how to configure the network
-    interface, etc. Answering these questions once is informative and maybe
-    even fun. But imagine a system engineer who needs to set up a new Linux
-    network with many machines. Now, the same issues need to be addressed
-    and the same questions answered repeatedly. This makes the task very
-    inefficient, not to mention a source of irritation and boredom. Hence, a
-    need arises to automate this parameter and option selection.</quote>
-   </para>
-
-   <para>
-    <quote>The thought of simply copying the hard disks naturally crosses
-    one's mind. This can be done quickly, and all the necessary functions
-    and software will be copied without option selection. However, the fact
-    is that simple copying of hard disks causes the individual computers to
-    become too similar. This, in turn, creates an altogether new mission of
-    having to reconfigure the individual settings on each PC. For example,
-    IP addresses for each machine will need to be reset. If this is not done
-    properly, strange and inexplicable behavior results.</quote>
+    To avoid that, you could do mass deployments by copying the hard disk of
+    the first successful installation. Unfortunately, that leads to the issue
+    that even minute configuration changes between each machine have to later
+    be dealt with individually. For example, when using static IP addresses,
+    these IP addresses would have to be reset for each machine.
    </para>
 
    <para>
     A regular installation of &productname; is semi-automated by default. The
-    user is requested to select the necessary information at the beginning
-    of the installation (usually language only), &yast; then generates a
+    user is prompted to select the necessary information at the beginning
+    of the installation (usually language only). &yast; then generates a
     proposal for the underlying system depending on different factors and
     system parameters. Usually&mdash;and especially for new
     systems&mdash;such a proposal can be used to install the system and
@@ -85,7 +72,7 @@
    <para>
     &ay; can be used where no user intervention is required or where
     customization is required. Using an &ay; control file, &yast;
-    prepares the system for a custom installation and avoids any interaction
+    prepares the system for a custom installation and does not interact
     with the user, unless specified in the file controlling the
     installation.
    </para>
@@ -224,11 +211,11 @@
 
    <para>
     The &ay; control file uses XML to describe the system installation
-    and configuration. XML is a commonly used mark up and many users are
+    and configuration. XML is a commonly used markup and many users are
     familiar with the concepts of the language and the tools used to process
     XML files. If you edit an existing control file or create a control file
     using an editor from scratch, it is strongly recommended to validate the
-    control file using a validating XML parser such as
+    control file. This can be done using a validating XML parser such as
     <literal>xmllint</literal> or <literal>jing</literal>, for example
     (see  <xref linkend="CreateProfile.Manual"/>).
    </para>
@@ -320,11 +307,11 @@ exit 0
      specified in the schema files
     </para>
     <para>
-     An element can be either a container of other elements (a resource) or
-     it has a literal value (a property); it can never be both. This
-     restriction is specified in the schema files. A configuration component
-     with more than one value must either be represented as some kind of
-     embedded list in a property value or as a nested resource.
+     An element can be either a container of other elements (a resource) or it
+     has a literal value (a property); it can never be both. This restriction
+     is specified in the schema files. A configuration component with more than
+     one value must either be represented as an embedded list in a property
+     value or as a nested resource.
     </para>
    </sect2>
 
@@ -365,7 +352,7 @@ exit 0
      <literal>config:type</literal> attribute of the partitions element to
      indicate that the content is a resource, in this case a list. Using the
      partitions element without specifying the type in this case will
-     result in undefined behavior as &yast; will improperly interpret the
+     result in undefined behavior as &yast; will incorrectly interpret the
      partitions resource as a property. The example below illustrates this
      use case.
     </para>
@@ -465,9 +452,9 @@ exit 0
    </para>
 
    <para>
-    The configuration management system lets you create control files easily
-    and lets you manage a repository of configurations for the use in a
-    networked environment with multiple clients.
+    The configuration management system lets you easily create control files and
+    manage a repository of configurations for the use in a
+    networking environment with multiple clients.
    </para>
 
    <figure os="sles;sled">
@@ -511,10 +498,10 @@ exit 0
     </para>
     <para>
      Make sure the configuration system is installed (package
-     <systemitem class="resource">autoyast2</systemitem> and call it using
+     <systemitem class="resource">autoyast2</systemitem>) and call it using
      the &yast; control center or as root with the following command
      (make sure the <envar>DISPLAY</envar> variable is set correctly to
-     start the graphical user interface instead of the text based one):
+     start the graphical user interface instead of the text-based one):
     </para>
 <screen>/sbin/yast2 autoyast</screen>
    </sect2>
@@ -523,11 +510,11 @@ exit 0
    <title>Creating/Editing a Control File Manually</title>
 
    <para>
-    If editing the control file manually, make sure it has a valid syntax.
+    When editing the control file manually, make sure it has a valid syntax.
     To check the syntax, use the tools already available on the
-    distribution. For example, to verify that the file is well-formed, use
-    the utility <command>xmllint</command> available with the
-    <systemitem>libxml2</systemitem> package:
+    distribution. For example, to verify that the file is well-formed (has a
+    valid XML structure), use the utility <command>xmllint</command> available
+    with the <systemitem>libxml2</systemitem> package:
    </para>
 
 <screen>xmllint &lt;control file&gt;</screen>
@@ -539,9 +526,10 @@ exit 0
 
 
    <para>
-    For a deeper look e.g. you would like to check if a tag is in the right
-    section or if some tags are missing, the utility <command>jing</command>
-    would be the right solution for:
+    To validate the control file, use the tool <command>jing</command> from the
+    package with the same name. During validation misplaced or missing tags and
+    attributes and wrong attribute values are detected. <phrase os="sles">the
+    package <package>jing</package> is provided with the &sdk;.</phrase>
    </para>
 
 <screen>jing /usr/share/YaST2/schema/autoyast/rng/profile.rng &lt;control file&gt;</screen>
@@ -566,14 +554,6 @@ exit 0
     be seen as an interface between the autoinstallation engine and the
     Configuration Management System (CMS).
    </para>
-
-   <tip>
-    <title>Where to find the <literal>jing</literal> package ?</title>
-    <para>
-      The package <literal>jing</literal> is available on openSUSE and
-      SLES/SDK.
-    </para>
-   </tip>
 
    <tip>
     <title>Using Emacs as an XML Editor</title>
@@ -655,7 +635,7 @@ exit 0
 
 <!-- FIXME: rewrite these sections using xsltproc
    <para>
-    If you want to create a new &ay; control file now from the template plus
+    To create a new &ay; control file now from the template plus
     the XSL file, run the following command:
    </para>
 
@@ -780,12 +760,12 @@ exit 0
    <title>System Registration and Extension Selection</title>
 
    <para>
-    Registering the system with the can be configured within the
-    <literal>suse_register</literal> resource. The following example
-    registers the system with the &scc;. In case your organization
-    provides its own registration server, you need to specify the required
-    data with the <literal>reg_server*</literal> properties. Refer to the
-    table below for details.
+    Registering the system can be configured within the
+    <literal>suse_register</literal> resource. The following example registers
+    the system with the &scc;. In case your organization provides its own
+    registration server, you need to specify the required data with the
+    <literal>reg_server*</literal> properties. Refer to the table below for
+    details.
    </para>
 
 <screen>&lt;suse_register&gt;
@@ -800,7 +780,7 @@ exit 0
    <para>
     As an alternative to the fully automated registration, &ay; can also
     be configured to start the &yast; registration module during the
-    installation. this offers the possibility to enter the registration data
+    installation. This offers the possibility to enter the registration data
     manually. The following XML code is required:
    </para>
 
@@ -951,8 +931,8 @@ exit 0
          with the &scc;.
         </para>
         <para>
-         This setting also affects self-update feature: If it is disabled, no
-         SLP search will be performed.
+         This setting also affects the self-update feature: If it is disabled,
+         no SLP search will be performed.
         </para>
        </entry>
       </row>
@@ -977,10 +957,11 @@ exit 0
          the &scc;.
         </para>
         <para>
-         The &smt; server is queried for an URL of the self-update repository. So if
-         <literal>self_update_url</literal> is not set, the &smt; server influences
-         where the self-updates are downloaded from. Check out the &deploy;
-         to find further information about this feature.
+         The &smt; server is queried for a URL of the self-update
+         repository. So if <literal>self_update_url</literal> is not set, the
+         &smt; server influences where the self-updates are downloaded
+         from. Check out the &deploy; to find further information about this
+         feature.
         </para>
        </entry>
       </row>
@@ -1016,7 +997,7 @@ exit 0
        </entry>
        <entry>
         <para>
-         Fingerprint value in hexadecimal notion (case-insensitive).
+         Server Certificate Fingerprint value in hexadecimal notion (case-insensitive).
         </para>
 <screen>&lt;reg_server_cert_fingerprint&gt;
   <replaceable>01:AB...:EF</replaceable>
@@ -1062,7 +1043,7 @@ exit 0
        </entry>
        <entry>
         <para>
-         Addons list
+         Add-ons list
         </para>
        </entry>
        <entry>
@@ -1076,14 +1057,40 @@ exit 0
      </tbody>
     </tgroup>
    </informaltable>
+   <tip>
+    <title>Creating Your Own Server Certificate Fingerprint</title>
+    <para>
+     To generate a new Server Certificate Fingerprint for
+     the entry <literal>reg_server_cert_fingerprint</literal> you can use the
+     following command:
+    </para>
+    <screen>
+echo | openssl s_client -showcerts -connect scc.suse.com:443 2> /dev/null |
+openssl x509 -noout -fingerprint -sha256
+    </screen>
+    <para>
+     Replace <literal>scc.suse.com</literal> with your server, optionally
+     use <literal>-sha1</literal> instead of <literal>-sha256</literal>
+     (but the SHA256 default is better).
+    </para>
+    <para>
+     Note that this method should only be used in a trusted network!
+     In a non-trusted network, for example the Internet, you should get the
+     fingerprint directly from the server by other means. Fingerprints can
+     be fetched via SSH, a saved server configuration and other sources.
+     Alternatively, you can  verify that the downloaded certificate is exactly
+     the same as on the server.
+    </para>
+   </tip>
+
 
    <sect2 xml:id="CreateProfile.Register.Extension" os="sles;sled">
     <title>Extensions</title>
     <para>
-     The &scc; provides several extensions, such as
-     <literal>sle-sdk</literal> (Software Development Kit - SDK) that
-     can be added as additional installation sources during the
-     installation. Adding extensions can be configured via the
+     The &scc; provides several extensions, such as the
+     <literal>sle-module-development-tools</literal> (Development Tools Module)
+     that can be included as additional installation sources during the
+     installation. Adding extensions can be done via the
      <literal>addons</literal> property within the
      <literal>suse_register</literal> block.
      <!-- Below is a list of all extensions available for &productname;
@@ -1092,41 +1099,56 @@ exit 0
     <note>
      <title>Availability of Extensions</title>
      <para>
-      The availability of extensions is product and architecture dependent.
-      <!-- All listed extensions are available for &sls; on the x86_64
-           architecture. -->
-      Not all extensions are available on other architectures.  The only
-      extension available for &sled; is the <literal>sle-sdk</literal>.
+      The availability of extensions is product and architecture dependent,
+      not all extensions are available on all architectures.
      </para>
      <para>
-      Some extensions, such as the <literal>sle-we</literal>,
-      <literal>sle-ha</literal> and <literal>sle-ha-geo</literal>
+      Some extensions, such as the <literal>sle-ha</literal> (&hasi;)
       require a registration code.
      </para>
     </note>
 
     <para>
-     With <command>SUSEConnect --list-extensions</command> (available
-     since &slsa; 12 SP1), you can list all available extensions in a
-     registered system. The result looks like:
+     With <command>SUSEConnect --list-extensions</command> you can list all
+     available extensions in a registered system. The result contains lines like:
     </para>
-    <screen>Install with: SUSEConnect -p sle-sdk/12.2/x86_64</screen>
+    <screen>Install with: SUSEConnect -p sle-module-development-tools/15/x86_64</screen>
     <para>
      The <option>-p</option> argument displays the
-     <replaceable>name/version/arch</replaceable> values that can be
+     <replaceable>NAME/VERSION/ARCH</replaceable> values that can be
      used in the AutoYaST profile as follows:
     </para>
     <screen><![CDATA[<addons config:type="list">
  <addon>
-  <!-- SUSE Linux Enterprise Software Development Kit -->
-  <name>sle-sdk</name>
-  <version>12.2</version>
-  <arch>x86_64</arch>
+  <!-- Development Tools Module -->
+  <name>sle-module-development-tools</name>
+  <version>15</version>
+   <arch>x86_64</arch>
  </addon>
 </addons>]]></screen>
+
+    <note>
+     <title>Extension Dependencies</title>
+     <para>
+      Starting with &slsa; 15, &ay; automatically reorders the extensions
+      according to their dependencies during registration. That means the order
+      of the extensions in the &ay; profile is no longer important (contrary to
+      &slsa; 12).
+     </para>
+     <para>
+      Also &ay; automatically registers the dependending extensions even when
+      they are missing in the profile. That means you are not required to provide
+      a complete extension list
+     </para>
+     <para>
+      However, if the depending extension requires a registration key, it needs
+      to be specified in the profile, including the registration key, otherwise
+      the registration will fail.
+     </para>
+    </note>
+
     <para>
-     For background information and add-on listings for &slsa; 12,
-     12 SP1, and 12 SP2, see <link
+     For background information and add-on listings for &slsa; see <link
      xlink:href="https://github.com/yast/yast-registration/wiki/Available-SCC-Extensions-for-Use-in-Autoyast"/>.
      The listings will get updated from time to time.
     </para>
@@ -1273,7 +1295,7 @@ exit 0
         </entry>
         <entry>
          <para>
-          Write &grub; to the extended partition (important if you want
+          Write &grub; to the extended partition (important
           to use a generic boot code and the <filename>/boot</filename>
           partition is logical). NOTE: if the boot partition is logical, you
           should use <literal>boot_mbr</literal> (write &grub; to MBR)
@@ -1331,16 +1353,15 @@ exit 0
         </entry>
         <entry>
          <para>
-          Graphical resolution of the &grub; screen (requires
-          &lt;terminal&gt; to be set to <literal>gfxterm</literal>.
-          Valid entries are <literal>auto</literal>,
+          Graphical resolution of the &grub; screen (requires &lt;terminal&gt;
+          to be set to <literal>gfxterm</literal>.  Valid entries are
+          <literal>auto</literal>,
           <literal><replaceable>HORIZONTAL</replaceable>x<replaceable>VERTICAL</replaceable></literal>,
           or
-          <literal><replaceable>HORIZONTAL</replaceable>x<replaceable>VERTICAL</replaceable>x<replaceable>COLOR
-          DEPTH</replaceable></literal>. You can display the screen
-          resolutions available to &grub; on a particular system by
-          typing <command>vbeinfo</command> at the &grub; command line in
-          the running system.
+          <literal><replaceable>HORIZONTAL</replaceable>x<replaceable>VERTICAL</replaceable>x<replaceable>COLOR_DEPTH</replaceable></literal>. You
+          can see the screen resolutions supported by &grub; on a particular
+          system by using the <command>vbeinfo</command> command at the &grub;
+          command line in the running system.
          </para>
 <screen>&lt;gfxmode&gt;1280x1024x24&lt;/gfxmode&gt;</screen>
         </entry>
@@ -1555,7 +1576,11 @@ exit 0
          <para>
           A RAID must always have <literal>/dev/md</literal> as device.
          </para>
-        </entry>
+         <para>
+          If set to <literal>ask</literal>, &ay; will ask the user which device
+          during installation.
+         </para>
+         </entry>
        </row>
        <row>
         <entry>
@@ -1763,8 +1788,8 @@ exit 0
         </entry>
         <entry>
          <para>
-          Enable snapshots for Btrfs filesystems. It does not apply to other
-          kind of filesystems.
+          Enables snapshots for Btrfs file systems. It does not apply to other
+          kind of file systems.
          </para>
 <screen>&lt;enable_snapshots config:type="boolean"
 &gt;false&lt;/enable_snapshots&gt;</screen>
@@ -1863,15 +1888,16 @@ exit 0
         </entry>
         <entry>
          <para>
-          Specify if this partition must be created or if it already exists.
+          Specify if this partition or logical volume must be created or if it
+          already exists.
          </para>
 <screen>&lt;create config:type="boolean" &gt;false&lt;/create&gt;</screen>
         </entry>
         <entry>
          <para>
           If set to <literal>false</literal>, you also need to set
-          <literal>partition_nr</literal> to tell &ay; the partition
-          number.
+          <literal>partition_nr</literal>, <literal>lv_name</literal> or
+          <literal>uuid</literal> ￼ + to tell &ay; which device to use.
          </para>
         </entry>
        </row>
@@ -1883,7 +1909,7 @@ exit 0
         </entry>
         <entry>
          <para>
-          Partition will be crypted.
+          Partition will be encrypted.
          </para>
 <screen>&lt;crypt_fs config:type="boolean"&gt;false&lt;/crypt_fs&gt;</screen>
         </entry>
@@ -2144,7 +2170,7 @@ exit 0
         <entry>
          <para>
           The <literal>partition_id</literal> sets the id of the partition.
-          If you want different identifiers than 131 for Linux partition or
+          To have identifiers diffrent than 131 for Linux partition or
           130 for swap, configure them with partition_id.
          </para>
 <screen>&lt;partition_id config:type="integer"
@@ -2207,7 +2233,11 @@ exit 0
 &lt;/subvolumes&gt;</screen>
         </entry>
         <entry>
-         <para/>
+         <para>
+          If no <tag>subvolumes</tag> section has been defined for a partition
+          description, &ay; will not create any subvolumes for that partition.
+          In other words, there is no default selection of subvolumes.
+         </para>
         </entry>
        </row>
        <row>
@@ -2218,7 +2248,7 @@ exit 0
         </entry>
         <entry>
          <para>
-          If this partition is in a logical volume in a volume group specify
+          If this partition is on a logical volume in a volume group specify
           the logical volume name here (see the <literal>is_lvm_vg</literal>
           parameter in the drive configuration).
          </para>
@@ -2371,15 +2401,10 @@ exit 0
         </entry>
         <entry>
          <para>
-          This boolean must be <literal>true</literal> if an existing
-          partition should be resized. In this case, you want to set
-          <literal>create</literal> to <literal>false</literal> and usually
-          you do not want to <literal>format</literal> the partition.  You need
-          to tell &ay; the <literal>partition_nr</literal> and the
-          <literal>size</literal>. The size can be in percentage of the
-          original size or a number, like <literal>800M</literal>.
-          <literal>max</literal> and <literal>auto</literal> do not work as
-          size here.
+          This boolean must be <literal>true</literal> if an existing partition
+          should be resized. In this case, you need to tell &ay; to reuse the
+          device (see the <literal>create</literal> option) and specify a
+          <literal>size</literal>.
          </para>
 <screen>&lt;resize config:type="boolean"
 &gt;false&lt;/resize&gt;</screen>
@@ -2393,13 +2418,23 @@ exit 0
       </tbody>
      </tgroup>
     </informaltable>
+
+    <important>
+     <title>Boot Partition may not be Created</title>
+     <para>
+      If <literal>size</literal> is set to <literal>auto</literal> for the
+      <literal>boot</literal> partition, &ay; will not create it unless is
+      strictly required in order to boot. To force the creation of a partition,
+      you need to specify the size using a number or a percentage.
+     </para>
+    </important>
    </sect2>
 
    <sect2 xml:id="ay.btrfs_subvolumes">
      <title>Btrfs subvolumes</title>
      <para>
-      As mentioned in the <xref linkend="ay.partition_configuration"/>, it is
-      possible to define a set of subvolumes for each Btrfs filesystem. In
+      As mentioned in <xref linkend="ay.partition_configuration"/>, it is
+      possible to define a set of subvolumes for each Btrfs file system. In
       its simplest form, is just a list of entries:
      </para>
 
@@ -2415,8 +2450,8 @@ exit 0
 &lt;/subvolumes&gt;</screen>
 
      <para>
-      AutoYaST supports disabling copy-on-write for a given subvolume. In that case,
-      an slightly more complex syntax should be used:
+      &ay; supports disabling copy-on-write for a given subvolume. In that case,
+      a slightly more complex syntax should be used:
      </para>
 
 <screen>&lt;subvolumes config:type="list"&gt;
@@ -2431,10 +2466,11 @@ exit 0
 
      <para os="sles;sled">
       If there is a default subvolume used for the distribution (for example
-      <filename>@</filename> in &productname;) the name of this default subvolume
-      is automatically prefixed to the names in this list. This behaviour can
-      be disabled setting the <literal>btrfs_set_default_subvolume_name</literal>
-      in the <literal>general/storage</literal> section.
+      <filename>@</filename> in &productname;), the name of this default
+      subvolume is automatically prefixed to the names in this list. This
+      behavior can be disabled by setting the
+      <literal>btrfs_set_default_subvolume_name</literal> in the
+      <literal>general/storage</literal> section.
      </para>
 
 <screen os="sles;sled">&lt;general&gt;
@@ -2740,7 +2776,7 @@ exit 0
     &lt;use&gt;all&lt;/use&gt;
     &lt;partitions config:type="list"&gt;
       &lt;partition&gt;
-        &lt;filesystem  config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+        &lt;filesystem  config:type="symbol"&gt;xfs&lt;/filesystem&gt;
         &lt;mount&gt;/data1&lt;/mount&gt;
         &lt;size&gt;15G&lt;/size&gt;
       &lt;/partition&gt;
@@ -2766,7 +2802,7 @@ exit 0
      <title>Wipe out Partition Table</title>
      <para>
       Usually this is not needed because &ay; can delete partitions one
-      by one automatically, but you need the option to let &ay; clear the
+      by one automatically. But you need the option to let &ay; clear the
       partition table instead of deleting partitions individually.
      </para>
      <para>
@@ -2905,7 +2941,7 @@ exit 0
       <title>Mount Options</title>
 <screen>&lt;partitions config:type="list"&gt;
   &lt;partition&gt;
-    &lt;filesystem config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+    &lt;filesystem config:type="symbol"&gt;ext4&lt;/filesystem&gt;
     &lt;format config:type="boolean"&gt;true&lt;/format&gt;
     &lt;fstopt&gt;ro,noatime,user,data=ordered,acl,user_xattr&lt;/fstopt&gt;
     &lt;mount&gt;/local&lt;/mount&gt;
@@ -3053,12 +3089,12 @@ exit 0
     </para>
     <para>
      Although the default behavior is to format all partitions, it is also
-     possible to leave some partitions untouched and only mount them, for
-     example data partitions. If multiple installations are found on the
-     system (multiple root partitions with different
-     <filename>fstab</filename> files, the installation will abort, unless
-     the root partition is configured in the control file. The following
-     example illustrates how this option can be used:
+     possible to leave some partitions (for example data partitions) untouched
+     and only mount them. If multiple installations are found on the system
+     (multiple root partitions with different <filename>fstab</filename> files,
+     the installation will abort, unless the root partition is configured in
+     the control file. The following example illustrates how this option can be
+     used:
     </para>
     <example>
      <title>Reading an Existing <filename>/etc/fstab</filename></title>
@@ -3135,19 +3171,19 @@ exit 0
       &lt;is_lvm_vg config:type="boolean"&gt;true&lt;/is_lvm_vg&gt;
       &lt;partitions config:type="list"&gt;
         &lt;partition&gt;
-          &lt;filesystem config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+          &lt;filesystem config:type="symbol"&gt;xfs&lt;/filesystem&gt;
           &lt;lv_name&gt;user_lv&lt;/lv_name&gt;
           &lt;mount&gt;/usr&lt;/mount&gt;
           &lt;size&gt;15G&lt;/size&gt;
         &lt;/partition&gt;
         &lt;partition&gt;
-          &lt;filesystem config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+          &lt;filesystem config:type="symbol"&gt;xfs&lt;/filesystem&gt;
           &lt;lv_name&gt;opt_lv&lt;/lv_name&gt;
           &lt;mount&gt;/opt&lt;/mount&gt;
           &lt;size&gt;10G&lt;/size&gt;
         &lt;/partition&gt;
         &lt;partition&gt;
-          &lt;filesystem config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+          &lt;filesystem config:type="symbol"&gt;xfs&lt;/filesystem&gt;
           &lt;lv_name&gt;var_lv&lt;/lv_name&gt;
           &lt;mount&gt;/var&lt;/mount&gt;
           &lt;size&gt;1G&lt;/size&gt;
@@ -3264,7 +3300,7 @@ exit 0
     &lt;device&gt;/dev/md&lt;/device&gt;
     &lt;partitions config:type="list"&gt;
       &lt;partition&gt;
-        &lt;filesystem config:type="symbol"&gt;reiser&lt;/filesystem&gt;
+        &lt;filesystem config:type="symbol"&gt;xfs&lt;/filesystem&gt;
         &lt;format config:type="boolean"&gt;true&lt;/format&gt;
         &lt;mount&gt;/space&lt;/mount&gt;
         &lt;partition_id config:type="integer"&gt;131&lt;/partition_id&gt;
@@ -3337,22 +3373,12 @@ exit 0
          </entry>
          <entry>
           <para>
-           Description
-          </para>
-         </entry>
-         <entry>
-          <para>
            Values
           </para>
          </entry>
          <entry>
           <para>
-           Description
-          </para>
-         </entry>
-         <entry>
-          <para>
-           Values
+            Description
           </para>
          </entry>
         </row>
@@ -3383,7 +3409,7 @@ exit 0
          </entry>
          <entry>
           <para>
-           The device (<literal>dasd<replaceable>n</replaceable></literal>)
+           The device (<literal>dasd<replaceable>N</replaceable></literal>)
            you want to configure in this section.
           </para>
 <screen>&lt;dev_name
@@ -3713,8 +3739,9 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
           </para>
           <para>
            The lldpad service provides the Link Layer Discovery Protocol agent
-           daemon lldpad, which informs fcoemon about DCB
-           (Data Center Bridging) features and configuration of the interfaces.
+           daemon <systemitem class="daemon">lldpad</systemitem>, that informs
+           fcoemon about DCB (Data Center Bridging) features and configuration
+           of the interfaces.
           </para>
          </entry>
          <entry>
@@ -3764,7 +3791,7 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
         <row>
          <entry>
           <para>
-           languages
+           <literal>languages</literal>
           </para>
          </entry>
          <entry>
@@ -3782,7 +3809,7 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
         <row>
          <entry>
           <para>
-           language
+           <literal>language</literal>
           </para>
          </entry>
          <entry>
@@ -3944,6 +3971,38 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
     class="resource">yast2-security</systemitem> is not installed.
    </para>
 
+   <sect2 xml:id="Software.Selections.base_product">
+    <title>Product Selection</title>
+    <para>
+     Starting with &slea; 15, all products are distributed using one medium.
+     You need to choose which product to install. To do so explicitly, use the
+     <tag>product</tag> option.
+    </para>
+    <example>
+     <title>Explicit Product Selection</title>
+<screen>&lt;software&gt;
+  &lt;products config:type="list"&gt;
+    &lt;product&gt;SLED15&lt;/product&gt;
+  &lt;/products&gt;
+&lt;/software&gt;
+</screen>
+    </example>
+    <para>
+     In special cases, the medium might contain only one product. If so, you
+     do not need to select a product explicitly as described above.
+     &ay; will select the only available product automatically.
+    </para>
+    <para>
+     For backward compatibility with profiles created for pre-&slea; 15
+     products, &ay; implements a heuristic that selects products
+     automatically. This heuristic will be used when the profile does not
+     contain a <tag>product</tag> element.
+     This heuristic is based on the package and pattern selection in the
+     profile. However, whenever possible avoid using this mechanism and adapt
+     old profiles to use explicit product selection.
+    </para>
+   </sect2>
+
    <sect2 xml:id="Software.Selections.sles10">
     <title>Package Selection with Patterns</title>
     <para>
@@ -3979,12 +4038,7 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
    </sect2>
 
    <sect2 xml:id="Software.Selections.additional">
-    <title>Installing Additional and Customized Packages</title>
-    <remark condition="clarity">
-     2014-09-19 - fs: FIXME
-     This section needs clarification. What is a provisioner file that is
-     specified with -x, why only one data directory, etc.
-    </remark>
+    <title>Installing Additional/Customized Packages or Products</title>
     <para>
      In addition to the packages available for installation on the DVD-ROMs,
      you can add external packages including customized kernels. Customized
@@ -3998,15 +4052,23 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
      packages or new package versions in the source repository.
     </para>
     <para>
-     A script is provided for this task which will query packages available
-     in the repository and create the package database. Use the command
-     <command>/usr/bin/create_package_descr</command>. When creating the
-     database, all languages will be reset to English.
+     A script is provided for this task which will query packages available in
+     the repository and create the package database. Use the command
+     <command>/usr/bin/create_package_descr</command>. It can be found in the
+     <literal>inst-source-utils</literal> package in the $osuse; Build Service.
+     When creating the database, all languages will be reset to English.
     </para>
     <example>
-     <title>Creating Package Database</title>
-<screen>cd /usr/local/DVDs/LATEST/suse
-create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen>
+     <title>
+      Creating a Package Database with the Additional Package
+      <package>inst-source-utils</package>
+     </title>
+     <para>
+      The unpacked DVD is located in <literal>/usr/local/DVDs/LATEST</literal>.
+     </para>
+<screen>cp /tmp/inst-source-utils-2016.7.26-1.2.noarch.rpm /usr/local/DVDs/LATEST/suse/noarch
+cd /usr/local/DVDs/LATEST/suse
+create_package_descr -d /usr/local/CDs/LATEST/suse</screen>
     </example>
     <para>
      In the above example, the directory
@@ -4021,47 +4083,190 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
      makes the creation of custom CD-ROMs easier.
     </para>
     <para>
-     To add your own RPMs to an installation source (or a module such as the
-     SDK), add a file <filename>add_on_products</filename> to the
+     To add your own module<phrase os="sles;sled"> such as the SDK (SUSE
+     Software Development Kit)</phrase>, add a file
+     <filename>add_on_products.xml</filename> to the root directory of the
      installation source.
     </para>
-<screen>media_url [path_on_media [product_1 [product_2 [....]]]</screen>
     <para>
-     <literal>media_url</literal> is the URL of the media,
-     <literal>path_on_media</literal> is the path to the catalog on the
-     media. If not present, / (root) is assumed.
-     <literal>product_1</literal> and following are the names of products,
-     which should be marked for installation. If no product is specified,
-     all products found on the media are selected for installation. For
-     example:
+     The following example shows how the SDK module can be added to the base product
+     repository. The complete SDK repository will be stored in the directory
+     <filename>/sdk</filename>.
     </para>
-<screen>http://192.168.66.6/SLES/sdk/DVD1
-        http://192.168.66.6/SLES/DVD1/updates</screen>
+    <example>
+     <title>add_on_products.xml</title>
+     <para>This file describes an SDK module included in the base product.</para>
+<screen>
+&lt;?xml version="1.0"?&gt;
+&lt;add_on_products xmlns="http://www.suse.com/1.0/yast2ns"
+   xmlns:config="http://www.suse.com/1.0/configns"&gt;
+   &lt;product_items config:type="list"&gt;
+      &lt;product_item&gt;
+         &lt;name&gt;SUSE Linux Enterprise Software Development Kit&lt;/name&gt;
+         &lt;url&gt;relurl:////sdk?alias=SLE_SDK&lt;/url&gt;
+         &lt;path&gt;/&lt;/path&gt;
+         &lt;-- Users are asked whether to add such a product --&gt;
+         &lt;ask_user config:type="boolean"&gt;false&lt;/ask_user&gt;
+         &lt;-- Defines the default state of pre-selected state in case of ask_user used. --&gt;
+         &lt;selected config:type="boolean"&gt;true&lt;/selected&gt;
+      &lt;/product_item&gt;
+   &lt;/product_items&gt;
+&lt;/add_on_products&gt;
+</screen>
+    </example>
     <para>
-     As an alternative to adding the <filename>add_on_products</filename>
-     file to the installation source, you can use the &ay; control file
-     to specify modules, extensions and add-on products. For example:
+     With this file the SDK module will be installed automatically in addition
+     to the normal installion.
+     This will not be done via an &ay; installation. This will require an additional entry
+     in the &ay; control file in the <literal>add-on</literal> section.
     </para>
+    <para>
+     All modules, extensions and add-on products can be added this way.
+    </para>
+    <example>
+     <title>Adding SDK product auto &ay; configuration file</title>
 <screen>&lt;add-on&gt;
   &lt;add_on_products config:type="list"&gt;
     &lt;listentry&gt;
-      &lt;media_url&gt;http://192.168.66.6/SLES/DVD1/updates&lt;/media_url&gt;
-      &lt;product&gt;SLES_Updates&lt;/product&gt;
-      &lt;alias&gt;SuSE-Updates&lt;/alias&gt;
+      &lt;media_url&gt;cd:///sdk&lt;/media_url&gt;
+      &lt;product&gt;sle-sdk&lt;/product&gt;
+      &lt;alias&gt;SLES SDK&lt;/alias&gt;
       &lt;product_dir&gt;/&lt;/product_dir&gt;
       &lt;priority config:type="integer"&gt;20&lt;/priority&gt;
       &lt;ask_on_error config:type="boolean"&gt;false&lt;/ask_on_error&gt;
       &lt;confirm_license config:type="boolean"&gt;false&lt;/confirm_license&gt;
-      &lt;name&gt;MyUpdates&lt;/name&gt;
+      &lt;name&gt;SUSE Linux Enterprise Software Development Kit&lt;/name&gt;
     &lt;/listentry&gt;
   &lt;/add_on_products&gt;
 &lt;/add-on&gt;</screen>
-    <para>
-     &ay; can ask the user to make add-on products, modules or extension available instead of
-     reporting a time-out error when no repository can be found at
-     the given location. Set ask_on_error to <literal>true</literal> (the
-     default is <literal>false</literal>).
-    </para>
+    </example>
+
+   <informaltable>
+    <tgroup cols="2">
+     <thead>
+      <row>
+       <entry>
+        <para>
+         Attribute
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Values
+        </para>
+       </entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry>
+        <para>
+         <literal>media_url</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Product URL. This can have the prefix <literal>cd:///</literal>,
+         <literal>http://</literal>, <literal>ftp://</literal>,...
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>product</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Internal product name if the add-on is a product.
+         The command <command>zypper products</command> shows these names
+         of installed products.
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>alias</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Repository alias name. Defined by the user.
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>product_dir</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Additional subpath. Optional.
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>priority</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Sets the repository libzypp priority. Priority of 1 is the highest.
+         The higher the number the lower the priority. Default is 99.
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>ask_on_error</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         &ay; can ask the user to make add-on products, modules or extensions available
+         instead of reporting a time-out error when no repository can be found at
+         the given location. Set ask_on_error to <literal>true</literal> (the
+         default is <literal>false</literal>).
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>confirm_license</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         The user has to confirm the license. Default is <literal>false</literal>
+        </para>
+       </entry>
+      </row>
+      <row>
+       <entry>
+        <para>
+         <literal>name</literal>
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Repository name.
+         The command <command>zypper lr</command> shows these names of added
+         repositories.
+        </para>
+       </entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </informaltable>
+
     <para>
      It is possible to configure the signature handling for each add-on
      product, module, or extension individually. The following elements must be
@@ -4198,16 +4403,15 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
      or because it is available in a selection.
     </para>
     <para>
-     Removing such packages might break the system consistency and it is not
-     recommended to remove basic packages unless a replacement which
-     provides the same services is provided. The best example for this case
-     are mail transfer agent (MTA) packages. By default,
-     <systemitem>postfix</systemitem> will be selected and installed. If you
-     want to use another MTA like <systemitem>sendmail</systemitem>, then
-     postfix can be removed from the list of selected package using a list
-     in the software resource. However, note that sendmail is not shipped
-     with &productname;. The following example shows how this can be
-     done:
+     Removing these packages might break the system consistency and it is not
+     recommended to remove basic packages unless a replacement which provides
+     the same services is provided. The best example for this case are mail
+     transfer agent (MTA) packages. By default,
+     <systemitem>postfix</systemitem> will be selected and installed. To use
+     another MTA like <systemitem>sendmail</systemitem>, then postfix can be
+     removed from the list of selected package using a list in the software
+     resource. However, note that sendmail is not shipped with
+     &productname;. The following example shows how this can be done:
     </para>
     <example>
      <title>Package Selection in Control File</title>
@@ -4238,10 +4442,11 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
    <sect2 xml:id="Software.Selections.recommend_packs">
     <title>Installing Recommended Packages/Patterns</title>
     <para>
-     By default all recommended packages/patterns will be installed.
-     If you want to have a minimal installation which includes required
-     packages only, you can switch off this behavior with the flag
-     <literal>install_recommended</literal>:
+     By default all recommended packages/patterns will be installed. To have a
+     minimal installation which includes required packages only, you can switch
+     off this behavior with the flag
+     <literal>install_recommended</literal>. Note that this flag only affects a
+     fresh installation and will be ignored during an upgrade.
     </para>
 <screen>&lt;software&gt;
   &lt;install_recommended config:type="boolean"&gt;false
@@ -4259,7 +4464,7 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
    <sect2 xml:id="Software.Selections.stage2_packs">
     <title>Installing Packages in Stage 2</title>
     <para>
-     If you want to install packages after the reboot during stage two,
+     To install packages after the reboot during stage two,
      instead of during the normal installation process in stage one, you can
      use the <literal>post-packages</literal> element for that:
     </para>
@@ -4351,13 +4556,12 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
    </itemizedlist>
 
    <para>
-    In order to control the upgrade process the following sections can be defined:
+    To control the upgrade process the following sections can be defined:
    </para>
 
    <example>
     <title>Upgrade and Backup</title>
 <screen>&lt;upgrade&gt;
-    &lt;only_installed_packages config:type="boolean"&gt;true&lt;/only_installed_packages&gt;
     &lt;stop_on_solver_conflict config:type="boolean"&gt;true&lt;/stop_on_solver_conflict&gt;
   &lt;/upgrade&gt;
   &lt;backup&gt;
@@ -4389,21 +4593,6 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
        </row>
       </thead>
       <tbody>
-       <row>
-        <entry>
-         <para>
-          only_installed_packages
-         </para>
-        </entry>
-        <entry>
-         <para>
-          Update only installed packages and do not add additional ones, for example recommendations.
-         </para>
-        </entry>
-        <entry>
-         <para/>
-        </entry>
-       </row>
        <row>
         <entry>
          <para>
@@ -4471,7 +4660,7 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
    <note>
     <title>Starting &ay; in upgrade mode</title>
     <para>
-     In order to start the &ay; upgrade mode while booting the system you
+     To start the &ay; upgrade mode while booting the system you
      need to select the menu entry <literal>Installation</literal> and use the
      following boot parameters:
     </para>
@@ -4533,7 +4722,7 @@ create_package_descr -x PATH_TO_EXTRA_PROV -d /usr/local/CDs/LATEST/suse</screen
    </para>
 
    <para>
-    If the following setting is set to <literal>true</literal> &yast;
+    If the following setting is set to <literal>true</literal>, &yast;
     will keep network settings created during the installation (via Linuxrc)
     and/or merge it with network settings from the &ay; control file (if
     defined). &ay; settings have higher priority than already present
@@ -4906,12 +5095,12 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
      Configure your Internet proxy (caching) settings.
     </para>
     <para>
-     Configure proxies for HTTP and FTP with <literal>http_proxy</literal>
-     and <literal>ftp_proxy</literal>, respectively. Addresses or names that
-     should be directly accessible need to be specified with
-     <literal>no_proxy</literal> (space separated values). If you are using
-     a proxy server with authorization, fill in
-     <literal>proxy_user</literal> and <literal>proxy_password</literal>,
+     Configure proxies for HTTP, HTTPS, and FTP with
+     <literal>http_proxy</literal> and <literal>ftp_proxy</literal>,
+     respectively. Addresses or names that should be directly accessible need
+     to be specified with <literal>no_proxy</literal> (space separated
+     values). If you are using a proxy server with authorization, fill in
+     <literal>proxy_user</literal> and <literal>proxy_password</literal>.
     </para>
     <example>
      <title>Network configuration: Proxy</title>
@@ -5168,8 +5357,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
        </entry>
        <entry>
         <para>
-         Do not push the changes to slave servers. (useful if there are not
-         any).
+         Do not push the changes to slave servers (useful if there are none).
         </para>
        </entry>
        <entry>
@@ -7036,13 +7224,13 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
        </entry>
        <entry>
         <para>
-         List of Access Control Settings (ACLs).
+         List of access control settings (ACLs).
         </para>
        </entry>
        <entry>
         <para>
          Each list entry contains the name, type, and additional options.
-         Use the &yast; Squid configuration module in order to get an overview
+         Use the &yast; Squid configuration module to get an overview
          of possible entries.
         </para>
        </entry>
@@ -7055,20 +7243,19 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
        </entry>
        <entry>
         <para>
-         In the Access Control table, access can be denied or allowed to ACL
-         Groups.
+         In the access control table, access can be denied or allowed to ACL
+         groups.
         </para>
         <para>
         </para>
        </entry>
        <entry>
         <para>
-         If there are more ACL Groups in one definition, it means that
-         access will be allowed or denied to members who belong to all ACL
-         Groups at the same time.
+         If there are more ACL groups in one definition, access will be allowed
+         or denied to members who belong to all ACL groups at the same time.
        </para>
         <para>
-         The Access Control table is checked in the order listed here. The
+         The access control table is checked in the order listed here. The
          first matching entry is used.
         </para>
        </entry>
@@ -7134,7 +7321,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
        </entry>
        <entry>
         <para>
-         Use the &yast; Squid configuration module in order to get an overview
+         Use the &yast; Squid configuration module to get an overview
          about possible entries.
         </para>
        </entry>
@@ -7170,15 +7357,15 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
      <title>FTP server configuration:</title>
 <screen>
   &lt;ftp-server&gt;
-    &lt;AnonAuthen&gt;1&lt;/AnonAuthen&gt;
+    &lt;AnonAuthen&gt;2&lt;/AnonAuthen&gt;
     &lt;AnonCreatDirs&gt;NO&lt;/AnonCreatDirs&gt;
     &lt;AnonMaxRate&gt;0&lt;/AnonMaxRate&gt;
-    &lt;AnonReadOnly&gt;YES&lt;/AnonReadOnly&gt;
+    &lt;AnonReadOnly&gt;NO&lt;/AnonReadOnly&gt;
     &lt;AntiWarez&gt;YES&lt;/AntiWarez&gt;
     &lt;Banner&gt;Welcome message&lt;/Banner&gt;
     &lt;CertFile/&gt;
     &lt;ChrootEnable&gt;NO&lt;/ChrootEnable&gt;
-    &lt;EnableUpload&gt;NO&lt;/EnableUpload&gt;
+    &lt;EnableUpload&gt;YES&lt;/EnableUpload&gt;
     &lt;FTPUser&gt;ftp&lt;/FTPUser&gt;
     &lt;FtpDirAnon&gt;/srv/ftp&lt;/FtpDirAnon&gt;
     &lt;FtpDirLocal/&gt;
@@ -7194,7 +7381,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     &lt;SSLEnable&gt;NO&lt;/SSLEnable&gt;
     &lt;SSLv2&gt;NO&lt;/SSLv2&gt;
     &lt;SSLv3&gt;NO&lt;/SSLv3&gt;
-    &lt;StartDaemon&gt;0&lt;/StartDaemon&gt;
+    &lt;StartDaemon&gt;2&lt;/StartDaemon&gt;
+    &lt;StartXinetd&gt;YES&lt;/StartXinetd&gt;
     &lt;TLS&gt;YES&lt;/TLS&gt;
     &lt;Umask/&gt;
     &lt;UmaskAnon/&gt;
@@ -7404,7 +7592,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          FTP Directory for Anonymous Users.
+          FTP Directory for anonymous users.
          </para>
         </entry>
         <entry>
@@ -7624,15 +7812,34 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          FTP daemon is started.
+          How to start the FTP daemon.
          </para>
         </entry>
         <entry>
-         <para>
-          Manually: 0; when booting: 1; via xinetd: 2
-         </para>
+         <simplelist>
+          <member>Manually: 0</member>
+          <member>On boot: 1</member>
+          <member>Via xinetd/&systemd; socket: 2</member>
+         </simplelist>
         </entry>
        </row>
+       <row>
+        <entry>
+         <para>
+          StartXinetd
+         </para>
+       </entry>
+       <entry>
+        <para>
+         Has to be set to YES if StartDaemon is 2
+        </para>
+       </entry>
+       <entry>
+        <para>
+         Value: YES/NO
+        </para>
+       </entry>
+      </row>
        <row>
         <entry>
          <para>
@@ -7680,7 +7887,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          If you want to specify octal values, remember the "0" prefix, otherwise the value will be treated as a base 10 integer.
+          To specify octal values, remember the "0" prefix, otherwise the value
+          will be treated as a base 10 integer.
          </para>
         </entry>
        </row>
@@ -7697,7 +7905,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          If you want to specify octal values, remember the "0" prefix, otherwise the value will be treated as a base 10 integer.
+          To specify octal values, remember the "0" prefix, otherwise the value
+          will be treated as a base 10 integer.
          </para>
         </entry>
        </row>
@@ -7754,7 +7963,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
      Configure your TFTP Internet server settings.
     </para>
     <para>
-     Use this to enable a server for TFTP (trivial file transfer protocol). The server will be started using xinetd.
+     Use this to enable a server for TFTP (trivial file transfer protocol). The
+     server will be started using xinetd/systemd sockets.
     </para>
     <para>
      Note that TFTP and FTP are not the same.
@@ -7865,7 +8075,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
    </para>
 
    <para>
-    Configuring the security settings automatically corresponds to the
+    Configuring the security settings automatically is similar to the
     <literal>Custom Settings</literal> in the security module available in
     the running system which lets you create your own, customized
     configuration.
@@ -8241,7 +8451,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
    <note>
     <title>Users and groups set up during the first stage</title>
     <para>
-     Users and groups are set up during the first stage, so you can set up an
+     Users and groups are set up during the first stage, so you can set up a
      usable system without running the second stage.
     </para>
    </note>
@@ -8250,9 +8460,9 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     <title>Users</title>
 
     <para>
-     A list of users can be defined in the <literal>&lt;users&gt;</literal> section.
-     Take into account that at least the &rootuser; users should be set up so you can
-     login after the installation is finished.
+     A list of users can be defined in the <literal>&lt;users&gt;</literal>
+     section.  Take into account that at least the &rootuser; users should be
+     set up so you can log in after the installation is finished.
     </para>
 
     <example>
@@ -8271,7 +8481,80 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
 &lt;/users&gt;</screen>
     </example>
 
-    <informaltable>
+    <para>
+     The following example shows a more complex scenario. System wide default
+     settings from <filename>/etc/default/useradd</filename>, such as the
+     shell or the parent directory for the home directory, are applied.
+    </para>
+
+    <example>
+     <title>Complex User Configuration</title>
+     <screen>&lt;users config:type="list"&gt;
+  &lt;user&gt;
+    &lt;username&gt;root&lt;/username&gt;
+    &lt;user_password&gt;password&lt;/user_password&gt;
+    &lt;uid&gt;1001&lt;/uid&gt;
+    &lt;gid&gt;100&lt;/gid&gt;
+    &lt;encrypted config:type="boolean"&gt;false&lt;/encrypted&gt;
+    &lt;fullname&gt;Root User&lt;/fullname&gt;
+    &lt;authorized_keys config:type="list"&gt;
+      &lt;listentry&gt;command="/opt/login.sh" ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKLt1vnW2vTJpBp3VK91rFsBvpY97NljsVLdgUrlPbZ/L51FerQQ+djQ/ivDASQjO+567nMGqfYGFA/De1EGMMEoeShza67qjNi14L1HBGgVojaNajMR/NI2d1kDyvsgRy7D7FT5UGGUNT0dlcSD3b85zwgHeYLidgcGIoKeRi7HpVDOOTyhwUv4sq3ubrPCWARgPeOLdVFa9clC8PTZdxSeKp4jpNjIHEyREPin2Un1luCIPWrOYyym7aRJEPopCEqBA9HvfwpbuwBI5F0uIWZgSQLfpwW86599fBo/PvMDa96DpxH1VlzJlAIHQsMkMHbsCazPNC0++Kp5ZVERiH root@example.net&lt;/listentry&gt;
+    &lt;/authorized_keys&gt;
+  &lt;/user&gt;
+  &lt;user&gt;
+    &lt;username&gt;&exampleuser_plain;&lt;/username&gt;
+    &lt;user_password&gt;password&lt;/user_password&gt;
+    &lt;uid&gt;1002&lt;/uid&gt;
+    &lt;gid&gt;100&lt;/gid&gt;
+    &lt;encrypted config:type="boolean"&gt;false&lt;/encrypted&gt;
+    &lt;fullname&gt;Plain User&lt;/fullname&gt;
+    &lt;home&gt;/Users/plain&lt;/home&gt;
+    &lt;password_settings&gt;
+      &lt;max&gt;120&lt;/max&gt;
+      &lt;inact&gt;5&lt;/inact&gt;
+    &lt;/password_settings&gt;
+  &lt;/user&gt;
+&lt;/users&gt;</screen>
+    </example>
+
+    <note>
+     <title><literal>authorized_keys</literal> File will be Overwritten</title>
+     <para>
+      If the profile defines a set of SSH authorized keys for a user in the
+      <literal>authorized_keys</literal> section, an existing
+      <literal>$HOME/.ssh/authorized_keys</literal> file will be overwritten.
+      If not existing, the file will be created with the content specified.
+      Avoid overwriting an existing authorized_keys by not specifying the
+      respective section in the &ay; control file.
+     </para>
+     <para>
+      To avoid such behavior, the <literal>&lt;authorized_keys&gt;</literal> section
+      should be omitted.
+     </para>
+    </note>
+
+<note xml:id="ann.Configuration.Security.users.uid">
+    <title>Specifying a user ID (<literal>uid</literal>)</title>
+    <para>
+     Each user on a Linux system has got a numeric user ID. You can either
+     specify such a user ID within the &ay; control file manually by using
+     <tag class="element">uid</tag>, or let the system automatically choose a
+     user ID by not using <tag class="element">uid</tag>.
+    </para>
+    <para>
+     User IDs should be unique throughout the system. If not, some
+     applications such as the login manager <systemitem
+     class="resource">gdm</systemitem> may no longer work as expected.
+    </para>
+    <para>
+     When adding users with the &ay; control file, it is strongly recommended
+     not to mix user defined IDs and automatically provided IDs. When doing
+     so, unique IDs cannot be guaranteed. Either specify IDs for all users
+     added with the &ay; control file or let the system choose the ID for all
+     users.
+    </para>
+</note>
+     <informaltable>
      <tgroup cols="3">
       <thead>
        <row>
@@ -8307,8 +8590,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Required. It should be a valid username. Check <literal>man 8 useradd</literal>
-          if you're not sure.
+          Required. It should be a valid user name. Check <literal>man 8 useradd</literal>
+          if you are not sure.
          </para>
         </entry>
        </row>
@@ -8380,7 +8663,11 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. User ID. It must be a unique and non-negative number.
+          Optional. User ID. It should be unique and must be a non-negative
+          number. If not specified, &ay; will automatically choose a user
+          ID. Also refer to <xref
+          linkend="ann.Configuration.Security.users.uid"/> for additional
+          information.
          </para>
         </entry>
        </row>
@@ -8418,7 +8705,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         <entry>
          <para>
           Optional. Absolute path to the user's home directory. By default,
-          <literal>/home/username</literal> will be used (e.g.
+          <literal>/home/username</literal> will be used (for excample,
           <literal>alice</literal>'s home directory will be
           <literal>/home/alice</literal>).
          </para>
@@ -8458,8 +8745,9 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. User's password can be written in plain text (not recommended) or in encrypted form.
-          Check the <literal>encrypted</literal> to select the desired behaviour.
+          Optional. The user password can be specified as plain text (not
+          recommended) or in encrypted form.  Check
+          <literal>encrypted</literal> to select the desired behavior.
          </para>
         </entry>
        </row>
@@ -8500,13 +8788,16 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. Some password settings can be customized: <literal>expire</literal>
-          (account expiration date in format <literal>YYYY-MM-DD</literal>), <literal>flag</literal>
-          (<literal>/etc/shadow</literal> flag), <literal>inact</literal> (number of days
-          after password expiration that account is disabled), <literal>max</literal>
-          (maximum number of days a password is valid), <literal>min</literal> (minimum
-          number of days a user can change the password) and <literal>warn</literal>
-          (number of days when the password change reminder starts).
+          Optional. Some password settings can be customized:
+          <literal>expire</literal> (account expiration date in format
+          <literal>YYYY-MM-DD</literal>), <literal>flag</literal>
+          (<literal>/etc/shadow</literal> flag), <literal>inact</literal>
+          (number of days after password expiration that account is disabled),
+          <literal>max</literal> (maximum number of days a password is valid),
+          <literal>min</literal> (grace period in days until which a user can
+          change password after it has expired) and <literal>warn</literal>
+          (number of days before expiration when the password change reminder
+          starts).
          </para>
         </entry>
        </row>
@@ -8534,53 +8825,6 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
       </tbody>
      </tgroup>
     </informaltable>
-
-    <para>
-     The last example shows a more complete example. The data in
-     <filename>/etc/default/useradd</filename> is used to determine the home
-     directory of the user to be created plus other parameters.
-    </para>
-
-    <example>
-     <title>Complex User Configuration</title>
-     <screen>&lt;users config:type="list"&gt;
-  &lt;user&gt;
-    &lt;username&gt;root&lt;/username&gt;
-    &lt;user_password&gt;password&lt;/user_password&gt;
-    &lt;uid&gt;1001&lt;/uid&gt;
-    &lt;gid&gt;100&lt;/gid&gt;
-    &lt;encrypted config:type="boolean"&gt;false&lt;/encrypted&gt;
-    &lt;fullname&gt;Root User&lt;fullname&gt;
-    &lt;authorized_keys config:type="list"&gt;
-      &lt;listentry&gt;command="/opt/login.sh" ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDKLt1vnW2vTJpBp3VK91rFsBvpY97NljsVLdgUrlPbZ/L51FerQQ+djQ/ivDASQjO+567nMGqfYGFA/De1EGMMEoeShza67qjNi14L1HBGgVojaNajMR/NI2d1kDyvsgRy7D7FT5UGGUNT0dlcSD3b85zwgHeYLidgcGIoKeRi7HpVDOOTyhwUv4sq3ubrPCWARgPeOLdVFa9clC8PTZdxSeKp4jpNjIHEyREPin2Un1luCIPWrOYyym7aRJEPopCEqBA9HvfwpbuwBI5F0uIWZgSQLfpwW86599fBo/PvMDa96DpxH1VlzJlAIHQsMkMHbsCazPNC0++Kp5ZVERiH root@example.net&lt;/listentry&gt;
-    &lt;/authorized_keys&gt;
-  &lt;/user&gt;
-  &lt;user&gt;
-    &lt;username&gt;&exampleuser_plain;&lt;/username&gt;
-    &lt;user_password&gt;password&lt;/user_password&gt;
-    &lt;encrypted config:type="boolean"&gt;false&lt;/encrypted&gt;
-    &lt;fullname&gt;Plain User&lt;fullname&gt;
-    &lt;home&gt;/Users/plain&lt;home&gt;
-    &lt;password_settings&gt;
-      &lt;max&gt;120&lt;/max&gt;
-      &lt;inact&gt;5&lt;/inact&gt;
-    &lt;/password_settings&gt;
-  &lt;/user&gt;
-&lt;/users&gt;</screen>
-    </example>
-
-    <note>
-     <title><literal>authorized_keys</literal> file will be overwritten</title>
-     <para>
-      If the profile defines a set of SSH authorized keys for a user, the content
-      of <literal>$HOME/.ssh/authorized_keys</literal> file will be overwritten
-      when using AutoYaST to perform a system upgrade or configuration.
-     </para>
-     <para>
-      To avoid such behaviour, the <literal>&lt;authorized_keys&gt;</literal> section
-      should be omitted.
-     </para>
-    </note>
    </sect2>
 
    <sect2 xml:id="Configuration.Security.user_defaults">
@@ -8666,7 +8910,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. Users home directories prefix.
+          Optional. User's home directory prefix.
          </para>
         </entry>
        </row>
@@ -8702,7 +8946,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. Number of days after an expired account is disabled.
+          Optional. Number of days after which an expired account is disabled.
          </para>
         </entry>
        </row>
@@ -8738,9 +8982,10 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Default login shell. <literal>/bin/bash</literal> is the default value. If you
-          choose another one, make sure that it's installed (adding the corresponding
-          package to the <literal>software</literal> section).
+          Default login shell. <literal>/bin/bash</literal> is the default
+          value. If you choose another one, make sure that it is installed
+          (adding the corresponding package to the <literal>software</literal>
+          section).
          </para>
         </entry>
        </row>
@@ -8758,8 +9003,9 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. Location of the files to be used as skel when adding a new user. You can find more
-          issue in <literal>man 8 useradd</literal>.
+          Optional. Location of the files to be used as skel when adding a new
+          user. You can find more information in <literal>man 8
+          useradd</literal>.
          </para>
         </entry>
        </row>
@@ -8792,8 +9038,8 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     <title>Groups</title>
 
     <para>
-     A list of groups can be defined in the <literal>&lt;groups&gt;</literal>
-     as shown in the example.
+     A list of groups can be defined in <literal>&lt;groups&gt;</literal>
+     as shown in the following example:
     </para>
 
     <example>
@@ -8844,7 +9090,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         <entry>
          <para>
           Required. It should be a valid groupname. Check <literal>man 8 groupadd</literal>
-          if you're not sure.
+          if you are not sure.
          </para>
         </entry>
        </row>
@@ -8882,7 +9128,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
          <para>
           Optional. The group's password can be written in plain text (not
           recommended) or in encrypted form. Check the <literal>encrypted</literal> to
-          select the desired behaviour.
+          select the desired behavior.
          </para>
         </entry>
        </row>
@@ -8918,7 +9164,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. A list of users who belong to the group. Usernames must be separated by commas.
+          Optional. A list of users who belong to the group. User names must be separated by commas.
          </para>
         </entry>
        </row>
@@ -8977,7 +9223,7 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
         </entry>
         <entry>
          <para>
-          Optional. Enables password-less login. It only affects to graphical login.
+          Optional. Enables password-less login. It only affects graphical login.
          </para>
         </entry>
        </row>
@@ -9087,9 +9333,10 @@ config:type="boolean"&gt;true&lt;/keep_install_network&gt;</screen>
     <note>
      <title>Pre-Install and Zypper</title>
      <para>
-      If you want to call <emphasis>zypper</emphasis> in the pre-install
-      script you will need to set the environment variable <emphasis>ZYPP_LOCKFILE_ROOT="/var/run/autoyast"</emphasis>
-      in order to prevent conflicts with the running &yast; process.
+      To call <emphasis>zypper</emphasis> in the pre-install script you will
+      need to set the environment variable
+      <emphasis>ZYPP_LOCKFILE_ROOT="/var/run/autoyast"</emphasis> to prevent
+      conflicts with the running &yast; process.
      </para>
     </note>
     <para>
@@ -9295,7 +9542,7 @@ echo "Testing the init script" &gt;
         </entry>
         <entry>
          <para>
-          Optional, default is <literal>false</literal> (scripts only run
+          Optional. Default is <literal>false</literal> (scripts only run
           once).
          </para>
         </entry>
@@ -9441,7 +9688,8 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
          <para>
           If this boolean is <literal>true</literal>, output and error
           messages of the script (STDOUT and STDERR) will be shown in a
-          pop-up, which the user needs to confirm via the OK button. the
+          pop-up. The user needs to confirm them via the OK button.
+          pop-up, which the user needs to confirm via the OK button. The
           pop-up will only be shown if the script produces any such output.
          </para>
 <screen>&lt;feedback config:type="boolean"&gt;true&lt;/feedback&gt;</screen>
@@ -9567,12 +9815,12 @@ echo "Testing the pre script" &gt; /tmp/pre-script_out.txt
         <entry>
          <para>
           If set to <literal>false</literal>, the installed system remains
-          mounted at <filename>/mnt</filename> and no chroot happens. The
-          boot loader is not installed either at this stage. Setting it to
+          mounted at <filename>/mnt</filename> and no chroot happens. The boot
+          loader is not installed either at this stage. Setting it to
           <literal>true</literal> means, a chroot into
-          <filename>/mnt</filename> is performed, where the installed system
-          is mounted. The boot loader is installed, and if you want to
-          change anything in the installed system, you do not need to use the
+          <filename>/mnt</filename> is performed, where the installed system is
+          mounted. The boot loader is installed, and to change anything in the
+          installed system, you do not need to use the
           <filename>/mnt</filename> prefix anymore.
          </para>
 <screen>&lt;chrooted config:type="boolean"
@@ -9821,8 +10069,8 @@ some content
     A more advanced example is shown below. This configuration will create a
     file using the content supplied in <literal>file_contents</literal> and
     change the permissions and ownership of the file. After the file has
-    been copied to the system, a script is executed, which can be used to
-    manipulate the file and prepare it for the environment of the client.
+    been copied to the system, a script is executed. This can be used to
+    modify the file and prepare it for the client's environment.
    </para>
 
    <example>
@@ -9880,9 +10128,9 @@ ls
    </para>
 
    <para>
-    The only downside: enabling Kdump costs you between 64 MB and 128 MB of
-    system RAM (on <quote>normal</quote> sized systems), reserved for Kdump
-    in case the system crashes and the dump needs to be generated.
+    There is a downside to this. Enabling Kdump requires between 64 MB and 128
+    MB of additional system RAM reserved for Kdump in case the system crashes
+    and the dump needs to be generated.
    </para>
 
    <para>
@@ -9948,16 +10196,15 @@ ls
      disk, send a notification e-mail, and finally reboot.
     </para>
     <para>
-     To reserve memory for Kdump, specify the <literal>amount</literal>
-     (such as <literal>64M</literal> to reserve 64 MB of memory from the
-     RAM) and the <literal>offset</literal>. The syntax is
-     <literal>crashkernel=AMOUNT@OFFSET</literal>. The kernel can
-     auto-detect the right offset (except for the &xen; hypervisor, where
-     you need to specify <literal>16M</literal> as offset). The amount of
-     memory that needs to be reserved depends on architecture and main
-     memory&mdash;refer to
-     <xref linkend="cha.tuning.kdump.basic.manual"/> for recommendations on
-     the amount of memory to reserve for Kdump.
+     To reserve memory for Kdump, specify the <literal>amount</literal> (such
+     as <literal>64M</literal> to reserve 64 MB of memory from the RAM) and the
+     <literal>offset</literal>. The syntax is
+     <literal>crashkernel=AMOUNT@OFFSET</literal>. The kernel can auto-detect
+     the right offset (except for the &xen; hypervisor, where you need to
+     specify <literal>16M</literal> as offset). The amount of memory that needs
+     to be reserved depends on architecture and main memory. Refer to <xref
+     linkend="cha.tuning.kdump.basic.manual"/> for recommendations on the
+     amount of memory to reserve for Kdump.
     </para>
     <para>
      You can also use the extended command line syntax to specify the amount
@@ -9968,18 +10215,17 @@ ls
 <screen>BEGIN_RANGE_1-END_RANGE_1:AMOUNT_1,BEGIN_RANGE_2-END_RANGE_2:AMOUNT_2@OFFSET</screen>
     <para>
      <literal>BEGIN_RANGE_1</literal> is the start of the first memory range
-     (for example: <literal>0M</literal>) and <literal>END_RANGE_1</literal>
-     is the end of the first memory range (can be empty in case
-     <literal>infinity</literal> should be assumed) and so on. For example
-     <literal>256M-2G:64M,2G-:128M</literal> means to reserve 64 MB of
-     crashkernel memory if the system has between 256 MB and 2 GB RAM and to
-     reserve 128 MB of crashkernel memory if the system has more than 2 GB
-     RAM.
+     (for example: <literal>0M</literal>) and <literal>END_RANGE_1</literal> is
+     the end of the first memory range (can be empty in case
+     <literal>infinity</literal> should be assumed) and so on. For example,
+     <literal>256M-2G:64M,2G-:128M</literal> reserves 64 MB of crashkernel
+     memory if the system has between 256 MB and 2 GB RAM and reserves 128 MB
+     of crashkernel memory if the system has more than 2 GB RAM.
     </para>
     <para>
      On the other hand, it is possible to specify multiple values for
-     crashkernel parameter, for example, when wanting to reserve different
-     segments of low and high memory. In this case use values like
+     crashkernel parameter. For example, when you need to reserve different
+     segments of low and high memory, use values like
      <literal>72M,low</literal> and <literal>256M,high</literal>:
     </para>
     <example>
@@ -9988,7 +10234,7 @@ ls
 &lt;kdump&gt;
   &lt;!-- memory reservation (high and low) --&gt;
   &lt;add_crash_kernel config:type="boolean"&gt;true&lt;/add_crash_kernel&gt;
-  &lt;crash_kernel&gt;
+  &lt;crash_kernel config:type="list"&gt;
     &lt;listentry&gt;72M,low&lt;/listentry&gt;
     &lt;listentry&gt;256M,high&lt;/listentry&gt;
   &lt;/crash_kernel&gt;
@@ -10051,7 +10297,7 @@ ls
          </para>
 <screen>&lt;crash_kernel&gt;256M:64M&lt;/crash_kernel&gt;</screen>
         <para>A list of values is also supported.</para>
-<screen>&lt;crash_kernel&gt;
+<screen>&lt;crash_kernel config:type="list"&gt;
   &lt;listentry&gt;72M,low&lt;/listentry&gt;
   &lt;listentry&gt;256M,high&lt;/listentry&gt;
 &lt;/crash_kernel&gt;</screen>
@@ -10124,7 +10370,7 @@ ls
       not saved.
      </para>
      <para>
-      If you want to save the whole kernel and the debug information (if
+      To save the whole kernel and the debug information (if
       installed) to the same directory, set
       <literal>KDUMP_COPY_KERNEL</literal> to <literal>true</literal>. You
       will have everything you need to analyze the dump in one directory
@@ -10267,7 +10513,7 @@ ls
    <sect2 xml:id="CreateProfile.kdump.notification">
     <title>E-Mail Notification</title>
     <para>
-     Configure e-mail notification if you want to be informed when a machine
+     Configure e-mail notification to be informed when a machine
      crashes and a dump is saved.
     </para>
     <para>
@@ -10430,14 +10676,13 @@ ls
      have a <filename>vmlinuz</filename> file) will be used.
     </para>
     <para>
-     You can specify the command line used to boot the Kdump kernel.
-     Normally the boot command line is used minus some settings that make no
-     sense with Kdump (like the <literal>crashkernel</literal> parameter)
-     plus some settings needed by Kdump (see the manual page kdump(5)). If
-     you want some additional parameters like an overwritten console
-     setting then use <literal>KDUMP_COMMANDLINE_APPEND</literal>. If you
-     know what you are doing and you want to specify the whole command line,
-     set <literal>KDUMP_COMMANDLINE</literal>.
+     You can specify the command line used to boot the Kdump kernel.  Normally
+     the boot command line is used, minus settings that are not relevant for
+     Kdump (like the <literal>crashkernel</literal> parameter) plus some
+     settings needed by Kdump (see the manual page kdump(5)). To specify
+     additional parameters, use <literal>KDUMP_COMMANDLINE_APPEND</literal>. If
+     you know what you are doing and you want to specify the entire command
+     line, set <literal>KDUMP_COMMANDLINE</literal>.
     </para>
     <table>
      <title>Kernel Settings: XML Representation</title>
@@ -10663,7 +10908,7 @@ ls
          </entry>
          <entry>
           <para>
-           The DNS server must be jailed into a chroot.
+           The DNS server must be jailed in a chroot.
           </para>
          </entry>
         </row>
@@ -11085,9 +11330,8 @@ ls
    <para>
     SUSE Firewall can be configured using the <literal>firewall</literal>
     resource. All the properties in this resource are optional and all of them
-    are of type text, with the exception of
-    <literal>start_firewall</literal> and <literal>enable_firewall</literal>,
-    which are the only boolean ones.
+    are of type text (except the boolean <literal>start_firewall</literal> and
+    <literal>enable_firewall</literal> properties).
    </para>
 
    <sect2 xml:id="CreateProfile.firewall.general">
@@ -11383,12 +11627,11 @@ ls
     <title>Firewall Zones Configuration</title>
 
     <para>
-     The configuration of SUSE Firewall is based on the existence of three network zones.
-     The behavior of each zone can be tweaked in several ways. Thus, there are many almost
-     equivalent &ay; properties that are only different in the name and the zone to
-     which they apply, like <literal>FW_DEV_DMZ</literal> for the demilitarized zone,
-     <literal>FW_DEV_EXT</literal> for the external zone and <literal>FW_DEV_INT</literal>
-     for the internal one.
+     The behavior of each zone can be tweaked in several ways. Therefore, there
+     are many almost equivalent &ay; properties that differs only by name and
+     the zone to which they apply. For example, <literal>FW_DEV_DMZ</literal>
+     for the demilitarized zone, <literal>FW_DEV_EXT</literal> for the external
+     zone and <literal>FW_DEV_INT</literal> for the internal one.
     </para>
 
     <informaltable>
@@ -11872,8 +12115,8 @@ ls
     <title>Configuration Management</title>
 
     <para>
-     &ay; allows delegating part of the configuration to a Configuration
-     Management like Salt:
+     &ay; allows delegating part of the configuration to a configuration
+     management tool like Salt:
     </para>
     <itemizedlist>
      <listitem>
@@ -11884,15 +12127,15 @@ ls
      </listitem>
      <listitem>
       <para>
-       System configuration can be delegated to a Configuration Management
+       System configuration can be delegated to a configuration management
        tool
       </para>
      </listitem>
     </itemizedlist>
     <para>
-     This module configures the connection to a Configuration Management and
+     This module configures the connection to a configuration management and
      uploads SSH keys which are needed for establishing connections. At the
-     end of the installation, the Configuration Management Master will be
+     end of the installation, the configuration management master will be
      contacted to retrieve state files and other resources.
     </para>
 
@@ -11937,12 +12180,12 @@ ls
         </entry>
         <entry>
          <para>
-          Configuration Management type
+          Configuration management type
          </para>
         </entry>
         <entry>
          <para>
-          Configuration Management name. Currently only <literal>salt</literal>
+          Configuration management name. Currently only <literal>salt</literal>
           is supported.
          </para>
         </entry>
@@ -11955,12 +12198,12 @@ ls
         </entry>
         <entry>
          <para>
-          hostname
+          Host name / IP address
          </para>
         </entry>
         <entry>
          <para>
-          Hostname or IP address of the Configuration Management Master.
+          Host name or IP address of the Configuration management master.
          </para>
         </entry>
        </row>
@@ -11977,8 +12220,8 @@ ls
         </entry>
         <entry>
          <para>
-          At the end of installation, &yast; is connecting to Configuration
-          Management Master with maximum <literal>auth_attempts</literal>
+          At the end of installation, &yast; connects to the configuration
+          management master with maximum <literal>auth_attempts</literal>
           attempts. The default is 3 attempts.
          </para>
         </entry>
@@ -11996,7 +12239,7 @@ ls
         </entry>
         <entry>
          <para>
-          Time between the Configuration Management Master connection attempts.
+          Time between the configuration management master connection attempts.
           The default is 15 seconds.
          </para>
         </entry>
@@ -12014,10 +12257,10 @@ ls
         </entry>
         <entry>
          <para>
-          Path to a HTTP server, hard drive, USB drive or similar with
+          Path to a HTTP server, hard disk, USB drive or similar with
           the files <literal>default.key</literal> and
           <literal>default.pub</literal>. This key has to be known to
-          the Configuration Management Master.
+          the configuration management master.
          </para>
         </entry>
        </row>
@@ -12029,12 +12272,12 @@ ls
         </entry>
         <entry>
          <para>
-          true/false
+          True/false
          </para>
         </entry>
         <entry>
          <para>
-          Enabling the Configuration Management services on the client
+          Enables the configuration management services on the client
           side. Default is <literal>true</literal>.
          </para>
         </entry>
@@ -12168,21 +12411,54 @@ ls
 -->
  <chapter xml:id="rulesandclass">
   <title>Rules and Classes</title>
-  <info/>
-  <para/>
+  <para>
+   Rules and classes allow customizing installations for sets of machines in
+   different ways:
+  </para>
+  <itemizedlist>
+   <listitem>
+    <para>
+     Rules allow configuring a system depending on its attributes.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Classes represent configurations for groups of target systems. Classes
+     can be assigned to systems.
+    </para>
+   </listitem>
+  </itemizedlist>
+
+  <important>
+   <title>
+    Not Supported With the <literal>autoyast2</literal> Boot Option
+   </title>
+   <para>
+    Rules and classes are only supported by the boot option
+    <literal>autoyast=<replaceable>URL</replaceable></literal>.
+   </para>
+   <para>
+    <literal>autoyast2=<replaceable>URL</replaceable></literal> does not
+    support rules and classes, because this option downloads a single &ay;
+    control file only.
+   </para>
+  </important>
+
   <sect1 xml:id="rules">
-   <title>Rules-based Automatic Installation</title>
+   <title>Rule-based Automatic Installation</title>
 
    <para>
     Rules offer the possibility to configure a system depending on system
     attributes by merging multiple control files during installation. The
-    rules-based installation is controlled by a rules file. This is useful
-    to install, for example, systems in two departments in one go. Assume a
-    scenario where machines in department A need to be installed as office
-    desktops, whereas machines in department B need to be installed as
-    developer workstations. You would create a rules file with two different
-    rules. For each rule, you could use different system parameters to
-    distinguish the installations from one another. Each rule would also
+    rule-based installation is controlled by a rules file.
+   </para>
+   <para>
+    For example, this could be useful to install systems in two departments in
+    one go. Assume a scenario where machines in department A need to be
+    installed as office desktops, whereas machines in department B need to be
+    installed as developer workstations. You would create a rules file with two
+    different rules. For each rule, you could use different system parameters
+    to distinguish the installations from one another. Each rule would also
     contain a link to an appropriate profile for each department.
    </para>
 
@@ -12238,7 +12514,7 @@ autoyast=http://10.10.0.1/profile/rules/rules.xml</screen>
 
    <para>
     The use of a rules file is optional. If the rules file is not found,
-    system installation proceeds in the classic way by only using the
+    system installation proceeds in the standard way by only using the
     supplied control file or by searching for the control file depending on
     the MAC or the IP address of the system.
    </para>
@@ -12279,16 +12555,16 @@ autoyast=http://10.10.0.1/profile/rules/rules.xml</screen>
 &lt;/autoinstall&gt;</screen>
     </example>
     <para>
-     The last example defines two rules and provides a different control
-     file for every rule. The rule used in this case is
-     <literal>disksize</literal>. After parsing the rules file, &yast;
-     attempts to match the target system with the rules in the
-     <filename>rules.xml</filename> file. A rule match occurs when the
-     target system matches all system attributes defined in the rule. As
-     soon as the system matches a rule, the respective resource is added to
-     the stack of control files &ay; will use to create the final control
-     file. The <literal>continue</literal> property tells &ay; whether it
-     should continue with other rules after a match has been found.
+     The last example defines two rules and provides a different control file
+     for every rule. The rule used in this case is
+     <literal>disksize</literal>. After parsing the rules file, &yast; attempts
+     to match the target system with the rules in the
+     <filename>rules.xml</filename> file. A rule match occurs when the target
+     system matches all system attributes defined in the rule. When the system
+     matches a rule, the respective resource is added to the stack of control
+     files &ay; will use to create the final control file. The
+     <literal>continue</literal> property tells &ay; whether it should continue
+     with other rules after a match has been found.
     </para>
     <para>
      If the first rule does not match, the next rule in the list is examined
@@ -12391,7 +12667,7 @@ fi;
      file name of the control file to fetch. &ay; will read the output and
      fetch a file with the name <filename>intel.xml</filename> or
      <filename>non_intel.xml</filename>. This file can contain the &ay;
-     profile part for the software selection, for example, in case you want
+     profile part for the software selection; for example, in case you want
      a different software selection on intel hardware than on others.
     </para>
     <para>
@@ -13166,7 +13442,7 @@ echo -n 100
    <para>
     In the example above, the file <filename>Software.xml</filename> must be
     placed in the subdirectory <filename>classes/TrainingRoom/</filename> It
-    will get fetched from the same place the &ay; control file and rules
+    will be fetched from the same place the &ay; control file and rules
     were fetched from.
    </para>
 
@@ -13259,9 +13535,9 @@ echo -n 100
    <para>
     A file saved in a class directory can have the same syntax and format as
     a regular control file but represents a subset of the configuration. For
-    example, to create a new control file for a special computer with a
-    specific network interface, only the control file resource which
-    controls the configuration of the network is needed. Having multiple
+    example, to create a new control file for a computer with a
+    specific network interface, you only need the control file resource that
+    controls the configuration of the network. Having multiple
     network types, you can merge the one needed for a special type of
     hardware with other class files and create a new control file which
     suits the system being installed.
@@ -13293,7 +13569,7 @@ echo -n 100
     resulting XML file. This merging process is often confusing for people,
     because it behaves different than one would expect. First of all it is
     important to note that the names of the top sections in the merged XML
-    files need to be in alphabetical order for the merge to succeed.
+    files must to be in alphabetical order for the merge to succeed.
    </para>
 
    <para>
@@ -13513,18 +13789,17 @@ echo -n 100
      infrastructure, see <xref linkend="cha.deployment.remoteinst"/>.</phrase>
     </para>
     <para>
-     A problem you might run into if you do installation via PXE is that the
-     installation will run into an endless loop, because after the first
-     reboot, the machine is doing PXE boot again and restarts the
-     installation instead of booting from hard disk for the second stage of
-     the installation.
+     If you do installation via PXE, the installation will run into an endless
+     loop. This happens because after the first reboot, the machine performs
+     the PXE boot again and restarts the installation instead of booting from
+     the hard disk for the second stage of the installation.
     </para>
     <para>
-     This problem can be solved in different ways. One way is to use an HTTP
-     server to provide the &ay; control file. And, instead of a static
+     There are several ways to solve this problem. You can use an HTTP
+     server to provide the &ay; control file. Alternatively, instead of a static
      control file, run a CGI script on the Web server that provides the
      control file and changes the TFTP server configuration for your target
-     host. Then the next PXE boot of the machine will be from hard disk by
+     host. This way the next boot of the machine will be from the hard disk by
      default.
     </para>
     <para>
@@ -13556,7 +13831,7 @@ echo -n 100
      missing, the IP address will be used for the file name.
     </para>
     <para>
-     If you want to do another auto-installation on the same machine, you
+     To do another auto-installation on the same machine, you
      need to remove the file from the TFTP server.
     </para>
    </sect2>
@@ -13825,8 +14100,8 @@ echo -n 100
     <para>
      The traditional linuxrc configuration file (<filename>info</filename>)
      has the function of giving the client enough information about the
-     installation server and the location of the sources. Usually this file
-     is not needed; it is however needed in special network environments
+     installation server and the location of the sources. Usually, this file
+     is not required; but it is needed in special network environments
      where DHCP and BOOTP are not used or when special kernel modules need
      to be loaded.
     </para>
@@ -13882,10 +14157,10 @@ echo -n 100
         </entry>
         <entry>
          <para>
-          Looks for control file in specified path (relative to the source
-          root directory, for example
-          <literal>file:///autoinst.xml</literal> if in the top directory of
-          a CD-ROM and you did an installation from CD).
+          Looks for the control file in the specified path (relative to the
+          source root directory, for example
+          <literal>file:///autoinst.xml</literal> if in the top directory of a
+          CD-ROM and you did an installation from CD).
          </para>
         </entry>
        </row>
@@ -13897,10 +14172,9 @@ echo -n 100
         </entry>
         <entry>
          <para>
-          Looks for control file on a storage device. Do not specify the
-          full path to the device, but rather the device name only, for
-          example You may also omit specifying the device and trigger
-          &ay; to search all devices
+          Looks for the control file on a storage device. Do not specify the
+          full path to the device, but the device name only. You may also omit
+          specifying the device and trigger &ay; to search all devices
           (<literal>autoyast=device:///<replaceable>FILENAME</replaceable></literal>).
          </para>
         </entry>
@@ -14040,8 +14314,8 @@ echo -n 100
     <para>
      Several scenarios for auto-installation are possible using different
      types of infrastructure and source media. The simplest way is to use
-     the source media (DVD number one) of &productname;. To initiate the
-     auto-installation process however, the auto-installation command line
+     the source media (DVD number one) of &productname;. But to initiate the
+     auto-installation process, the auto-installation command-line
      variable should be entered at system boot-up and the control file
      should be accessible for &yast;.
      </para>
@@ -14094,10 +14368,10 @@ echo -n 100
        </para>
        <para>
         When using a DVD-ROM for auto-installation, it is necessary to
-        instruct the installer to use the DVD-ROM for installation and not
-        try to find the installation files on the network. This can be
-        accomplished by adding the <literal>instmode=cd</literal> option to
-        the kernel command line (this can be automated done by adding the
+        instruct the installer to use the DVD-ROM for installation instead of
+        trying to find the installation files on the network. This can be
+        done by adding the <literal>instmode=cd</literal> option to
+        the kernel command line (this can be automated by adding the
         option to the <filename>isolinux.cfg</filename> file on the DVD).
        </para>
       </listitem>
@@ -14149,7 +14423,7 @@ echo -n 100
     </note>
     <note>
      <title>
-      Difference Between the <literal>autoyast</literal> and
+      Difference between the <literal>autoyast</literal> and
       <literal>autoyast2</literal> Options
      </title>
      <para>
@@ -14394,8 +14668,8 @@ autoyast: file:///info
    </para>
    <para>
     In the following example, an additional software package
-    (<literal>foo</literal>) is going to be installed. In order to run this
-    software, a user needs to be added and an NTP client needs to be configured.
+    (<literal>foo</literal>) is going to be installed. To run this software, a
+    user needs to be added and an NTP client needs to be configured.
    </para>
    <para>
     The respective &ay; profile needs to include a section for the package
@@ -14491,7 +14765,7 @@ autoyast: file:///info
       On all &productname; versions, the automatic installation gets invoked by
       adding <literal>autoyast=&lt;PATH_TO_PROFILE&gt;</literal> to the kernel
       parameter list. So for example adding
-      <literal>autoyast=<replaceable>http://myserver/myconfig.xml</replaceable></literal>
+      <literal>autoyast=http://<replaceable>MYSERVER/MYCONFIG</replaceable>.xml</literal>
       will start an automatic installation where the profile with the &ay;
       configuration gets fetched from the Web server
       <literal>myserver</literal>.  See <xref linkend="invoking_autoinst"/> for
@@ -14549,7 +14823,7 @@ autoyast: file:///info
    <qandaentry xml:id="qa.ay.check_profile">
     <question>
      <para>
-      How can I check the syntax of an created &ay; profile?
+      How can I check the syntax of a created &ay; profile?
      </para>
     </question>
     <answer>
@@ -14626,7 +14900,7 @@ autoyast: file:///info
     </question>
     <answer>
      <para>
-      If you want to merge two profiles, <filename>a.xml</filename> with
+      To merge two profiles, <filename>a.xml</filename> with
       <filename>base.xml</filename>, run the following command:
      </para>
      <screen>/usr/bin/xsltproc --novalid --param replace "'false'" \
@@ -14640,7 +14914,7 @@ autoyast: file:///info
      </para>
      <para>
       The <literal>dontmerge1</literal> parameter is optional and an
-      example of for what to do when you use the <literal>dont_merge</literal>
+      example of what to do when you use the <literal>dont_merge</literal>
       element in your profile. See <xref linkend="merging"/> for more
       information.
      </para>
@@ -14686,7 +14960,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
     <answer>
      <para>
       Actually the order is not important. The order of sections in the profile
-      has no influence on the &ay; workflow. However, if you want to
+      has no influence on the &ay; workflow. However, to
       <emphasis>merge</emphasis> different profiles, sections need to be in
       alphabetical order.
      </para>
@@ -14701,7 +14975,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
     </question>
     <answer>
      <para>
-      Linuxrc found some unsigned file (like a driver update). If you want to
+      Linuxrc found some unsigned file (like a driver update). To
       use such an unsigned file, you can suppress that message by passing
       <literal>insecure=1</literal> to the linuxrc parameter list (together
       with the <literal>autoyast=...</literal> parameter).
@@ -14718,7 +14992,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
     <answer>
      <para>
       You need to pass <literal>ifcfg</literal> to linuxrc. This is required
-      to set up the network, otherwise &ay; will not be able to download the
+      to set up the network, otherwise &ay; cannot download the
       profile from remote. See <xref linkend="ay.adv_network"/> for more
       information.
      </para>
@@ -14908,7 +15182,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
        <entry>
         <para>
          <literal>autoyast:
-         <replaceable>ftp://autoyastfile</replaceable></literal>
+         <replaceable>ftp://AUTOYASTFILE</replaceable></literal>
         </para>
        </entry>
        <entry>
@@ -15383,11 +15657,11 @@ mv /var/run/zypp.sav /var/run/zypp.pid
       <para>
        The general syntax to configure DHCP is
       </para>
-      <screen> ifcfg=<replaceable>INTERFACE</replaceable>=<replaceable>DHCP*</replaceable>,<replaceable>OPTION1</replaceable>=<replaceable>value1</replaceable>,<replaceable>OPTION2</replaceable>=<replaceable>value</replaceable></screen>
+      <screen>ifcfg=<replaceable>INTERFACE</replaceable>=<replaceable>DHCP*</replaceable>,<replaceable>OPTION1</replaceable>=<replaceable>VALUE1</replaceable>,<replaceable>OPTION2</replaceable>=<replaceable>VALUE</replaceable></screen>
       <para>
        where <replaceable>INTERFACE</replaceable> is the interface name, for
        example <literal>eth0</literal>, or <literal>eth*</literal> for all
-       interfaces. <replaceable>dhcp*</replaceable> can either be
+       interfaces. <replaceable>DHCP*</replaceable> can either be
        <literal>dhcp</literal> (IPv4 and IPv6), <literal>dhcp4</literal>, or
        <literal>dhcp6</literal>.
       </para>
@@ -15407,7 +15681,7 @@ mv /var/run/zypp.sav /var/run/zypp.pid
       <para>
        The general syntax to configure a static network is
       </para> <screen>ifcfg=<replaceable>INTERFACE</replaceable>=<replaceable>IP_LIST</replaceable>,<replaceable>GATEWAY_LIST</replaceable>,<replaceable>NAMESERVER_LIST</replaceable>,<replaceable>DOMAINSEARCH_LIST</replaceable>,\
-<replaceable>OPTION1=value1</replaceable>,...</screen>
+<replaceable>OPTION1=VALUE1</replaceable>,...</screen>
       <para>
        where <replaceable>INTERFACE</replaceable> is the interface name, for
        example <literal>eth0</literal>. If using <literal>eth*</literal>, the

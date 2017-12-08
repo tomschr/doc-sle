@@ -1146,10 +1146,9 @@ exit 0
 
    <para>
     During the installation, &yast; is able to update itself to solve bugs in
-    the installer that were discovered after the release. Check out
-    <xref
-    linkend="sec.i.yast2.self_update"/> to find further information
-    about this feature. Use the following tags to configure the self update:
+    the installer that were discovered after the release. Refer to <xref
+    linkend="sec.install.yast2.self_update"/> for further information about
+    this feature. Use the following tags to configure the self update:
    </para>
 
    <variablelist>
@@ -1158,8 +1157,8 @@ exit 0
      </term>
      <listitem>
       <para>
-       This option allows to enable (set it to <literal>true</literal>) or
-       disable (set it to <literal>false</literal>9 the self-update. Setting
+       This option allows to enable (set to <literal>true</literal>) or
+       disable (set to <literal>false</literal> the self-update. Setting
        this value is optional. The default is <literal>true</literal>.
       </para>
 <screen><![CDATA[<general>
@@ -1178,8 +1177,8 @@ exit 0
      <listitem>
       <para>
        Location of the update repository to use during &yast; self-update.
-       Check out <xref linkend="sec.i.yast2.self_update"/> to find further
-       information about this feature.
+       Check out <xref linkend="sec.install.yast2.self_update"/> to find
+       further information about this feature.
       </para>
       <important>
        <title>Installer Self-Update Repository Only</title>
@@ -1364,28 +1363,6 @@ exit 0
       <para>
        See <xref linkend="ay.btrfs_subvolumes"/> for more information.
       </para>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
-     <term><tag class="element">partition_alignment</tag>
-     </term>
-     <listitem>
-      <para>
-       By default the partition alignment is determined by the kernel
-       (<literal>align_optimal</literal>). This can lead to problems with some
-       machines or firmware being unable to boot with that alignment. Use
-       <literal>align_cylinder</literal> in this case. This setting will ensure
-       that partitions always start on a cylinder boundary. Setting this value
-       is optional. The default is <literal>align_optimal</literal>.
-      </para>
-<screen><![CDATA[<general>
- <storage>
-  <partition_alignment config:type="symbol">
-   align_cylinder
-  </partition_alignment>
- <storage>
- ...
-<general>]]></screen>
      </listitem>
     </varlistentry>
     <varlistentry>
@@ -1651,11 +1628,11 @@ echo -n "ldap1.mydom.de"
     <type>symbol</type>
     <selection config:type="list">
      <entry>
-      <value config:type="symbol">reiser</value>
-      <label>default File System (recommended)</label>
+      <value config:type="symbol">btrfs</value>
+      <label>Default File System (recommended)</label>
      </entry>
      <entry>
-      <value config:type="symbol">ext3</value>
+      <value config:type="symbol">xfs</value>
       <label>Fallback File System</label>
      </entry>
     </selection>
