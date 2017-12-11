@@ -3373,12 +3373,12 @@ openssl x509 -noout -fingerprint -sha256
          </entry>
          <entry>
           <para>
-           Values
+           Description
           </para>
          </entry>
          <entry>
           <para>
-            Description
+           Values
           </para>
          </entry>
         </row>
@@ -3549,7 +3549,7 @@ config:type="boolean"&gt;true&lt;/diag&gt;</screen>
    </example>
 
    <informaltable>
-      <tgroup cols="3">
+      <tgroup cols="2">
        <thead>
         <row>
          <entry>
