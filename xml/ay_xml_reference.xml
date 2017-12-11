@@ -1736,4 +1736,154 @@ exit 0]]&lt;</source>
    </example>
   </sect1>
  </chapter>
+
+ <chapter xml:id="CreateProfile.Reporting">
+  <title>Message Handling</title>
+  <para>
+   During the installation the system may display messages and pop-up
+   dialogs .&ay; lets you configure how to handle messages within the
+   report section. Define whether you want to show and/or log these messages
+   and a timeout, after which the message should be closed. The overall
+   structure of the report sections looks like the following:
+  </para>
+  <screen>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE profile&gt;
+&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns"&gt;
+ &lt;report&gt;
+  &lt;<replaceable>MESSAGE_TYPE</replaceable>&gt;
+   &lt;show config:type="boolean"&gt;<replaceable>BOOL</replaceable>&lt;/show&gt;
+   &lt;timeout config:type="integer"&gt;<replaceable>TIMEOUT_IN_SEC</replaceable>&lt;/timeout&gt;
+   &lt;log config:type="boolean"&gt;<replaceable>BOOL</replaceable>&lt;/log&gt;
+  &lt;/messages&gt;
+ &lt;/report&gt;
+&lt;/profile&gt;</screen>
+  <para>
+   The following <replaceable>MESSAGE_TYPE</replaceable>s is supported:
+  </para>
+  <variablelist>
+   <varlistentry>
+    <term><tag class="element">errors</tag></term>
+    <listitem>
+     <para>
+      Error pop-ups are shown in case a critical error occurs. By default,
+      error messages are shown without a timeout and are being logged:
+     </para>
+     <screen><![CDATA[<report>
+  <errors>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">0</timeout>
+   <log config:type="boolean">true</log>
+  </errors>
+ </report>]]></screen>
+     <para>
+      Note: Use a value of <literal>0</literal> seconds for <tag
+      class="element">timeout</tag> to prevent the emssage from being closed
+      automatically.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><tag class="element">warnings</tag></term>
+    <listitem>
+     <para>
+      Warning pop-ups are shown in case a minor error occurs. By
+      default, warning messages are shown with a timeout of 10
+      seconds and are being logged:
+     </para>
+     <screen><![CDATA[<report>
+  <warnings>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">10</timeout>
+   <log config:type="boolean">true</log>
+  </warnings>
+ </report>]]></screen>
+     <para>
+      It is recommended to not completely ignore warnings&mdash;if you choose to
+      not show them, you should at least log them.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><tag class="element">messages</tag></term>
+    <listitem>
+     <para>
+      Message pop-ups show additional, non-critical information. By
+      default, informative messages are shown with a timeout of 10
+      seconds and are being logged:
+     </para>
+     <screen><![CDATA[<report>
+  <messages>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">10</timeout>
+   <log config:type="boolean">true</log>
+  </messages>
+ </report>]]></screen>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term><tag class="element">yesno_messages</tag></term>
+    <listitem>
+     <para>
+      Yes/No pop-ups are shown whenever a decision needs to be made. By
+      default, they are shown with a timeout of 10 seconds and are being
+      logged. If a yes/no dialog times out, a <literal>No</literal> is assumed
+      for answer.
+     </para>
+     <screen><![CDATA[<report>
+  <yesno_messages>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">10</timeout>
+   <log config:type="boolean">true</log>
+  </yesno_messages>
+ </report>]]></screen>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+
+  <note>
+   <title>Fatal System Errors</title>
+   <para>
+    Note that fatal system error messages, for example a missing installation
+    source or a critical partitioning error, are not influenced by the settings
+    in the report section. These messages are always displayed without a
+    timeout and need to be closed manually.
+   </para>
+  </note>
+
+  <example>
+   <title>The report section</title>
+   <para>
+    The default behavior for all four message types has been customized in the
+    following example:
+   </para>
+
+   <screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <report>
+  <messages>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">10</timeout>
+   <log config:type="boolean">false</log>
+  </messages>
+  <warnings>
+   <show config:type="boolean">false</show>
+   <log config:type="boolean">true</log>
+  </warnings>
+  <errors>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">0</timeout>
+   <log config:type="boolean">true</log>
+  </errors>
+  <yesno_messages>
+   <show config:type="boolean">true</show>
+   <timeout config:type="integer">0</timeout>
+   <log config:type="boolean">true</log>
+  </yesno_messages>
+ </report>
+</profile>]]></screen>
+  </example>
+ </chapter>
 </part>
