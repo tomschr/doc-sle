@@ -16,7 +16,7 @@
   <title>General Options</title>
   <para>
    The general section includes all settings that influence the installation
-   workflow. The overall structure of this sections looks like the following:
+   workflow. The overall structure of this section looks like the following:
   </para>
 <screen>&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE profile&gt;
@@ -1744,7 +1744,7 @@ exit 0]]&lt;</source>
    dialogs .&ay; lets you configure how to handle messages within the
    report section. Define whether you want to show and/or log these messages
    and a timeout, after which the message should be closed. The overall
-   structure of the report sections looks like the following:
+   structure of the report section looks like the following:
   </para>
   <screen>&lt;?xml version="1.0"?&gt;
 &lt;!DOCTYPE profile&gt;
@@ -1759,7 +1759,7 @@ exit 0]]&lt;</source>
  &lt;/report&gt;
 &lt;/profile&gt;</screen>
   <para>
-   The following <replaceable>MESSAGE_TYPE</replaceable>s is supported:
+   The following <replaceable>MESSAGE_TYPE</replaceable>s are supported:
   </para>
   <variablelist>
    <varlistentry>
@@ -1885,5 +1885,282 @@ exit 0]]&lt;</source>
  </report>
 </profile>]]></screen>
   </example>
+ </chapter>
+
+ <chapter xml:id="CreateProfile.Register">
+  <title>System Registration</title>
+  <para>
+   To get technical support and product updates, you need to register and
+   activate all &sle; products with the &scc; or a local registration
+   server. Although registering can be done from the installed system, doing it
+   during the installation is recommended, because you will get access to the
+   update, module and extensionrepositories at installation time. To register
+   a product with &ay; use the suse-register section. Also use this section to
+   define modules and extensions for &sle; products. The overall structure of
+   this section looks like the following:
+  </para>
+
+  <screen>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE profile&gt;
+&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
+xmlns:config="http://www.suse.com/1.0/configns"&gt;
+ &lt;suse_register&gt;
+  &lt;do_registration config:type="boolean"&gt;true&lt;/do_registration&gt;
+  &lt;e-mail&gt;&exampleuser_plain;@&exampledomain;&lt;/e-mail&gt;
+  &lt;reg_code&gt;<replaceable>REGISTRATION_CODE</replaceable>&lt;/reg_code&gt;
+  ...
+ &lt;/suse_register&gt;
+&lt;/profile&gt;</screen>
+
+  <para>
+   To register &sle; products, the e-mail address associated to your
+   registration account and the product's registration code are required. If no
+   registration server is specified, the product will be registered with the
+   &scc;.
+  </para>
+  <note>
+   <title>Using the Installation Network Settings</title>
+   <para>
+    In case you want to use the same network settings as for the installation,
+    &ay; needs to run the network setup in stage one right before the
+    registration is started:
+   </para>
+<screen>&lt;networking&gt;
+ &lt;setup_before_proposal config:type="boolean"&gt;true&lt;/setup_before_proposal&gt;
+&lt;/networking&gt;</screen>
+   <para>
+     For more information refer to <xref linkend="CreateProfile.Network"/>.
+   </para>
+  </note>
+
+  <tip>
+   <title>Interactive Registration</title>
+   <para>
+    As an alternative to the fully automated registration described here, &ay;
+    can also be configured to start the interactive &yast; registration module
+    during the installation. This offers the possibility to enter the
+    registration data manually. The following XML code is required:
+   </para>
+   <screen><![CDATA[<?xml version="1.0"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <general>
+  <semi-automatic config:type="list">
+   <semi-automatic_entry>scc</semi-automatic_entry>
+  </semi-automatic>
+ ...
+ </general>
+</profile>]]></screen>
+ </tip>
+ <para>
+  The following tags are supported within the suse_register section:
+ </para>
+ <variablelist>
+  <varlistentry>
+   <term><tag class="element">addons</tag></term>
+   <listitem>
+    <para>
+     Specify a module or extension from the registration server that should be
+     added to the installation repositories. See
+     <xref linkend="CreateProfile.Register.Extension"/> for details.
+    </para>
+    <screen><![CDATA[<suse_register>
+ <addons config:type="list">
+  <addon>
+   ...
+  </addon>
+  ...
+ </addons>
+</suse_register>]]></screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">do_registration</tag></term>
+   <listitem>
+    <para>
+     Specify whether the system should be registered (<literal>true</literal>)
+     or not (<literal>false</literal>. If set to <literal>false</literal> all
+     other options are ignored and the system will not be registered. The
+     default is FIXME.
+    </para>
+    <screen><![CDATA[<suse_register>
+ <do_registration config:type="boolean">true</do_registration>
+ ...
+</suse_register>]]></screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">email</tag></term>
+   <listitem>
+    <para>
+     The e-mail address associated to your registration account. Setting this
+     value is optional. It is not set by default.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;email&gt;&exampleuser_plain;@&exampledomain;&lt;/email&gt;
+ ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">install_updates</tag></term>
+   <listitem>
+    <para>
+     Once the product is registered, you have access to the update repository,
+     which provides the latest updates and patches for the products. When
+     setting this value to <literal>true</literal> these updates are installed,
+     ensuring the product is installed with the latest patch level. Setting
+     this value is optional. It is set to <literal>false</literal> default.
+    </para>
+    <screen><![CDATA[<suse_register>
+ <install_updates config:type="boolean">true</install_updates>
+ ...
+</suse_register>]]></screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">reg_code</tag></term>
+   <listitem>
+    <para>
+     The registration code for the product you are installing. Only provide a
+     single registration code her. Additional codes for extensions&mdash;if
+     required&mdash;need to be provided in the addons-section (see <xref
+     linkend="CreateProfile.Register.Extension"/> for more information). This
+     value is required.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;reg_code&gt;<replaceable>REGISTRATION_CODE</replaceable>&lt;/reg_code&gt;
+ ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">reg_server</tag></term>
+   <listitem>
+    <para>
+     URL for a local registration server. Setting this value is optional. It is
+     not set by default.
+    </para>
+    <para>
+     This setting also affects the self-update feature (see <xref
+     linkend="CreateProfile.General.self_update"/>): If <tag
+     class="element">reg_server</tag> is set here and <tag
+     class="element">self_update_url</tag> from the self update section is
+     unset, the local resgistartion server will also be used to download the
+     installer self-updates.
+    </para>
+    <para>
+     If neither <literal>slp_discovery</literal> nor
+     <literal>reg_server</literal> are set, the system is registered
+     with the &scc;.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;reg_server&gt;
+  https://smt.&exampledomain;
+ &lt;/reg_server&gt;
+  ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">reg_server_cert</tag></term>
+   <listitem>
+    <para>
+     URL of the SSL certificate on the local registration server. Using this
+     option is not recommended, since the certificate that is downloaded will
+     not be verified.  Use <literal>reg_server_cert_fingerprint</literal>
+     instead. Setting this value is optional. It is not set by default.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;reg_server_cert_fingerprint&gt;
+  https://smt.&exampledomain;/smt.crt
+ &lt;/reg_server_cert_fingerprint&gt;
+  ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">reg_server_cert_fingerprint</tag></term>
+   <listitem>
+    <para>
+     Server certificate fingerprint incase-insensitive hexadecimal notion.
+     Requires <tag class="element">reg_server</tag> and <tag
+     class="element">reg_server_cert_fingerprint_type</tag> to be set. Setting
+     this value is optional. It is not set by default.
+    </para>
+    <para>
+     Checking the fingerprint is recommended, since it ensures the SSL
+     certificate is verified.
+     <remark condition="clarity">
+      2017-12-12 - fs: the next sentence sounds wrong
+     </remark>
+     The matching certificate will be automatically
+     imported when the SSL communication fails because of a verification error.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;reg_server_cert_fingerprint&gt;
+  <replaceable>01:AB...:EF</replaceable>
+ &lt;/reg_server_cert_fingerprint&gt;
+  ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">reg_server_cert_fingerprint_type</tag></term>
+   <listitem>
+    <para>
+     Specify the type (<literal>SHA1</literal> or <literal>SHA256</literal>)
+     for the local registration server's SSL certificate fingerprint.  Requires
+     <tag class="element">reg_server</tag> and <tag
+     class="element">reg_server_cert_fingerprint</tag> to be set. Setting this
+     value is optional. It is not set by default.
+    </para>
+    <para>
+     Checking the fingerprint is recommended, since it ensures the SSL
+     certificate is verified.
+     <remark condition="clarity">
+      2017-12-12 - fs: the next sentence sounds wrong
+     </remark>
+     The matching certificate will be automatically
+     imported when the SSL communication fails because of a verification error.
+    </para>
+    <screen>&lt;suse_register&gt;
+ &lt;reg_server_cert_fingerprint_type&gt;
+  SHA256
+ &lt;/reg_server_cert_fingerprint_type&gt;
+  ...
+&lt;/suse_register&gt;</screen>
+   </listitem>
+  </varlistentry>
+  <varlistentry>
+   <term><tag class="element">slp_discovery</tag></term>
+   <listitem>
+    <para>
+     Searches for a local registration server via SLP. Expects to find a single
+     server. If more than one server is found, the installation will fail. In
+     case there is more than one registration server available on your network,
+     you need manually specify one with <tag class="element">reg_server</tag>
+     instead. Setting this value is optional. It is set to
+     <literal>false</literal> default.
+    </para>
+    <para>
+     This setting also affects the self-update feature (see <xref
+     linkend="CreateProfile.General.self_update"/>): If setting
+     <tag class="element">slp_discovery</tag> to false, no SLP search will be
+     performed for the sel-update, either.
+    </para>
+    <para>
+     If neither <literal>slp_discovery</literal> nor
+     <literal>reg_server</literal> are set, the system is registered
+     with the &scc;.
+    </para>
+    <screen><![CDATA[<suse_register>
+ <slp_discovery config:type="boolean">true</slp_discovery>
+ ...
+</suse_register>]]></screen>
+   </listitem>
+  </varlistentry>
+ </variablelist>
  </chapter>
 </part>
