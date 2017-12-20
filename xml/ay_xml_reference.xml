@@ -41,6 +41,9 @@
   &lt;self_update_url&gt;
    ...
   &lt;/self_update_url&gt;
+  &lt;semi-automatic config:type="list"&gt;<co xml:id="co.ay.general.semi"/>
+   ...
+  &lt;/semi-automatic&gt;
   &lt;signature-handling&gt;<co xml:id="co.ay.general.signature"/>
    ...
   &lt;/signature-handling&gt;
@@ -85,9 +88,16 @@
             xrefstyle="HeadingOnPaqge"/>
     </para>
    </callout>
+   <callout arearefs="co.ay.general.semi">
+    <para>
+<!--The Semi-Automatic Section -->
+     <xref linkend="CreateProfile.General.semi_automatic"
+            xrefstyle="HeadingOnPaqge"/>
+    </para>
+   </callout>
    <callout arearefs="co.ay.general.signature">
     <para>
-<!-- CreateProfile.General.signature -->
+<!-- The Signature Section -->
      <xref linkend="CreateProfile.General.signature" xrefstyle="HeadingOnPage"/>
     </para>
    </callout>
@@ -1209,6 +1219,48 @@ exit 0
     </varlistentry>
    </variablelist>
   </sect1>
+
+
+  <sect1 xml:id="CreateProfile.General.semi_automatic">
+   <title>The Semi-Automatic Section</title>
+
+   <para>
+    &ay; offers to start some &yast; modules during the installation. This is
+    useful if you want to give administrators installing the machine the
+    possibility to manually configure some aspects of the installation while at
+    the same time automating the rest of the installation. Withing the
+    semi-automatic section you can start the following &yast; modules:
+   </para>
+   <itemizedlist>
+    <listitem>
+     <para>
+      The network settings module (<literal>networking</literal>)
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      The partitioner (<literal>partitioning</literal>)
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      The registration module (<literal>scc</literal>)
+     </para>
+    </listitem>
+   </itemizedlist>
+   <para>
+    The following example starts all three supported &yast; modules during the
+    installation:
+   </para>
+   <screen><![CDATA[<general>
+ <semi-automatic config:type="list">
+  <semi-automatic_entry>networking</semi-automatic_entry>
+  <semi-automatic_entry>scc</semi-automatic_entry>
+  <semi-automatic_entry>partitioning</semi-automatic_entry>
+ </semi-automatic>
+</general>]]></screen>
+  </sect1>
+
   <sect1 xml:id="CreateProfile.General.signature">
    <title>The Signature Handling Section</title>
 
@@ -1755,8 +1807,9 @@ exit 0]]&lt;</source>
    &lt;show config:type="boolean"&gt;<replaceable>BOOL</replaceable>&lt;/show&gt;
    &lt;timeout config:type="integer"&gt;<replaceable>TIMEOUT_IN_SEC</replaceable>&lt;/timeout&gt;
    &lt;log config:type="boolean"&gt;<replaceable>BOOL</replaceable>&lt;/log&gt;
-  &lt;/messages&gt;
+  &lt;/<replaceable>MESSAGE_TYPE</replaceable>&gt;
  &lt;/report&gt;
+ ...
 &lt;/profile&gt;</screen>
   <para>
    The following <replaceable>MESSAGE_TYPE</replaceable>s are supported:
@@ -1775,6 +1828,7 @@ exit 0]]&lt;</source>
    <timeout config:type="integer">0</timeout>
    <log config:type="boolean">true</log>
   </errors>
+  ...
  </report>]]></screen>
      <para>
       Note: Use a value of <literal>0</literal> seconds for <tag
@@ -1797,6 +1851,7 @@ exit 0]]&lt;</source>
    <timeout config:type="integer">10</timeout>
    <log config:type="boolean">true</log>
   </warnings>
+  ...
  </report>]]></screen>
      <para>
       It is recommended to not completely ignore warnings&mdash;if you choose to
@@ -1818,6 +1873,7 @@ exit 0]]&lt;</source>
    <timeout config:type="integer">10</timeout>
    <log config:type="boolean">true</log>
   </messages>
+  ...
  </report>]]></screen>
     </listitem>
    </varlistentry>
@@ -1836,6 +1892,7 @@ exit 0]]&lt;</source>
    <timeout config:type="integer">10</timeout>
    <log config:type="boolean">true</log>
   </yesno_messages>
+  ...
  </report>]]></screen>
     </listitem>
    </varlistentry>
@@ -1917,6 +1974,7 @@ xmlns:config="http://www.suse.com/1.0/configns"&gt;
   &lt;reg_code&gt;<replaceable>REGISTRATION_CODE</replaceable>&lt;/reg_code&gt;
   ...
  &lt;/suse_register&gt;
+ ...
 &lt;/profile&gt;</screen>
 
    <para>
@@ -1958,6 +2016,7 @@ xmlns:config="http://www.suse.com/1.0/configns"&gt;
   </semi-automatic>
  ...
  </general>
+ ...
 </profile>]]></screen>
    </tip>
    <para>
@@ -1979,6 +2038,7 @@ xmlns:config="http://www.suse.com/1.0/configns"&gt;
   </addon>
   ...
  </addons>
+ ...
 </suse_register>]]></screen>
      </listitem>
     </varlistentry>
@@ -2251,6 +2311,7 @@ PAID EXTENSIONS
    &lt;reg_code&gt;<replaceable>REGISTRATION CODE</replaceable>&lt;/reg_code&gt;
   &lt;/addon&gt;
  &lt;/addons&gt;
+ ...
 &lt;/suse_register&gt;</screen>
 
    <note>
@@ -2298,6 +2359,7 @@ PAID EXTENSIONS
    &lt;arch&gt;<replaceable>ARCHITECTURE</replaceable>&lt;/arch&gt;
   &lt;/addon&gt;
  &lt;/addons&gt;
+ ...
 &lt;/suse_register&gt;</screen>
      </listitem>
     </varlistentry>
@@ -2318,6 +2380,7 @@ PAID EXTENSIONS
    &lt;name&gt;<replaceable>NAME</replaceable>&lt;/name&gt;
   &lt;/addon&gt;
  &lt;/addons&gt;
+ ...
 &lt;/suse_register&gt;</screen>
      </listitem>
     </varlistentry>
@@ -2340,6 +2403,7 @@ PAID EXTENSIONS
    &lt;reg_coden&gt;<replaceable>REGISTRATION_CODE</replaceable>&lt;/reg_code&gt;
   &lt;/addon&gt;
  &lt;/addons&gt;
+ ...
 &lt;/suse_register&gt;</screen>
      </listitem>
     </varlistentry>
@@ -2360,10 +2424,486 @@ PAID EXTENSIONS
    &lt;version&gt;<replaceable>VERSION</replaceable>&lt;/version&gt;
   &lt;/addon&gt;
  &lt;/addons&gt;
+ ...
 &lt;/suse_register&gt;</screen>
      </listitem>
     </varlistentry>
    </variablelist>
+  </sect1>
+ </chapter>
+ <chapter xml:id="CreateProfile.Bootloader">
+  <title>The &grub; Boot Loader</title>
+  <para>
+   Use this section to configure the &grub; boot loader. Doing this is
+   optional, since by default <command>yast2-bootloader</command>
+   automatically proposes a reasonable configuration. Only specify this
+   section in your profile if you need a custom boot loader configuration.
+  </para>
+  <para>
+   The overall structure of the boot loader section looks like the following:
+  </para>
+  <screen>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE profile&gt;
+&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
+         xmlns:config="http://www.suse.com/1.0/configns"&gt;
+ &lt;bootloader&gt;
+  &lt;loader_type&gt;<replaceable>BOOT_LOADER_TYPE</replaceable>&lt;/loader_type&gt;
+  &lt;global&gt;
+   ...
+  &lt;/global&gt;
+  &lt;device_map config:type="list"&gt;
+    ...
+  &lt;/device_map&gt;
+  &lt;/bootloader&gt;
+  ...
+&lt;/profile&gt;</screen>
+
+   <para>
+    The following tags are supported within the boot loader section:
+   </para>
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">loader_type</tag></term>
+     <listitem>
+      <para>
+       Specify the &grub; boot loader type that needs to be installed. On a
+       machine equipped with a traditional BIOS this needs to be
+       <literal>grub2</literal>, on a machine with an EFI setup it needs to be
+       <literal>grub2-efi</literal>. This value is required.
+      </para>
+      <screen><![CDATA[<bootloader>
+<loader_type>grub2-efi</loader_type>
+  ...
+</bootloader>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">global</tag></term>
+     <listitem>
+      <para>
+       Optionally fine-tune the &grub; configuration. See <xref
+       linkend="CreateProfile.Bootloader.globals"/> for details.
+      </para>
+      <screen><![CDATA[<bootloader>
+ <global>
+  ...
+ </global>
+ ...
+</bootloader>]]></screen>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+     <term><tag class="element">device_map</tag></term>
+     <listitem>
+      <para>
+       Optionally define a mapping between BIOS harddrives and Linux devices
+       here. See <xref linkend="CreateProfile.Bootloader.dev_map"/> for
+       details.
+      </para>
+      <screen><![CDATA[<bootloader>
+ <device_map config:type="list">
+  <device_map_entry>
+   ...
+  <device_map_entry>
+  ...
+ </device>
+ ...
+</bootloader>]]></screen>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+
+   <sect1 xml:id="CreateProfile.Bootloader.globals">
+    <title>Configuring &grub;</title>
+    <para>
+     Customize various aspects of the boot loader installation, such as the
+     location and Kernel parameters in the <tag class="element">global</tag>
+     subsection. Defining this section is optional. By default these settings
+     are automatically chosen by the <command>yast2-bootloader</command>
+     command.
+    </para>
+    <screen><![CDATA[<bootloader>
+ <global>
+  <activate config:type="boolean">true</activate>
+  <timeout config:type="integer">10</timeout>
+  <suse_btrfs config:type="boolean">true</suse_btrfs>
+  <terminal>gfxterm</terminal>
+  <gfxmode>1280x1024x24</gfxmode>
+ </global>
+ ...
+</bootloader>]]></screen>
+    <para>
+     The following tags are supported within the global section:
+    </para>
+    <variablelist>
+     <varlistentry>
+      <term><tag class="element">activate</tag></term>
+      <listitem>
+       <para>
+        Sets the boot flag on the boot partition if set to
+        <literal>true</literal>. The boot partition can be a separate partition
+        (<filename>/boot</filename>), the root partition
+        (<filename>/</filename>), or an extended partition. Setting this value
+        is optional. It is set to <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <activate config:type="boolean">true</activate>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">append</tag></term>
+      <listitem>
+       <para>
+        Space-separated list of Kernel parameters for the default boot target
+        and the recovery mode boot target. The parameters will be added to the
+        end of the existing boot parameters list. Setting this value
+        is optional. It is not set by default.
+       </para>
+       <screen>&lt;bootloader&gt;
+ &lt;global&gt;
+  &lt;append&gt;
+   <replaceable>PARAMTER1</replaceable> <replaceable>PARAMETER2=VALUE2</replaceable>
+  &lt;/append&gt;
+  ...
+  &lt;/global&gt;
+ ...
+&lt;/bootloader&gt;</screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">boot_boot</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, install &grub; on the partition
+        mounted as <filename>/boot</filename>. Note that you need to make sure
+        your profile is configured to create a boot partition, see <xref
+        linkend="CreateProfile.Partitioning"/> for details. If
+        <filename>/boot</filename> does not exist &grub; will be installed on
+        the root partition (<filename>/</filename>). Setting this value
+        is optional. It is set to <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <boot_boot config:type="boolean">true</boot_boot>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">boot_custom</tag></term>
+      <listitem>
+       <para>
+        Install the boot loader on a custom device. Setting this value
+        is optional. It is not set by default.
+       </para>
+       <screen>&lt;bootloader&gt;
+ &lt;global&gt;
+  &lt;boot_custom&gt;/dev/sd<replaceable>X</replaceable>&lt;/boot_custom&gt;
+  ...
+  &lt;/global&gt;
+ ...
+&lt;/bootloader&gt;</screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">boot_extended</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, write &grub; to the extended
+        partition (important if you want to use a generic boot code and the
+        <filename>/boot</filename> partition is a logical partition). Setting
+        this value is optional. It is set to <literal>false</literal> by
+        default.
+       </para>
+       <para>
+        Note that if the boot partition is a logical partition, you should use
+        <literal>boot_mbr</literal> (write &grub; to MBR) rather than
+        <literal>generic_mbr</literal>.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <boot_extended config:type="boolean">true</boot_extended>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">boot_mbr</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, write &grub; to the MBR of the first
+        disk (the disk order is defined in the BIOS/EFI or the device
+        map). Setting this value is optional. It is set to
+        <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <boot_mbr config:type="boolean">true</boot_mbr>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">boot_root</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, write &grub; to the root partition
+        (<filename>/</filename>). Setting this value is optional. It is set to
+        <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <boot_root config:type="boolean">true</boot_root>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">generic_mbr</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, write generic boot code to the
+        MBR. Setting this value is optional. It is set to
+        <literal>false</literal> by default. This setting will be ignored when
+        <tag class="element">boot_mbr</tag> is set to <literal>true</literal>.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <generic_mbr config:type="boolean">true</generic_mbr>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">gfxmode</tag></term>
+      <listitem>
+       <para>
+        Graphical resolution of the &grub; screen. Valid entries are
+        <literal>auto</literal>,
+        <literal><replaceable>HORIZONTAL_PX</replaceable>x<replaceable>VERTICAL_PX</replaceable></literal>
+        (for example 1600x1050)
+        or
+        <literal><replaceable>HORIZONTAL_PX</replaceable>x<replaceable>VERTICAL_px</replaceable>x<replaceable>COLOR_DEPTH</replaceable></literal>
+        (for example 1280x1024x24).
+       </para>
+       <para>
+        Setting this value is optional. It is not set by default. If set,
+        requires <tag class="element">terminal</tag> to be set to
+        <literal>gfxterm</literal>.
+       </para>
+       <para>
+        To find out which screen resolution is supported on a particular
+        system, run <command>vbeinfo</command> at the &grub; command line.
+       </para>
+       <screen>&lt;bootloader&gt;
+ &lt;global&gt;
+  &lt;terminal&gt;gfxterm&lt;/terminal&gt;
+  &lt;gfxmode&gt;
+   <replaceable>HORIZONTAL_PX</replaceable>x<replaceable>VERTICAL_px</replaceable>x<replaceable>COLOR_DEPTH</replaceable>
+  &lt;/gfxmode&gt;
+  ...
+  &lt;/global&gt;
+ ...
+&lt;/bootloader&gt;</screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">os_prober</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, automatically searches for operating
+        systems already installed and generates boot entries for them during
+        the installation. Setting this value is optional. It is set to
+        <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <os_prober config:type="boolean">true</os_prober>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">suse_btrfs</tag></term>
+      <listitem>
+       <para>
+        If set to <literal>true</literal>, booting from Btrfs snapshots
+        will be enabled. Setting this value is optional. It is set to
+        <literal>false</literal> by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+ <global>
+  <suse_btrfs config:type="boolean">true</suse_btrfs>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">serial</tag></term>
+      <listitem>
+       <para>
+        Command to execute if the &grub; terminal mode is set to
+        <literal>serial</literal>.
+       </para>
+       <screen><![CDATA[<bootloader>
+<global>
+  <terminal>serial</terminal>
+  <serial>
+   serial --speed=115200 --unit=0 --word=8 --parity=no --stop=1
+  </serial>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">terminal</tag></term>
+      <listitem>
+       <para>
+        Specify the &grub; terminal mode to use, Valid entries are
+        <literal>console</literal> (text mode without a framebuffer),
+        <literal>gfxterm</literal> (graphical mode in a framebuffer), and
+        <literal>serial</literal> (serial console). If set to
+        <literal>serial</literal>, the serial command needs to be specified
+        with &lt;serial&gt;, too. Setting this value is optional. It is not set
+        by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+<global>
+  <terminal>console</terminal>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">timeout</tag></term>
+      <listitem>
+       <para>
+        The timeout in seconds until the default boot entry is booted
+        automatically. Setting this value is optional. It is set to
+        <literal>10</literal> seconds by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+<global>
+  <timeout>4</timeout>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">vgamode</tag></term>
+      <listitem>
+       <para>
+        Appends the Kernel parameter
+        <literal>vga=<replaceable>VALUE</replaceable></literal> to the list of
+        boot parameters. This parameter defines the video mode that is used
+        after the &grub; boot screen. The special value <literal>ask</literal>
+        will prompt to choose an entry from the list of available modes. Setting
+        this value is optional. It is not set by default.
+       </para>
+       <screen><![CDATA[<bootloader>
+<global>
+  <vgamode>0x317</vgamode>
+  ...
+  </global>
+ ...
+</bootloader>]]></screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">xen-append</tag></term>
+      <listitem>
+       <para>
+        Space-separated list of Kernel parameters for &xen; guests. The
+        parameters will be added to the end of the existing boot parameters
+        list. Setting this value is optional. It is not set by default.
+       </para>
+       <screen>&lt;bootloader&gt;
+ &lt;global&gt;
+  &lt;xen_append&gt;
+   <replaceable>PARAMTER1</replaceable> <replaceable>PARAMETER2=VALUE2</replaceable>
+  &lt;/xen_append&gt;
+  ...
+  &lt;/global&gt;
+ ...
+&lt;/bootloader&gt;</screen>
+      </listitem>
+     </varlistentry>
+     <varlistentry>
+      <term><tag class="element">xen-kernel-append</tag></term>
+      <listitem>
+       <para>
+        Space-separated list of Kernel parameters for the &xen; &vmhost;. The
+        parameters will be added to the end of the existing boot parameters
+        list. Setting this value is optional. It is not set by default.
+       </para>
+       <screen>&lt;bootloader&gt;
+ &lt;global&gt;
+  &lt;xen-kernel-append&gt;
+   <replaceable>PARAMTER1</replaceable> <replaceable>PARAMETER2=VALUE2</replaceable>
+  &lt;/xen-kernel-append&gt;
+  ...
+  &lt;/global&gt;
+ ...
+&lt;/bootloader&gt;</screen>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </sect1>
+
+   <sect1 xml:id="CreateProfile.Bootloader.dev_map">
+    <title>Configuring a Device Map</title>
+    <para>
+     In case there is a mismatch between the order of devices in the BIOS/EFI
+     and the Linux system (which may prevent the system from booting), you can
+     define the order of devices in a device map. In such a map you assign
+     device ID strings (UUIDs) or file system labels (<tag
+     class="element">linux</tag>) to BIOS/EFI devices (<tag
+     class="element">firmware</tag>).
+    </para>
+    <para>
+     By default the &grub; utilities create a temporary device map on the fly,
+     which usually should work. Only create e custom device map in case this
+     mechanism fails.
+    </para>
+    <screen><![CDATA[<bootloader>
+ <device_map config:type="list">
+  <device_map_entry>
+   <firmware>hd0</firmware>
+   <linux>/dev/disk/by-id/scsi-SATA_SSD_S1DBNSBDB19215B</linux>
+  </device_map_entry>
+  <device_map_entry>
+   <firmware>hd1</firmware>
+   <linux>/dev/disk/by-id/scsi-SATA-ST3500418AS_6VM23FX0</linux>
+  </device_map_entry>
+ </device_map>
+</bootloader>]]></screen>
+
   </sect1>
  </chapter>
 </part>
