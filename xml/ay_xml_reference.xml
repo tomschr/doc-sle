@@ -2906,4 +2906,103 @@ PAID EXTENSIONS
 
   </sect1>
  </chapter>
+ <chapter xml:id="CreateProfile.Partitioning">
+  <title>Partitioning</title>
+  <para>
+   This section is used to configure partitions, software RAID, logical
+   volumes, mount points and file systems. Configuration options range from
+   automatic partitioning to a manual set up of all partitions. Specifying at
+   least a minimum partition configuration as shown in <xref
+   linkend="ay.auto_partitioning"/> is required.
+  </para>
+  <para>
+   The overall structure of this section looks like the following:
+  </para>
+  <screen>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE profile&gt;
+&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns"&gt;
+ &lt;partitioning config:type="list"&gt;
+  &lt;drive&gt;
+   ...
+ &lt;/partitioning&gt;
+ &lt;partitioning_advanced&gt;
+  &lt;fstab&gt;
+   ...
+  &lt;/fstab&gt;
+ &lt;/partitioning_advanced&gt;
+&lt;/profile&gt;</screen>
+
+  <para>
+   Partitioning the system with &ay; can be a complex task and the partitioning
+   section allows a large number of tags. Therefore this chapter is divided
+   into a reference part and an example part:
+  </para>
+  <itemizedlist>
+   <title>Reference</title>
+   <listitem>
+    <para>
+     Configuring Drives
+    </para>
+    <itemizedlist>
+     <listitem>
+      <para>
+       Configuring Partitions
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Configuring a software RAID
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Configuring Logical Volumes
+      </para>
+     </listitem>
+     <listitem>
+      <para>
+       Configuring Disks on IBM &zseries;
+      </para>
+     </listitem>
+    </itemizedlist>
+   </listitem>
+  </itemizedlist>
+
+  <itemizedlist>
+   <title>Examples</title>
+   <listitem>
+    <para>
+     Automated Partitioning
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Using an Existing <filename>/etc/fstab</filename>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Skipping Devices
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Leaving Partitions Untouched
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Specifying Mount Options
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     Configuring Btrfs Subvolumes
+    </para>
+   </listitem>
+  </itemizedlist>
+
+
+ </chapter>
 </part>
