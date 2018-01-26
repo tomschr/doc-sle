@@ -2918,20 +2918,21 @@ PAID EXTENSIONS
   <para>
    The overall structure of this section looks like the following:
   </para>
-  <screen>&lt;?xml version="1.0"?&gt;
-&lt;!DOCTYPE profile&gt;
-&lt;profile xmlns="http://www.suse.com/1.0/yast2ns"
- xmlns:config="http://www.suse.com/1.0/configns"&gt;
- &lt;partitioning config:type="list"&gt;
-  &lt;drive&gt;
+  <screen><![CDATA[<?xml version="1.0"?&gt;
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <partitioning config:type="list">
+  <drive>
    ...
- &lt;/partitioning&gt;
- &lt;partitioning_advanced&gt;
-  &lt;fstab&gt;
+  <drive>
+ </partitioning>
+ <partitioning_advanced>
+  <fstab>
    ...
-  &lt;/fstab&gt;
- &lt;/partitioning_advanced&gt;
-&lt;/profile&gt;</screen>
+  </fstab>
+ </partitioning_advanced>
+</profile>]]></screen>
 
   <para>
    Partitioning the system with &ay; can be a complex task and the partitioning
@@ -2942,12 +2943,16 @@ PAID EXTENSIONS
    <title>Reference</title>
    <listitem>
     <para>
-     Configuring Drives
+     <!-- Configuring Drives -->
+     <xref linkend="CreateProfile.Partitioning.config"
+           xrefstyle="HeadingOnPage"/>
     </para>
     <itemizedlist>
      <listitem>
       <para>
-       Configuring Partitions
+       <!-- Configuring Partitions -->
+       <xref linkend="ay.partition_configuration"
+           xrefstyle="HeadingOnPage"/>
       </para>
      </listitem>
      <listitem>
@@ -3003,6 +3008,307 @@ PAID EXTENSIONS
    </listitem>
   </itemizedlist>
 
+  <sect1 xml:id="CreateProfile.Partitioning.config">
+   <title>Configuring Devices</title>
+   <para>
+    Use the <tag class="element">drive</tag> section to configure a hard disk,
+    logical volume or a RAID device. If you need to configure multiple devices,
+    a separate <tag class="element">drive</tag> section is required for each
+    device.
+   </para>
+   <screen><![CDATA[<?xml version="1.0"?&gt;
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns"
+ xmlns:config="http://www.suse.com/1.0/configns">
+ <partitioning config:type="list">
+  <drive>
+   <device>/dev/sda</device>
+   ...
+  <drive>
+  <drive>
+   <device>/dev/sdb</device>
+   ...
+  <drive>
+ </partitioning>
+</profile>]]></screen>
+   <para>
+    The following elements are allowed in the <tag class="element">drive</tag>
+    section:
+   </para>
+   <variablelist>
+    <varlistentry>
+     <term><tag class="element">device</tag></term>
+     <listitem>
+      <para>
+       The device you want to configure in this <tag
+       class="element">drive</tag> section. For hard disks you may use
+       traditional device names like <filename>/dev/sda</filename> or the
+       persistent names that cane be found in
+       <filename>/dev/disk/by-id/</filename> or
+       <filename>/dev/disk/by-path/</filename>.
+      </para>
+      <para>
+       For RAID devices alwasy use
+       <filename>dev/md<replaceable>X</replaceable></filename> (replace
+       <replaceable>X</replaceable> with the respective device number. For
+       logical volumes use
+       <filename>/dev/<replaceable>GROUPNAME</replaceable></filename>.
+      </para>
+      <para>
+       Alternatively, use <literal>ask</literal> as a value for <tag
+       class="element">device</tag>. In this case the user will be asked, which
+       device to use.
+      </para>
+      <para>
+       By default this value is not set. Setting it is optional. If not set,
+       &ay; tries to guess which device to use. See <xref
+       linkend="ay.partitioning.skip_devices"/> on how to configure
+       device-guessing.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <device>
+    /dev/disk/by-id/ata-INTEL_SSDSA2M120G2GC_CVPO012345LH120QGN
+   </device>
+   ...
+  <drive>
+  <drive>
+   <device>
+    /dev/disk/by-path/pci-0000:00:11.0-ata-2
+   </device>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">disklabel</tag></term>
+     <listitem>
+      <para>
+       Use this element to specify which partition table to create. Valid
+       values are <literal>msdos</literal> or <literal>gpt</literal>.
+      </para>
+      <para>
+       By default this value is not set. Setting it is optional. If not set,
+       &ay; automatically decides which partition table to use. In case the
+       device already contains a partition table and one or more partitions
+       that should be reused (see <xref linkend="ay.partition_advanced.keep"/>)
+       the existing partition table will be kept in any case.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <disklabel>gpt</disklabel>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">enable_snapshots</tag></term>
+     <listitem>
+      <para>
+       Enable snapshots for Btrfs file systems. Only applies if your root file
+       system is formatted with Btrfs. For more information on snapshots, refer
+       to <xref linkend="cha.sanpper"/>.
+      </para>
+      <para>
+       Setting this value is optional. The default value is
+       <literal>false</literal>.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <enable_snapshots config:type="boolean">
+    false
+   </enable_snapshots>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">initialize</tag></term>
+     <listitem>
+      <para>
+       If set to <literal>true</literal>, the partition table gets wiped out
+       before &ay; starts the partition calculation. Setting this value is
+       optional. The default value is <literal>false</literal>.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <initialize config:type="boolean">
+    false
+   </initialize>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">keep_unknown_lv</tag></term>
+     <listitem>
+      <para>
+        If you are reusing a logical volume group and you set this to true, all
+        existing logical volumes in that group will not be touched unless they
+        are specified in the <tag class="element">partitioning</tag> section.
+        This allows to reuse an existing volume group without having to
+        configure it.
+      </para>
+      <para>
+       Setting this value is optional. The default value is
+       <literal>false</literal>. It is onyl evaluated if <tag
+       class="element">type</tag> is set to <literal>CT_LVM</literal>.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <type>CT_LVM</type>
+   <keep_unknown_lv config:type="boolean">
+    false
+   </keep_unknown_lv>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">partitions</tag></term>
+     <listitem>
+      <para>
+       Specify the number and layout of partitions that should be created on
+       this device. See <xref linkend="ay.partition_configuration"/> for
+       details.
+      </para>
+      <para>
+       Setting this value is optional. By default it is not set. If no
+       partitions are specified, &ay; will automatically create all required
+       partitions, see <xref linkend="ay.auto_partitioning"/> for details.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <partitions config:type="list">
+    <partition>
+     ...
+    </partition>
+    <partition>
+     ...
+    </partition>
+    ...
+   </partitions>
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">pesize</tag></term>
+     <listitem>
+      <para>
+       Define the physical extend size (block size) for a logical volume. All
+       the disk space in a volume group is handled in chunks of this
+       size. Values can be from 1 KB to 16 GB in powers of 2. This value is
+       normally set to 4 MB.
+      </para>
+      <para>
+       Setting this value is optional. The default value is
+       <literal>4M</literal>. It is onyl evaluated if <tag
+       class="element">type</tag> is set to <literal>CT_LVM</literal>.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+ <drive>
+   <type>CT_LVM</type>
+   <pesize>8M<pesize/>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term><tag class="element">type</tag></term>
+     <listitem>
+      <para>
+       Specify the device type&mdash;valid values are
+       <literal>CT_DISK</literal> for a physical hard disk or
+       <literal>CT_LVM</literal> for a logical value group. Setting this value
+       is optional. The default value is <literal>CT_DISK</literal>.
+      </para>
+      <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <type>CT_DISK</type>
+   ...
+  <drive>
+ </partitioning>]]></screen>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>use</term>
+     <listitem>
+      <para>
+       Specify which parts of the device &ay; may use for
+       partitioning. Setting this value is required. It is not set by
+       default. Possible value are:
+      </para>
+      <simplelist>
+       <member>
+        <literal>all</literal>: use the whole device
+       </member>
+       <member>
+        <literal>linux</literal>: use existing Linux partitions only
+       </member>
+       <member>
+        <literal>free</literal>: use unpartitioned space only, do not
+        touch existing partitions
+       </member>
+       <member>
+        <literal><replaceable>1,2,3</replaceable></literal>: comma-separated
+        list of partitions that should be used
+        <remark condition="clarity">
+         2018-01-26 - fs: It is unclear where these numbers come from. How
+         would one know which numbers to use? It is also unclear which values
+         to use for automatic and which for manual partitioning.
+        </remark>
+       </member>
+      </simplelist>
+     </listitem>
+    </varlistentry>
+   </variablelist>
 
+   <sect2 xml:id="ay.partition_configuration">
+    <title>Configuring Partitions</title>
+    <para>
+     The <tag class="element">partitions</tag> section allows you to manually
+     define partitions &ay; should create, or&mdash;if existing&mdash;use. The
+     elements listed below must be placed within the following XML structure:
+    </para>
+    <screen><![CDATA[
+ <partitioning config:type="list">
+  <drive>
+   <partitions config:type="list">
+    <partition>
+     ...
+    </partition>
+    <partition>
+     ...
+    </partition>
+    ...
+   </partitions>
+  <drive>
+ </partitioning>]]></screen>
+
+   </sect2>
+  </sect1>
+
+
+  <!-- Move Skipping partitions to automated partitioning -->
+
+  <!--
+      Warning: IBM z Systems: LVM Root File System
+If you configure the system with an root file system on LVM or software raid array, you must place /boot on a separate, non-LVM or non-Raid partition, otherwise the system will fail to boot. The recommended size for such a partition is 500 MB and the recommended file system is Ext4.
+-->
  </chapter>
 </part>
