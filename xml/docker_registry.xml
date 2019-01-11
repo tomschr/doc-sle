@@ -18,7 +18,7 @@
   sensitive data or proprietary software.
  </para>
  <para>
-  If you need to restrict access to your &docker; images, there are two options:
+  If you need to restrict access to your &docker; images, there are the following options:
  </para>
  <itemizedlist>
   <listitem>
