@@ -101,6 +101,31 @@
    </varlistentry>
   </variablelist>
  </sect1>
+ <sect1 xml:id="sec.docker.registry.limitations">
+  <title>Limitations</title>
+
+  <para>
+   The &dreg; has two major limitations:
+  </para>
+
+  <itemizedlist>
+   <listitem>
+    <para>
+     It lacks any form of authentication. That means everybody with access to
+     the &dreg; can push and pull images to it. That also includes the
+     possibility to overwrite already existing images.
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     There is no way to see which images have been pushed to the &dreg;.
+     You need to manually take notes of what is being stored inside
+     of it. There is also no search functionality, which makes collaboration
+     harder.
+    </para>
+   </listitem>
+  </itemizedlist>
+ </sect1>
  <sect1 xml:id="sec.docker.registry.installation">
   <title>Installing and Setting Up &dreg;</title>
 
@@ -157,31 +182,6 @@
    official documentation at:
    <link xlink:href="https://docs.docker.com/registry/"/>.
   </para>
- </sect1>
- <sect1 xml:id="sec.docker.registry.limitations">
-  <title>Limitations</title>
-
-  <para>
-   The &dreg; has two major limitations:
-  </para>
-
-  <itemizedlist>
-   <listitem>
-    <para>
-     It lacks any form of authentication. That means everybody with access to
-     the &dreg; can push and pull images to it. That also includes the
-     possibility to overwrite already existing images.
-    </para>
-   </listitem>
-   <listitem>
-    <para>
-     There is no way to see which images have been pushed to the &dreg;.
-     You need to manually take notes of what is being stored inside
-     of it. There is also no search functionality, which makes collaboration
-     harder.
-    </para>
-   </listitem>
-  </itemizedlist>
  </sect1>
  <sect1 xml:id="sec.docker.portus">
   <title>Portus</title>
