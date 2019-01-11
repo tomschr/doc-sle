@@ -178,8 +178,8 @@
      In a production environment you typically need a cluster with many
      containers on each cluster node. The containers must cooperate and you
      need a framework that enables you to manage the containers automatically.
-     The act of automatic container management is called container
-     orchestration and is typically handled by Kubernetes.
+     The act of automatic container management is called <emphasis>container
+     orchestration</emphasis> and is typically handled by Kubernetes.
     </para>
    </listitem>
   </varlistentry>
