@@ -65,6 +65,12 @@
   </para>
  <screen>&prompt.user;docker pull registry.suse.com/suse/sle15</screen>
 
+
+  <para>
+   Alternatively, for &productname; 12, use:
+  </para>
+ <screen>&prompt.user;docker pull registry.suse.com/suse/sle12</screen>
+
   <para>
    Pre-built images do not have repositories configured. But when the &docker;
    host has a &slea; subscription that provides access to the product used in the
