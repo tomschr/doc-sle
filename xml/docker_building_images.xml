@@ -61,15 +61,15 @@
   <screen>&prompt.user;docker pull registry.suse.com/suse/<replaceable>IMAGENAME</replaceable></screen>
 
   <para>
-   For example, to get the one for &productname; 15, use:
+   For example, to get the one for &productname;&nbsp;12 SP4, use:
   </para>
- <screen>&prompt.user;docker pull registry.suse.com/suse/sle15</screen>
+ <screen>&prompt.user;docker pull registry.suse.com/suse/sles12sp4</screen>
 
 
   <para>
-   Alternatively, for &productname; 12, use:
+   Alternatively, for &productname;&nbsp;15, use:
   </para>
- <screen>&prompt.user;docker pull registry.suse.com/suse/sle12</screen>
+ <screen>&prompt.user;docker pull registry.suse.com/suse/sle15</screen>
 
   <para>
    Pre-built images do not have repositories configured. But when the &docker;
