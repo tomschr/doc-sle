@@ -43,7 +43,7 @@
   <para>
    KIWI is a command line tool that enables you to build images in a
    variety of formats. You can use the tool to build a base &docker; image of
-   &slsa;. For more details about KIWI installation and usage, please refer
+   &slsa;. For more details about KIWI installation and usage, refer
    to the
    <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.introduction">KIWI documentation</link>.
   </para>
