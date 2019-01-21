@@ -129,7 +129,7 @@
    <link xlink:href="https://github.com/SUSE/container-suseconnect">zypper
    service</link> that contacts either the &sccreg; (&scc;) or your
    &rmtool; (&rmt;) server, according to the configuration of
-   the SLE host that runs the &docker; container. The service obtains the list of
+   the &slea; host that runs the &docker; container. The service obtains the list of
    repositories available for the product used by the &docker; image. You can
    also directly declare extensions in your <filename>Dockerfile</filename>
    (for details refer to
@@ -181,18 +181,30 @@
 
   <para>
    Now you can create a custom &docker; image by using a
-   <literal>Dockerfile</literal> as described in <xref
-   linkend="sec.docker.sle_images.customizing_the_images.sles12"
-   xrefstyle="select:label"/> and <xref
-   linkend="sec.docker.sle_images.customizing_the_images.sles15"
-   xrefstyle="select:label"/>. In
-   case you would like to move your application to a &docker; container,
+   <literal>Dockerfile</literal>. If you want to create a custom image, refer to
+  </para>
+
+  <itemizedlist>
+   <listitem>
+    <para>
+     <xref linkend="sec.docker.sle_images.customizing_the_images.sles12"/>
+    </para>
+   </listitem>
+   <listitem>
+    <para>
+     <xref linkend="sec.docker.sle_images.customizing_the_images.sles15"/>
+    </para>
+   </listitem>
+  </itemizedlist>
+
+  <para>
+   In case you would like to move your application to a &docker; container,
    refer to <xref linkend="docker.dockerizing.application"/>.
    After you have edited the <filename>Dockerfile</filename>, build the image by
    running the following command in the same directory in which the
    <filename>Dockerfile</filename> resides:
   </para>
-<screen>&prompt.user;docker build .</screen>
+  <screen>&prompt.user;docker build .</screen>
 
   <sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles12">
    <title>Creating a Custom &slea;&nbsp;12 Image</title>
