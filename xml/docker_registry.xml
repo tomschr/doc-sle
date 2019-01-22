@@ -200,7 +200,7 @@
    <literal>2.4.0</literal> tag, run the following command:
   </para>
 
-  <screen>&prompt.user;<command>docker pull registry.suse.com/sles12/portus:2.4.0</command></screen>
+  <screen>&prompt.user;docker pull registry.suse.com/sles12/portus:2.4.0</screen>
 
   <para>
    In addition to the official version of the Portus image from
