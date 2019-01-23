@@ -21,6 +21,7 @@
   virtual machines. However, &deng; only provides operating system-level
   virtualization where the Linux kernel controls isolated containers.
  </para>
+ <sect1 xml:id="sec.docker.installation.terminology">
  <para>
   Before going into detail about &deng;, let us define some of the terms used:
  </para>
@@ -184,6 +185,7 @@
    </listitem>
   </varlistentry>
  </variablelist>
+ </sect1>
  <para>
   &deng; is a platform that allows developers and system administrators to
   manage the complete lifecycle of images. &deng; makes it easy to build, ship
