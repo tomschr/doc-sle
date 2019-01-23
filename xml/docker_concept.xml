@@ -187,11 +187,6 @@
  </variablelist>
  </sect1>
  <para>
-  &deng; is a platform that allows developers and system administrators to
-  manage the complete lifecycle of images. &deng; makes it easy to build, ship
-  and run images containing applications.
- </para>
- <para>
   &deng; provides you with the following advantages:
  </para>
  <itemizedlist>
