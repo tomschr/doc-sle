@@ -109,12 +109,6 @@
   </variablelist>
 
   <para>
-   Pre-built images do not have repositories configured. But when the &docker;
-   host has a &slea; subscription that provides access to the product used in the
-   image, Zypper will automatically have access to the right repositories.
-  </para>
-
-  <para>
    You can customize the &docker; image as described in
    <xref linkend="Customizing_Pre-build_Images"/>.
   </para>
