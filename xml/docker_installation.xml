@@ -8,9 +8,9 @@
  xmlns="http://docbook.org/ns/docbook" version="5.0"
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <title>&deng; Installation</title>
+ <title>Setting Up &deng;</title>
  <sect1 xml:id="Preparation">
-  <title>General Preparation</title>
+  <title>Preparing the Host</title>
 
   <para>
    Prepare the host as described below. Before installing any &docker;-related
@@ -35,7 +35,7 @@
   <!--taroth 2015-07-02: http://doccomments.provo.novell.com/comments/28724 -->
 
   <procedure>
-   <title>Enabling the Container Module Using &yast;</title>
+   <title>Enabling the Container Module Using Graphical User Interface &yast;</title>
    <step>
 
     <para>
@@ -72,7 +72,7 @@
   </procedure>
 
   <procedure>
-   <title>Enabling the Container Module Using SUSEConnect</title>
+   <title>Enabling the Container Module from Command Line Using SUSEConnect</title>
    <step>
     <para>
      The Container Module can be added also with the following command:
@@ -107,7 +107,7 @@
    </step>
    <step>
     <para>
-     In case you will use Portus and an SSL secured registry, open the
+     If you will use Portus and an SSL secured registry, open the
      <filename>/etc/sysconfig/docker</filename> file. Search for the parameter
      <parameter>DOCKER_OPTS</parameter> and add <literal>--insecure-registry
      <replaceable>ADDRESS_OF_YOUR_REGISTRY</replaceable></literal>.
