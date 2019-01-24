@@ -69,7 +69,7 @@
     It is possible to specify which driver to use by changing the value of the
     <envar>DOCKER_OPTS</envar> variable defined inside of the
     <filename>/etc/sysconfig/docker</filename> file. This can be done either
-    manually or using &yast; by browsing to <menuchoice>
+   manually or using &yast; by browsing to <menuchoice>
     <guimenu>System</guimenu> <guimenu>/etc/sysconfig Editor</guimenu>
     <guimenu>System</guimenu> <guimenu>Management</guimenu>
     <guimenu>DOCKER_OPTS</guimenu> </menuchoice> menu and entering the
