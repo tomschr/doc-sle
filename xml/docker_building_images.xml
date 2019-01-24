@@ -79,19 +79,19 @@
        <para>
         Get the proper image name with <literal>sle2docker</literal> by running
        </para>
-       <screen>sle2docker list</screen>
+       <screen>&prompt.user;sle2docker list</screen>
       </step>
       <step>
        <para>
         Activate the image by using the image name from the previous step:
        </para>
-       <screen>sle2docker activate <emphasis>PRE-BUILT_IMAGE_NAME</emphasis></screen>
+       <screen>&prompt.user;sle2docker activate <emphasis>PRE-BUILT_IMAGE_NAME</emphasis></screen>
       </step>
       <step>
        <para>
         Check if the image was successfully activated by running
        </para>
-       <screen>sle2docker</screen>
+       <screen>&prompt.user;sle2docker</screen>
       </step>
      </procedure>
     </listitem>
