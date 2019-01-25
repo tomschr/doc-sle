@@ -180,12 +180,12 @@
   <itemizedlist>
    <listitem>
     <para>
-     <xref linkend="sec.docker.sle_images.customizing_the_images.sles12"/>
+     <xref linkend="sec.docker.sle_images.customizing_the_images.sles12sp2"/>
     </para>
    </listitem>
    <listitem>
     <para>
-     <xref linkend="sec.docker.sle_images.customizing_the_images.sles15"/>
+     <xref linkend="sec.docker.sle_images.customizing_the_images.sles12sp3"/>
     </para>
    </listitem>
   </itemizedlist>
@@ -199,13 +199,13 @@
   </para>
   <screen>&prompt.user;docker build .</screen>
 
-  <sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles12">
-   <title>Creating a Custom &slea;&nbsp;12 Image</title>
+  <sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles12sp2">
+   <title>Creating a Custom Image up to &slea;&nbsp;12 SP2</title>
    <para>
     The following <filename>Dockerfile</filename> creates a simple &docker; image based on
-    &slea;&nbsp;12 SP4:
+    &slea;&nbsp;11 SP4:
    </para>
-<screen>FROM registry.suse.com/suse/sles12sp4
+<screen>FROM suse/sles11sp4
 
 RUN zypper ref -s
 RUN zypper -n in vim</screen>
@@ -217,7 +217,7 @@ RUN zypper -n in vim</screen>
     SMT has been replaced by RMT (Repository Mirroring Tool) meanwhile - @DEV:
     please check</remark>
    </para>
-<screen>FROM registry.suse.com/suse/sles12sp4
+<screen>FROM suse/sles11sp4
 
 # Import the crt file of our private SMT server
 ADD http://smt.test.lan/smt.crt /etc/pki/trust/anchors/smt.crt
@@ -227,8 +227,8 @@ RUN zypper ref -s
 RUN zypper -n in vim</screen>
   </sect2>
 
-<sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles15">
-   <title>Creating a Custom &slea;&nbsp;15 Image</title>
+<sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles12sp3">
+   <title>Creating a Custom Image for &slea;&nbsp;12 SP3 and later</title>
    <para>
     The following <filename>Dockerfile</filename> creates a simple &docker; image based on
     &slea;&nbsp;15:
