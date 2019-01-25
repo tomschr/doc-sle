@@ -37,18 +37,20 @@
    </para>
   </listitem>
  </itemizedlist>
- <para>
-  The container typically exits if its main process finishes. For example, if
-  your container starts a particular application, as soon as you quit the
-  application, the container exits. You can start the container again by
-  running:
- </para>
- <screen>&prompt.user;docker start -ai &lt;container name&gt;</screen>
- <para>
-  You may need to remove unused containers, you can achieve this by using:
- </para>
- <screen>&prompt.user;docker rm &lt;container name&gt;</screen>
-
+ <sect1 xml:id="Starting.Containers">
+  <title>Starting Containers</title>
+  <para>
+   The container typically exits if its main process finishes. For example, if
+   your container starts a particular application, as soon as you quit the
+   application, the container exits. You can start the container again by
+   running:
+  </para>
+  <screen>&prompt.user;docker start -ai &lt;container name&gt;</screen>
+  <para>
+   You may need to remove unused containers, you can achieve this by using:
+  </para>
+  <screen>&prompt.user;docker rm &lt;container name&gt;</screen>
+ </sect1>
  <sect1 xml:id="Linking.Containers">
   <title>Linking Containers</title>
 
