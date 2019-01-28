@@ -97,7 +97,7 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>&slsa;&nbsp;12 SP3 and better</term>
+    <term>&slsa;&nbsp;12 SP3 and later</term>
     <listitem>
      <screen>&prompt.user;docker pull registry.suse.com/suse/<replaceable>IMAGENAME</replaceable></screen>
      <para>
