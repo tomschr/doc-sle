@@ -84,7 +84,7 @@
   The following section provides examples and tips on creating &docker; images
   for applications. Prior to reading further, make sure that you have
   activated your &slsa; base &docker; image as described in
-  <xref linkend="Building_Pre-build_Images"/>.
+  <xref linkend="Downloading_Pre-build_Images"/>.
  </para>
  <sect1 xml:id="Application_with_specific_dependencies">
   <title>Running an Application with Specific Package Versions</title>
@@ -329,7 +329,7 @@ CMD ["-D", "FOREGROUND"]</screen>
    <calloutlist>
     <callout arearefs="co.dockerfile.apache2.from">
      <para>
-      Base image, taken from <xref linkend="Building_Pre-build_Images"/>.
+      Base image, taken from <xref linkend="Downloading_Pre-build_Images"/>.
      </para>
     </callout>
     <callout arearefs="co.dockerfile.apache2.maintainer">
@@ -407,7 +407,7 @@ CMD ["-D", "FOREGROUND"]</screen>
      <step>
       <para>
        Make sure the &sle; images from the &suse; Registry are installed,
-       as described in <xref linkend="Building_Pre-build_Images"/>.
+       as described in <xref linkend="Downloading_Pre-build_Images"/>.
       </para>
      </step>
      <step>

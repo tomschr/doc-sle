@@ -11,49 +11,10 @@
  <title>Creating Custom &docker; Images</title>
  <para>
   For creating your custom image, you need a base &docker; image of &slsa;. You
-  can use any of the pre-built &slsa; images that you can obtain as described
-  in <xref linkend="Customizing_Pre-build_Images"/>.
+  can use any of the pre-built &slsa; images that you can obtain as described below.
  </para>
 
- <para>
-  After you obtain your base &docker; image, you can modify the image by using a
-  <filename>Dockerfile</filename> (usually placed in the build directory). Then
-  use the standard <command>docker</command> building tool to create your custom image:
- </para>
- <screen>&prompt.user;docker build <replaceable>PATH_TO_BUILD_DIRECTORY</replaceable></screen>
- <para>
-  For more information about <literal>docker build</literal> options, see the
-  <link xlink:href="https://docs.docker.com/engine/reference/commandline/build/">official
-  Docker documentation</link>.
- </para>
- <note>
-  <title>Creating a &docker; Image for an Application</title>
-  <para>
-   For information about creating a <filename>Dockerfile</filename> for the
-   application you want to run inside a &docker; container, see
-   <xref linkend="docker.dockerizing.application"/>.
-  </para>
- </note>
- <!-- This section is commented out after discussion with Federica as KIWI
- should not be used for building base images outside SUSE. Even though it is
- possible, the only supported way is to activate pre-built images of SLES -->
- <!--
- <sect1 xml:id="Building_Base_Images_KIWI">
-  <title>Building Base &slsa; Images with KIWI</title>
-  <para>
-   KIWI is a command line tool that enables you to build images in a
-   variety of formats. You can use the tool to build a base &docker; image of
-   &slsa;. For more details about KIWI installation and usage, refer
-   to the
-   <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.introduction">KIWI documentation</link>.
-  </para>
-  <para>
-   The procedure of building &docker; images is given in the
-   <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.docker">Docker Images chapter</link>.
-  </para>
- </sect1>
- -->
- <sect1 xml:id="Building_Pre-build_Images">
+ <sect1 xml:id="Downloading_Pre-build_Images">
   <title>Downloading Base &slsa; Images</title>
 
   <para>
@@ -193,11 +154,46 @@
   <para>
    In case you would like to move your application to a &docker; container,
    refer to <xref linkend="docker.dockerizing.application"/>.
-   After you have edited the <filename>Dockerfile</filename>, build the image by
+  </para>
+  <para> After you have edited the <filename>Dockerfile</filename>, build the image by
    running the following command in the same directory in which the
    <filename>Dockerfile</filename> resides:
   </para>
   <screen>&prompt.user;docker build .</screen>
+
+  <para>
+   For more information about <literal>docker build</literal> options, see the
+   <link xlink:href="https://docs.docker.com/engine/reference/commandline/build/">official
+   Docker documentation</link>.
+  </para>
+  <note>
+   <title>Creating a &docker; Image for an Application</title>
+   <para>
+    For information about creating a <filename>Dockerfile</filename> for the
+    application you want to run inside a &docker; container, see
+    <xref linkend="docker.dockerizing.application"/>.
+   </para>
+  </note>
+
+ <!-- This section is commented out after discussion with Federica as KIWI
+ should not be used for building base images outside SUSE. Even though it is
+ possible, the only supported way is to activate pre-built images of SLES -->
+ <!--
+ <sect1 xml:id="Building_Base_Images_KIWI">
+  <title>Building Base &slsa; Images with KIWI</title>
+  <para>
+   KIWI is a command line tool that enables you to build images in a
+   variety of formats. You can use the tool to build a base &docker; image of
+   &slsa;. For more details about KIWI installation and usage, refer
+   to the
+   <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.introduction">KIWI documentation</link>.
+  </para>
+  <para>
+   The procedure of building &docker; images is given in the
+   <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.docker">Docker Images chapter</link>.
+  </para>
+ </sect1>
+ -->
 
   <sect2 xml:id="sec.docker.sle_images.customizing_the_images.sles12sp2">
    <title>Creating a Custom Image up to &slea;&nbsp;12 SP2</title>
