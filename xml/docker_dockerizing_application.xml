@@ -23,6 +23,7 @@
   following advantages:
  </para>
  <itemizedlist>
+  <title>Advantages of Running Applications Inside a &docker; Container</title>
   <listitem>
    <para>
     You can minimize the runtime environment of the application as you can add
@@ -58,6 +59,7 @@
   Using &deng; to build applications has the following advantages:
  </para>
  <itemizedlist>
+  <title>Advantages of Using &deng; to Build Applications</title>
   <listitem>
    <para>
     You can prepare a complete building image.
