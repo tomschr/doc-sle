@@ -21,8 +21,8 @@
   virtual machines. However, &deng; only provides operating system-level
   virtualization where the Linux kernel controls isolated containers.
  </para>
- <sect1 xml:id="sec.docker.installation.terminology">
-  <title>Terminology</title>
+ <sect1 xml:id="sec.docker.installation.terminology_deng">
+  <title>&deng; Terminology</title>
   <para>
    Before going into detail about &deng;, let us define some of the terms used:
   </para>
@@ -187,7 +187,7 @@
    </varlistentry>
   </variablelist>
  </sect1>
- <sect1 xml:id="sec.docker.concept.advantages">
+ <sect1 xml:id="sec.docker.concept.advantages_deng">
   <title>Advantages of &deng;</title>
   <para>
    &deng; provides you with the following advantages:
@@ -227,7 +227,7 @@
    </listitem>
   </itemizedlist>
  </sect1>
- <sect1 xml:id="sec.docker.concept.limitations">
+ <sect1 xml:id="sec.docker.concept.limitations_deng">
   <title>Limitations of &deng;</title>
   <para>
    On the other hand, &deng; has the following limitations:
@@ -258,7 +258,7 @@
    </listitem>
   </itemizedlist>
  </sect1>
- <sect1 xml:id="sec.docker.concept.architecture">
+ <sect1 xml:id="sec.docker.concept.architecture_deng">
   <title>&deng; Architecture</title>
   <para>
    &deng; uses a client/server architecture. You can use the <emphasis>CLI
@@ -278,5 +278,96 @@
     </imageobject>
    </mediaobject>
   </figure>
+ </sect1>
+
+ <sect1 xml:id="sec.docker.concept.definition_dreg">
+  <title>&dreg;</title>
+
+  <para>
+   The &dreg; is an open-source project created by Docker Inc. It
+   allows the storage and retrieval of &docker; images. By running a local
+   instance of the &dreg; it is possible to completely avoid usage of
+   &dhub;.
+  </para>
+
+  <para>
+   &dreg; is also used by &dhub;. However, &dhub;,
+   as seen from the user perspective, is made of the following parts at least:
+  </para>
+
+  <sect2 xml:id="sec.docker.concept.terminology_dreg">
+   <title>&dreg; Terminology</title>
+   <variablelist>
+    <varlistentry>
+     <term>
+      user interface (UI)
+     </term>
+     <listitem>
+      <para>
+       The <emphasis>user interface</emphasis> is the part that is accessed by
+       users with their browser. The UI provides a nice and intuitive way to
+       browse the contents of &dhub; either manually or by using a search feature.
+       It also allows to create organizations made by different users.
+      </para>
+      <para>
+       This component is closed-source.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>
+      authentication component
+     </term>
+     <listitem>
+      <para>
+       The <emphasis>authentication component</emphasis> is used to protect the images
+       stored inside of &dhub;. It validates all push, pull and search requests.
+      </para>
+      <para>
+       This component is closed-source.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>
+      storage back-end
+     </term>
+     <listitem>
+      <para>
+       The <emphasis>storage back-end</emphasis> is where &docker; images are
+       sent and downloaded from. It is provided by &dreg;.
+      </para>
+      <para>
+       This component is open-source.
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+  </sect2>
+  <sect2 xml:id="sec.docker.concept.limitations_dreg">
+   <title>Limitations of &dreg;</title>
+
+   <para>
+    The &dreg; has two major limitations:
+   </para>
+
+   <itemizedlist>
+    <listitem>
+     <para>
+      It lacks any form of authentication. That means everybody with access to
+      the &dreg; can push and pull images to it. That also includes the
+      possibility to overwrite already existing images.
+     </para>
+    </listitem>
+    <listitem>
+     <para>
+      There is no way to see which images have been pushed to the &dreg;.
+      You need to manually take notes of what is being stored inside
+      of it. There is also no search functionality, which makes collaboration
+      harder.
+     </para>
+    </listitem>
+   </itemizedlist>
+  </sect2>
  </sect1>
 </chapter>
