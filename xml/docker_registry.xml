@@ -10,7 +10,8 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Configuring Image Storage</title>
  <para>
-  Prior to creating your own images, you should decide where you will store the
+  Prior to creating your own images, you should decide where you
+  will<remark>toms 2019-02-04: will -> want to?</remark> store the
   images. The easiest solution is to push these images to the
   <link xlink:href="https://hub.docker.com">&dhub;</link>. By default, all
   images pushed to the &dhub; are public. This is probably fine as long as
@@ -28,6 +29,8 @@
     Get a subscription on &dhub; that unlocks the feature to create private
     repositories.
    </para>
+  </listitem>
+  <listitem>
    <para>
     Run an on-site &dreg; where to store all the &docker; images used by
     your organization or company and combine them with Portus to secure the
@@ -111,7 +114,11 @@
   <para>
    Portus is available for &slsa; customers as a &docker; image from
    &suse; Container Registry. For example, to pull the
-   <literal>2.4.0</literal> tag, run the following command:
+   <literal>2.4.0</literal> tag,<remark>toms 2019-02-04: of what?
+   As the command implies, it's a SLE12 image, so I would propose:
+   "... to pull the 2.4.0 tag of the SUSE Linux Enterprise 12 image, ..."
+   </remark>
+   run the following command:
   </para>
 
   <screen>&prompt.user;docker pull registry.suse.com/sles12/portus:2.4.0</screen>

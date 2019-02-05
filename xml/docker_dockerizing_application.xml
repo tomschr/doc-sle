@@ -9,6 +9,11 @@
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Creating &docker; Images of Applications</title>
+ <remark>toms 2019-02-05: same here with the SLE acronym vs.
+  SUSE Linux Enterprise</remark>
+ <remark>toms 2019-02-05: the examples provided in the Dockerfiles are for
+ SLE12. We need to upgrade them to SLE15.
+ </remark>
   <para>
   The following section provides examples and tips on creating &docker; images
   for applications. Prior to reading further, make sure that you have
@@ -159,6 +164,12 @@ ENTRYPOINT ["/etc/bin/example"]</screen>
   </orderedlist>
 
   <para>
+   <remark>toms 2019-02-05: maybe rephrase it like:
+   "After you have successfully built the image, run the container based
+   on your image."
+   - OR -
+   integrate it as a step in the procedure above?
+   </remark>
    You can now build the image. After a successful build, you can run a
    container based on your image.
   </para>
@@ -172,8 +183,8 @@ ENTRYPOINT ["/etc/bin/example"]</screen>
    data sharing by using volumes. You can declare a mount point directly in the
    <filename>Dockerfile</filename>. But you cannot specify a directory on the
    host system in the <filename>Dockerfile</filename> as the directory may not
-   be accessible at the build time. You can find the mounted directory in the
-   <literal>/var/lib/docker/volumes/</literal> directory on the host system.
+   be accessible at build time. Find the mounted directory under
+   <literal>/var/lib/docker/volumes/</literal> on the host system.
   </para>
 
   <note>
@@ -190,7 +201,7 @@ ENTRYPOINT ["/etc/bin/example"]</screen>
   </note>
 
   <para>
-   You can specify a particular mount point on the host system when running a
+   Specify a particular mount point on the host system when running a
    container by using the <literal>-v</literal> option:
   </para>
 
@@ -276,7 +287,7 @@ CMD ["-D", "FOREGROUND"]</screen>
     </callout>
     <callout arearefs="co.dockerfile.apache2.refresh">
      <para>
-      Command to refresh repositories and services
+      Command to refresh repositories and services.
      </para>
     </callout>
     <callout arearefs="co.dockerfile.apache2.install">
@@ -426,7 +437,7 @@ CONTAINER ID        IMAGE               COMMAND                  [...]
    <title>Creating a &docker; Container with your Own Data</title>
    <step>
     <para>
-     In <filename>Dockerfile</filename>:
+     In the <filename>Dockerfile</filename>:
     </para>
     <itemizedlist>
      <listitem>

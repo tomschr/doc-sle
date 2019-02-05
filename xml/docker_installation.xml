@@ -102,12 +102,14 @@
     </para>
     <screen>&prompt.sudo;systemctl enable docker.service</screen>
     <para>
-     This will automatically enable docker.socket in consequence.
+     This will automatically enable <systemitem>docker.socket</systemitem>
+     in consequence.
     </para>
    </step>
    <step>
     <para>
-     If you will use Portus and an SSL secured registry:
+     If you will<remark>toms 2019-02-04: will -> want to?</remark> use
+     Portus and an SSL secured registry:
     </para>
     <substeps>
      <step>
@@ -136,6 +138,10 @@
     </para>
    </step>
   </procedure>
+  <remark>toms 2019-02-04: IMHO, it doesn't make sense to wrap a lonely step
+   into a procedure. ;) I'd suggest to break this procedure into
+   paragraphs without the procedure.
+  </remark>
   <procedure>
    <title>Setting Up User Permissions</title>
     <para>

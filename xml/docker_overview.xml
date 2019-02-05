@@ -9,10 +9,10 @@
  xmlns:xi="http://www.w3.org/2001/XInclude"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Product Overview</title>
-
+ <remark>toms 2019-02-04: add here some sentence</remark>
  <sect1 xml:id="Docker_Used_Drivers">
   <title>&docker; Drivers</title>
-
+  <remark>toms 2019-02-04: add here some sentence</remark>
   <sect2 xml:id="Container_Drivers">
    <title>Container Drivers</title>
    <para>
@@ -58,6 +58,8 @@
       AUFS union file system. Neither the upstream kernel nor the &suse; kernel
       supports this file system. Hence the AUFS driver is not built into the
       &suse; <package>docker</package> package.
+      <remark>toms 2019-02-04: what's so special about AUFS? Maybe add some
+      short explanation what it is about.</remark>
      </para>
     </listitem>
    </itemizedlist>

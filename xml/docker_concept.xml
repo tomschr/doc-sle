@@ -23,14 +23,23 @@
  </para>
  <sect1 xml:id="sec.docker.installation.terminology_deng">
   <title>&deng; Terminology</title>
+  <remark>toms 2019-02-04: check with Tanja, if you need the full title or
+  if "Terminology" is enough.</remark>
   <para>
    Before going into detail about &deng;, let us define some of the terms used:
   </para>
+  <remark>toms 2019-02-04: two things:
+   1. Does it makes sense to sort the list alphabetically? It seems, we
+      discussed that already, but maybe ask Tanja what's her opinion on that.
+   2. I've asked Tanja, and we agreed, the term should NOT be repeated
+      in the definition. For example, in the "Registry" definition, you should
+      remove the "A registry is..." and write "Storage for already created
+      images." Same for the other terms.
+  </remark>
+
   <variablelist>
    <varlistentry xml:id="Docker_engine">
-    <term>
-     &deng;
-    </term>
+    <term>&deng;</term>
     <listitem>
      <para>
       &deng; is a server-client type application that performs all
@@ -73,11 +82,26 @@
     <term>Image</term>
     <listitem>
      <para>
-      An <emphasis>image</emphasis> is a read-only template used to create a
+      An <emphasis>image</emphasis> is a read-only template<remark>toms 2019-02-04: 
+      template sounds a bit strange in this context.
+      On Quora.com, I've found an interesting definition:
+      "An image is a compressed, self-contained piece of software which has
+      to be unwrapped in order to use the functionality." Maybe you can add
+      it somehow.</remark> used to create a
       <emphasis>virtual machine</emphasis> on the host server. A &docker; image is
       made by a series of layers built one over the other. Each layer
       corresponds to a permanent change, for example an update of an
-      application. The changes are stored in a file called a
+      application.
+      <remark>toms 2019-02-04: The following sentence is dangerous and
+      misleading IMHO. The term "changes" does not relate to a Dockerfile.
+      That file is used merely as a kind of "build recipe".
+      I would propose to rephase/move the sentence at the beginning of this
+      paragraph:
+      "An image is a read-only template used to create a virtual machine on
+      the host server. Such an image is represented/build by using a
+      Dockerfile which acts as an "recipe". A Docker image is..."
+      </remark>
+      The changes are stored in a file called a
       <emphasis>Dockerfile</emphasis>. For more details see
       <link xlink:href="http://docs.docker.com/engine/reference/glossary#image">the
        official Docker documentation</link>.
@@ -85,11 +109,18 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>
-     Dockerfile
-    </term>
+    <term>Dockerfile</term>
     <listitem>
      <para>
+      <remark>toms 2019-02-04: The description is misleading IMHO. It gives
+       it a different spin. ;)
+      According to https://docs.docker.com/engine/reference/builder/
+      "A Dockerfile is a text document that contains all the commands a user
+      could call on the command line to assemble an image. Using docker build
+      users can create an automated build that executes several command-line
+      instructions in succession."
+      I would suggest to rephrase your explanation.
+      </remark>
       A <emphasis>Dockerfile</emphasis> stores changes made on top of the base
       image. The <xref linkend="Docker_engine"/> reads instructions in the
       <emphasis>Dockerfile</emphasis> and builds a new image according to the
@@ -98,12 +129,17 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>
-     Container
-    </term>
+    <term>Container</term>
     <listitem>
+     <remark>toms 2019-02-04: according to
+      https://docs.docker.com/glossary/?term=container a container consists
+      of a) a Docker image, b) an executation environment, and c) a set of
+      instructions. Maybe add that info after your first sentence?
+     </remark>
      <para>
-      A <emphasis>container</emphasis> is a running instance based on a
+      A <emphasis>container</emphasis> is a running<remark>toms 2019-02-04:
+       and a idle/stopped image is not a container? ;) Isn't that term a bit
+       too restrictive?</remark> instance based on a
       particular &docker; <xref linkend="Docker_Image"/>. Each
       <emphasis>container</emphasis> can be distinguished by a unique container
       ID.
@@ -111,9 +147,7 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>
-     Registry
-    </term>
+    <term>Registry</term>
     <listitem>
      <para>
       A <emphasis>registry</emphasis> is storage for already created images. It
@@ -122,25 +156,29 @@
      </para>
      <itemizedlist>
       <listitem>
-       <para>
-        public registry - where everyone (usually registered) can download and
+       <formalpara>
+        <title>Public Registry:</title>
+        <para>
+        where everyone (usually registered) can download and
         use images. A typical public registry is
         <link xlink:href="https://hub.docker.com/">Docker Hub</link>.
-       </para>
+        </para>
+       </formalpara>
       </listitem>
       <listitem>
-       <para>
-        private registry - these are accessible for particular users or from a
+       <formalpara>
+        <title>Private Registry:</title>
+        <para>
+        these are accessible for particular users or from a
         particular private network.
-       </para>
+        </para>
+       </formalpara>
       </listitem>
      </itemizedlist>
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>
-     Repository
-    </term>
+    <term>Repository</term>
     <listitem>
      <para>
       A <emphasis>repository</emphasis> is storage in a
@@ -150,9 +188,7 @@
     </listitem>
    </varlistentry>
    <varlistentry xml:id="vle.docker.cgroup">
-    <term>
-     Control groups
-    </term>
+    <term>Control group</term>
     <listitem>
      <para>
       <emphasis>Control groups</emphasis>, also called
@@ -163,9 +199,7 @@
     </listitem>
    </varlistentry>
    <varlistentry xml:id="vle.docker.namespace">
-    <term>
-     Namespaces
-    </term>
+    <term>Namespace</term>
     <listitem>
      <para>
       &deng; uses <emphasis>namespaces</emphasis> for its containers that
@@ -186,6 +220,9 @@
     </listitem>
    </varlistentry>
   </variablelist>
+
+  <remark>toms 2019-02-04: I would suggest to define some more terms which
+  I think are important: layer &amp; tag.</remark>
  </sect1>
  <sect1 xml:id="sec.docker.concept.advantages_deng">
   <title>Advantages of &deng;</title>
@@ -350,11 +387,14 @@
    <emphasis>daemon</emphasis> by using network sockets. The architecture is
    depicted in <xref linkend="Docker_architecture"/>.
   </para>
+  <remark>toms 2019-02-04: The font size in the following picture is too
+   small. Please increase the font size with Inkscape so it's more readable.
+  </remark>
   <figure xml:id="Docker_architecture">
    <title>The &deng; Architecture</title>
    <mediaobject>
     <imageobject>
-     <imagedata fileref="docker_architecture.png" format="PNG" width="70%"/>
+     <imagedata fileref="docker_architecture.png" format="PNG" width="95%"/>
     </imageobject>
    </mediaobject>
   </figure>
@@ -366,7 +406,7 @@
   <para>
    The &dreg; is an open-source project created by Docker Inc. It
    allows the storage and retrieval of &docker; images. By running a local
-   instance of the &dreg; it is possible to completely avoid usage of
+   instance of the &dreg; it is possible to completely avoid the usage of
    &dhub;.
   </para>
 
@@ -375,6 +415,11 @@
    as seen from the user perspective, is made of the following parts at least:
   </para>
 
+  <remark>toms 2019-02-05: Not sure if it is better to have separate sections
+  about terminology instead of one single one at the beginning.
+  Maybe you need to rephrase it to make it clear that the terms below refers
+  to the Docker Registry. Discuss with Tanja. :)
+  </remark>
   <sect2 xml:id="sec.docker.concept.terminology_dreg">
    <title>&dreg; Terminology</title>
    <variablelist>

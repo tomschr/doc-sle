@@ -10,20 +10,25 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Creating Custom &docker; Images</title>
  <para>
-  For creating your custom image, you need a base &docker; image of &slsa;. You
-  can use any of the pre-built &slsa; images that you can obtain as described below.
+  For creating your custom image, you need a base &docker; image of &slsa;.
+  You can use any of the pre-built &slsa; images that you can obtain as
+  described below.
  </para>
+ <remark>toms 2019-02-04: regarding the SLE acronym as a general note.
+  Using the acronym is kind of discouraged by our PM and marketing(?).
+  On the other side, using the resolved name leads to very long titles.
+  Ask Tanja.
+ </remark>
 
  <sect1 xml:id="Downloading_Pre-build_Images">
   <title>Downloading Base &slsa; Images</title>
-
   <para>
    How to obtain a pre-built base image depends on its &productname; version:
   </para>
 
   <variablelist>
    <varlistentry>
-    <term>Up to &slsa;&nbsp;12 SP2</term>
+    <term>Up to &sle;&nbsp;12 SP2</term>
     <listitem>
      <screen>&prompt.sudo;zypper in <replaceable>IMAGENAME</replaceable></screen>
      <para>
@@ -58,13 +63,16 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term>&slsa;&nbsp;12 SP3 and later</term>
+    <term>&sle;&nbsp;12 SP3 and later</term>
     <listitem>
      <screen>&prompt.user;docker pull registry.suse.com/suse/<replaceable>IMAGENAME</replaceable></screen>
      <para>
       For example, for &productname;&nbsp;15, use
      </para>
      <screen>&prompt.user;docker pull registry.suse.com/suse/sle15</screen>
+     <remark>toms 2019-02-05: no need to activate it like for SLE12?
+      Maybe we could/should mention that.
+     </remark>
     </listitem>
    </varlistentry>
   </variablelist>
@@ -135,7 +143,7 @@
 
   <para>
    Now you can create a custom &docker; image by using a
-   <literal>Dockerfile</literal>. If you want to create a custom image, refer to
+   <literal>Dockerfile</literal>. Refer to the following sections:
   </para>
 
   <itemizedlist>
@@ -216,7 +224,7 @@ RUN zypper -n in vim</screen>
 <screen>FROM suse/sles11sp4
 
 # Import the crt file of our private SMT server
-ADD http://smt.test.lan/smt.crt /etc/pki/trust/anchors/smt.crt
+ADD http://smt.&exampledomain;/smt.crt /etc/pki/trust/anchors/smt.crt
 RUN update-ca-certificates
 
 RUN zypper ref -s
@@ -243,7 +251,7 @@ RUN zypper -n in vim</screen>
 <screen>FROM registry.suse.com/suse/sle15
 
 # Import the crt file of our private SMT server
-ADD http://smt.test.lan/smt.crt /etc/pki/trust/anchors/smt.crt
+ADD http://smt.&exampledomain;/smt.crt /etc/pki/trust/anchors/smt.crt
 RUN update-ca-certificates
 
 RUN zypper ref -s
