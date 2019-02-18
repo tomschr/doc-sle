@@ -454,8 +454,8 @@
      </term>
      <listitem>
       <para>
-       The <emphasis>storage back-end</emphasis> is where &docker; images are
-       sent and downloaded from. It is provided by &dreg;.
+       Where &docker; images are sent and downloaded from. It is provided by
+       &dreg;.
       </para>
       <para>
        This component is open-source.
