@@ -298,7 +298,7 @@
   <para>
   &deng; is a technology that can help minimize resources used to run or
   build applications. There are several types of applications that are
-  suitable to run inside a &docker; container like daemons, Web pages or
+  suitable to run inside a &docker; container, like daemons, Web pages or
   applications that expose ports for communication. You can use &deng; to
   automate building and deployment processes by adding the build process
   into a &docker; image, then building the image and then running containers
