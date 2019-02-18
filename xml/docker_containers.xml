@@ -41,9 +41,8 @@
   <title>Starting Containers</title>
   <para>
    The container typically exits if its main process finishes. For example, if
-   your container starts a particular application, as soon as you quit the
-   application, the container exits. You can start the container again by
-   running:
+   your container starts a particular application, the container exits as soon
+   as you quit the application. You can start the container again by running:
   </para>
   <screen>&prompt.user;docker start -ai &lt;container name&gt;</screen>
   <para>
