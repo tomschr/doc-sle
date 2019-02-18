@@ -403,8 +403,7 @@
   <para>
    The &dreg; is an open-source project created by Docker Inc. It
    allows the storage and retrieval of &docker; images. By running a local
-   instance of the &dreg; it is possible to completely avoid the usage of
-   &dhub;.
+   instance of the &dreg;, it is possible to completely avoid usage of &dhub;.
   </para>
 
   <para>
