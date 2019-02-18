@@ -330,8 +330,8 @@
    </listitem>
    <listitem>
     <para>
-     You can use different versions of required packages in the container than
-     the host system uses without having problems with dependencies.
+     Within the container, you can use package versions that are different from
+     the ones used on the host system without causing dependency problems.
     </para>
    </listitem>
    <listitem>
