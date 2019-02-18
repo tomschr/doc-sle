@@ -242,8 +242,7 @@
    </listitem>
    <listitem>
     <para>
-     Controls network interfaces and resources available inside containers
-     through cgroups.
+     Uses cgroups to control network interfaces and resources available inside containers.
     </para>
    </listitem>
    <listitem>
