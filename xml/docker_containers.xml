@@ -46,7 +46,7 @@
   </para>
   <screen>&prompt.user;docker start -ai &lt;container name&gt;</screen>
   <para>
-   You may need to remove unused containers, you can achieve this by using:
+   To remove unused containers:
   </para>
   <screen>&prompt.user;docker rm &lt;container name&gt;</screen>
  </sect1>
