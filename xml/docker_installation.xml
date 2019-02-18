@@ -121,9 +121,14 @@
       <para>
        Add CA certificates to the directory
        <filename>/etc/docker/certs.d/<replaceable>REGISTRY_ADDRESS</replaceable></filename>
-       and copy the CA certificates to your system:
       </para>
-      <screen>&prompt.sudo;cp CA /etc/pki/trust/anchors/ &amp;&amp; update-ca-certificates</screen>
+      <screen>&prompt.sudo;cp CA /etc/pki/trust/anchors/</screen>
+     </step>
+     <step>
+      <para>
+       Copy the CA certificates to your system:
+      </para>
+      <screen>&prompt.sudo;update-ca-certificates</screen>
      </step>
     </substeps>
    </step>
