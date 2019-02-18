@@ -202,8 +202,8 @@
     <term>Namespace</term>
     <listitem>
      <para>
-      &deng; uses <emphasis>namespaces</emphasis> for its containers that
-      isolates resources reserved for particular containers.
+      Used by &deng; for its containers to isolate resources reserved for
+      particular containers from other containers or the host system.
      </para>
     </listitem>
    </varlistentry>
