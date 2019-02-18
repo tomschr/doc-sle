@@ -313,9 +313,8 @@
   <itemizedlist>
    <listitem>
     <para>
-     You can minimize the runtime environment of the application as you can add
-     to the &docker; image of the application just the required processes and
-     applications.
+     You can minimize the runtime environment of the application by adding just
+     the required processes and applications to the &docker; image.
     </para>
    </listitem>
    <listitem>
