@@ -425,10 +425,9 @@
      </term>
      <listitem>
       <para>
-       The <emphasis>user interface</emphasis> is the part that is accessed by
-       users with their browser. The UI provides a nice and intuitive way to
-       browse the contents of &dhub; either manually or by using a search feature.
-       It also allows to create organizations made by different users.
+       Accessed by users with their browser. Users can browse the contents of
+       &dhub; either manually or by using a search feature. It also allows to
+       create organizations made by different users.
       </para>
       <para>
        This component is closed-source.
