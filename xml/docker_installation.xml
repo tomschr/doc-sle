@@ -108,8 +108,7 @@
    </step>
    <step>
     <para>
-     If you will<remark>toms 2019-02-04: will -> want to?</remark> use
-     Portus and an SSL secured registry:
+     If you want to use Portus and an SSL secured registry:
     </para>
     <substeps>
      <step>
