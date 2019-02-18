@@ -237,8 +237,7 @@
    </listitem>
    <listitem>
     <para>
-     Near native performance, as &deng; manages allocation of resources in real
-     time.
+     Manages allocation of resources in real time, leading to a near-native performance.
     </para>
    </listitem>
    <listitem>
