@@ -52,7 +52,7 @@
     <listitem>
      <para>
       <emphasis>Control groups</emphasis>, also called
-      <literal>cgroups</literal>, is a Linux kernel feature that allows
+      <literal>cgroups</literal>, are a Linux kernel feature that allows
       aggregating or partitioning tasks (processes) and all their children into
       hierarchically organized groups in order to isolate resources.
      </para>
