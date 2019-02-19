@@ -181,8 +181,8 @@
        <formalpara>
         <title>Private Registry:</title>
         <para>
-        these are accessible for particular users or from a
-        particular private network.
+         Only accessible for particular users or users from a particular private
+         network.
         </para>
        </formalpara>
       </listitem>
