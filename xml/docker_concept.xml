@@ -203,9 +203,9 @@
     <term>Repository</term>
     <listitem>
      <para>
-      A <emphasis>repository</emphasis> is storage in a
-      <emphasis>registry</emphasis> that stores a different version of a
-      particular image. You can pull or push images from or to a repository.
+      A storage in a <emphasis>registry</emphasis> that stores a different
+      version of a particular image. You can pull images from a repository or
+      push images to a repository.
      </para>
     </listitem>
    </varlistentry>
