@@ -82,9 +82,8 @@
     <term>&deng;</term>
     <listitem>
      <para>
-      &deng; is a server-client type application that performs all
-      tasks related to virtual machines. &deng; comprises the
-      following:
+      A server-client type application that performs all tasks related to
+      virtual machines. &deng; comprises the following:
      </para>
      <itemizedlist>
       <listitem>
