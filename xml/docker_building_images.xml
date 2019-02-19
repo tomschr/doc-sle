@@ -11,8 +11,8 @@
  <title>Creating Custom &docker; Images</title>
  <para>
   For creating your custom image, you need a base &docker; image of &productname;.
-  You can use any of the pre-built &productname; images that you can obtain as
-  described below.
+  You can use any of the pre-built &productname;. Download them as described in
+  <xref linkend="Downloading_Pre-build_Images"/>.
  </para>
  <remark>toms 2019-02-04: regarding the SLE acronym as a general note.
   Using the acronym is kind of discouraged by our PM and marketing(?).
