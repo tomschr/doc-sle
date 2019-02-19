@@ -67,7 +67,7 @@
     <listitem>
      <screen>&prompt.user;docker pull registry.suse.com/suse/<replaceable>IMAGENAME</replaceable></screen>
      <para>
-      For example, for &productname;&nbsp;15, use
+      For example, for &productname;&nbsp;15, use:
      </para>
      <screen>&prompt.user;docker pull registry.suse.com/suse/sle15</screen>
      <remark>toms 2019-02-05: no need to activate it like for SLE12?
