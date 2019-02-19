@@ -41,7 +41,7 @@
       A <emphasis>container</emphasis> is a running<remark>toms 2019-02-04:
        and a idle/stopped image is not a container? ;) Isn't that term a bit
        too restrictive?</remark> instance based on a
-      particular &docker; <xref linkend="Docker_Image"/>. Each
+      particular <xref linkend="Docker_Image"/>. Each
       <emphasis>container</emphasis> can be distinguished by a unique container
       ID.
      </para>
@@ -62,19 +62,12 @@
     <term>Dockerfile</term>
     <listitem>
      <para>
-      <remark>toms 2019-02-04: The description is misleading IMHO. It gives
-       it a different spin. ;)
-      According to https://docs.docker.com/engine/reference/builder/
-      "A Dockerfile is a text document that contains all the commands a user
-      could call on the command line to assemble an image. Using docker build
-      users can create an automated build that executes several command-line
-      instructions in succession."
-      I would suggest to rephrase your explanation.
-      </remark>
-      A <emphasis>Dockerfile</emphasis> stores changes made on top of the base
-      image. The <xref linkend="Docker_engine"/> reads instructions in the
-      <emphasis>Dockerfile</emphasis> and builds a new image according to the
-      instructions.
+      A text document which contains commands to assemble a &docker; image. With
+      the <command>docker build</command> command, the instructions provided in
+      the <emphasis>Dockerfile</emphasis> are executed by the
+      <xref linkend="Docker_engine"/> to create a <xref linkend="Docker_Image"/>.
+      The <emphasis>Dockerfile</emphasis> can store modifications you want to
+      apply to the resulting image on top of a base image.
      </para>
     </listitem>
    </varlistentry>
