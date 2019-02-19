@@ -190,8 +190,7 @@
        <formalpara>
         <title>Public Registry:</title>
         <para>
-        where everyone (usually registered) can download and
-        use images. A typical public registry is
+         Everyone can download and use images. A typical public registry is
         <link xlink:href="https://hub.docker.com/">Docker Hub</link>.
         </para>
        </formalpara>
