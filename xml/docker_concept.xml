@@ -28,16 +28,56 @@
   <para>
    Before going into detail about &deng;, let us define some of the terms used:
   </para>
-  <remark>toms 2019-02-04: two things:
-   1. Does it makes sense to sort the list alphabetically? It seems, we
-      discussed that already, but maybe ask Tanja what's her opinion on that.
-   2. I've asked Tanja, and we agreed, the term should NOT be repeated
-      in the definition. For example, in the "Registry" definition, you should
-      remove the "A registry is..." and write "Storage for already created
-      images." Same for the other terms.
-  </remark>
-
   <variablelist>
+   <varlistentry>
+    <term>Container</term>
+    <listitem>
+     <remark>toms 2019-02-04: according to
+      https://docs.docker.com/glossary/?term=container a container consists
+      of a) a Docker image, b) an executation environment, and c) a set of
+      instructions. Maybe add that info after your first sentence?
+     </remark>
+     <para>
+      A <emphasis>container</emphasis> is a running<remark>toms 2019-02-04:
+       and a idle/stopped image is not a container? ;) Isn't that term a bit
+       too restrictive?</remark> instance based on a
+      particular &docker; <xref linkend="Docker_Image"/>. Each
+      <emphasis>container</emphasis> can be distinguished by a unique container
+      ID.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry xml:id="vle.docker.cgroup">
+    <term>Control group</term>
+    <listitem>
+     <para>
+      <emphasis>Control groups</emphasis>, also called
+      <literal>cgroups</literal>, is a Linux kernel feature that allows
+      aggregating or partitioning tasks (processes) and all their children into
+      hierarchically organized groups to isolate resources.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>Dockerfile</term>
+    <listitem>
+     <para>
+      <remark>toms 2019-02-04: The description is misleading IMHO. It gives
+       it a different spin. ;)
+      According to https://docs.docker.com/engine/reference/builder/
+      "A Dockerfile is a text document that contains all the commands a user
+      could call on the command line to assemble an image. Using docker build
+      users can create an automated build that executes several command-line
+      instructions in succession."
+      I would suggest to rephrase your explanation.
+      </remark>
+      A <emphasis>Dockerfile</emphasis> stores changes made on top of the base
+      image. The <xref linkend="Docker_engine"/> reads instructions in the
+      <emphasis>Dockerfile</emphasis> and builds a new image according to the
+      instructions.
+     </para>
+    </listitem>
+   </varlistentry>
    <varlistentry xml:id="Docker_engine">
     <term>&deng;</term>
     <listitem>
@@ -47,6 +87,17 @@
       following:
      </para>
      <itemizedlist>
+      <listitem>
+       <formalpara>
+        <title>CLI Client:</title>
+        <para>
+         Enables you to communicate with the daemon. If the daemon is running
+         on a different machine than the CLI client, the CLI client can
+         communicate by using network sockets or the REST API provided by
+         &deng;.
+        </para>
+       </formalpara>
+      </listitem>
       <listitem>
        <formalpara>
         <title>Daemon:</title>
@@ -61,17 +112,6 @@
         <title>REST API:</title>
         <para>
          Applications can use this API to communicate directly with the daemon.
-        </para>
-       </formalpara>
-      </listitem>
-      <listitem>
-       <formalpara>
-        <title>CLI Client:</title>
-        <para>
-         Enables you to communicate with the daemon. If the daemon is running
-         on a different machine than the CLI client, the CLI client can
-         communicate by using network sockets or the REST API provided by
-         &deng;.
         </para>
        </formalpara>
       </listitem>
@@ -108,96 +148,6 @@
      </para>
     </listitem>
    </varlistentry>
-   <varlistentry>
-    <term>Dockerfile</term>
-    <listitem>
-     <para>
-      <remark>toms 2019-02-04: The description is misleading IMHO. It gives
-       it a different spin. ;)
-      According to https://docs.docker.com/engine/reference/builder/
-      "A Dockerfile is a text document that contains all the commands a user
-      could call on the command line to assemble an image. Using docker build
-      users can create an automated build that executes several command-line
-      instructions in succession."
-      I would suggest to rephrase your explanation.
-      </remark>
-      A <emphasis>Dockerfile</emphasis> stores changes made on top of the base
-      image. The <xref linkend="Docker_engine"/> reads instructions in the
-      <emphasis>Dockerfile</emphasis> and builds a new image according to the
-      instructions.
-     </para>
-    </listitem>
-   </varlistentry>
-   <varlistentry>
-    <term>Container</term>
-    <listitem>
-     <remark>toms 2019-02-04: according to
-      https://docs.docker.com/glossary/?term=container a container consists
-      of a) a Docker image, b) an executation environment, and c) a set of
-      instructions. Maybe add that info after your first sentence?
-     </remark>
-     <para>
-      A <emphasis>container</emphasis> is a running<remark>toms 2019-02-04:
-       and a idle/stopped image is not a container? ;) Isn't that term a bit
-       too restrictive?</remark> instance based on a
-      particular &docker; <xref linkend="Docker_Image"/>. Each
-      <emphasis>container</emphasis> can be distinguished by a unique container
-      ID.
-     </para>
-    </listitem>
-   </varlistentry>
-   <varlistentry>
-    <term>Registry</term>
-    <listitem>
-     <para>
-      A <emphasis>registry</emphasis> is storage for already created images. It
-      typically contains several <emphasis>repositories</emphasis> There are two
-      types of registry:
-     </para>
-     <itemizedlist>
-      <listitem>
-       <formalpara>
-        <title>Public Registry:</title>
-        <para>
-        where everyone (usually registered) can download and
-        use images. A typical public registry is
-        <link xlink:href="https://hub.docker.com/">Docker Hub</link>.
-        </para>
-       </formalpara>
-      </listitem>
-      <listitem>
-       <formalpara>
-        <title>Private Registry:</title>
-        <para>
-        these are accessible for particular users or from a
-        particular private network.
-        </para>
-       </formalpara>
-      </listitem>
-     </itemizedlist>
-    </listitem>
-   </varlistentry>
-   <varlistentry>
-    <term>Repository</term>
-    <listitem>
-     <para>
-      A <emphasis>repository</emphasis> is storage in a
-      <emphasis>registry</emphasis> that stores a different version of a
-      particular image. You can pull or push images from or to a repository.
-     </para>
-    </listitem>
-   </varlistentry>
-   <varlistentry xml:id="vle.docker.cgroup">
-    <term>Control group</term>
-    <listitem>
-     <para>
-      <emphasis>Control groups</emphasis>, also called
-      <literal>cgroups</literal>, is a Linux kernel feature that allows
-      aggregating or partitioning tasks (processes) and all their children into
-      hierarchically organized groups to isolate resources.
-     </para>
-    </listitem>
-   </varlistentry>
    <varlistentry xml:id="vle.docker.namespace">
     <term>Namespace</term>
     <listitem>
@@ -216,6 +166,47 @@
       need a framework that enables you to manage the containers automatically.
       The act of automatic container management is called <emphasis>container
       orchestration</emphasis> and is typically handled by Kubernetes.
+     </para>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>Registry</term>
+    <listitem>
+     <para>
+      A <emphasis>registry</emphasis> is storage for already created images. It
+      typically contains several <emphasis>repositories</emphasis> There are two
+      types of registry:
+     </para>
+     <itemizedlist>
+      <listitem>
+       <formalpara>
+        <title>Private Registry:</title>
+        <para>
+        these are accessible for particular users or from a
+        particular private network.
+        </para>
+       </formalpara>
+      </listitem>
+      <listitem>
+       <formalpara>
+        <title>Public Registry:</title>
+        <para>
+        where everyone (usually registered) can download and
+        use images. A typical public registry is
+        <link xlink:href="https://hub.docker.com/">Docker Hub</link>.
+        </para>
+       </formalpara>
+      </listitem>
+     </itemizedlist>
+    </listitem>
+   </varlistentry>
+   <varlistentry>
+    <term>Repository</term>
+    <listitem>
+     <para>
+      A <emphasis>repository</emphasis> is storage in a
+      <emphasis>registry</emphasis> that stores a different version of a
+      particular image. You can pull or push images from or to a repository.
      </para>
     </listitem>
    </varlistentry>

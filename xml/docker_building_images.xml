@@ -14,11 +14,6 @@
   You can use any of the pre-built &productname;. Download them as described in
   <xref linkend="Downloading_Pre-build_Images"/>.
  </para>
- <remark>toms 2019-02-04: regarding the SLE acronym as a general note.
-  Using the acronym is kind of discouraged by our PM and marketing(?).
-  On the other side, using the resolved name leads to very long titles.
-  Ask Tanja.
- </remark>
 
  <sect1 xml:id="Downloading_Pre-build_Images">
   <title>Downloading Base &slsa; Images</title>
