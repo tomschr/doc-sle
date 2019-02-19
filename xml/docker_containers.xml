@@ -66,12 +66,12 @@
   <screen>&prompt.user;docker run -d --name sles sles12sp4 /bin/bash</screen>
 
   <para>
-   Then create a container that will link to the &slea; container:
+   Then create a container that will link to the &productname; container:
   </para>
   <screen>&prompt.user;docker run --link sles:sles sles12sp4 /bin/bash</screen>
 
   <para>
-   The container that links to &slea; has defined environment variables that
+   The container that links to &productname; has defined environment variables that
    enable connecting to the linked container.
   </para>
  </sect1>

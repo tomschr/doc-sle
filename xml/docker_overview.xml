@@ -64,7 +64,7 @@
     </listitem>
    </itemizedlist>
    <para>
-    Since &slea;&nbsp;12, the Btrfs file system is used by default, which leads &deng; to
+    Since &productname;&nbsp;12, the Btrfs file system is used by default, which leads &deng; to
     use the <systemitem class="resource">btrfs</systemitem> driver.
    </para>
    <para>

@@ -10,8 +10,8 @@
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <title>Creating Custom &docker; Images</title>
  <para>
-  For creating your custom image, you need a base &docker; image of &slsa;.
-  You can use any of the pre-built &slsa; images that you can obtain as
+  For creating your custom image, you need a base &docker; image of &productname;.
+  You can use any of the pre-built &productname; images that you can obtain as
   described below.
  </para>
  <remark>toms 2019-02-04: regarding the SLE acronym as a general note.
@@ -91,7 +91,7 @@
    <link xlink:href="https://github.com/SUSE/container-suseconnect">zypper
    service</link> that contacts either the &sccreg; (&scc;) or your
    &rmtool; (&rmt;) server, according to the configuration of
-   the &slea; host that runs the &docker; container. The service obtains the list of
+   the &productname; host that runs the &docker; container. The service obtains the list of
    repositories available for the product used by the &docker; image. You can
    also directly declare extensions in your <filename>Dockerfile</filename>
    (for details refer to
@@ -192,7 +192,7 @@
   <para>
    KIWI is a command line tool that enables you to build images in a
    variety of formats. You can use the tool to build a base &docker; image of
-   &slsa;. For more details about KIWI installation and usage, refer
+   &productname;. For more details about KIWI installation and usage, refer
    to the
    <link xlink:href="https://doc.opensuse.org/projects/kiwi/doc/#chap.introduction">KIWI documentation</link>.
   </para>
@@ -207,7 +207,7 @@
    <title>Creating a Custom Image up to &slea;&nbsp;12 SP2</title>
    <para>
     The following <filename>Dockerfile</filename> creates a simple &docker; image based on
-    &slea;&nbsp;11 SP4:
+    &productname;&nbsp;11 SP4:
    </para>
 <screen>FROM suse/sles11sp4
 
@@ -235,7 +235,7 @@ RUN zypper -n in vim</screen>
    <title>Creating a Custom Image for &slea;&nbsp;12 SP3 and later</title>
    <para>
     The following <filename>Dockerfile</filename> creates a simple &docker; image based on
-    &slea;&nbsp;15:
+    &productname;&nbsp;15:
    </para>
 <screen>FROM registry.suse.com/suse/sle15
 
@@ -261,7 +261,7 @@ RUN zypper -n in vim</screen>
   <sect2 xml:id="sec.docker.sle_images.customizing_the_images.extensions">
    <title>Adding &slea; Extensions and Modules to Images</title>
    <para>
-    You may have subscriptions to &slea; extensions or modules that you would like
+    You may have subscriptions to &productname; extensions or modules that you would like
     to use in your custom image. To add them to the &docker; image, proceed as
     follows:
    </para>
