@@ -43,7 +43,7 @@
       <title>Activating the Base Image for up to &slsa;&nbsp;12 SP2</title>
       <step>
        <para>
-        Get the proper image name with <literal>sle2docker</literal> by running
+        Get the proper image name with <literal>sle2docker</literal> by running:
        </para>
        <screen>&prompt.user;sle2docker list</screen>
       </step>
