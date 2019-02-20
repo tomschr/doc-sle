@@ -142,32 +142,22 @@
     </para>
    </step>
   </procedure>
-  <remark>toms 2019-02-04: IMHO, it doesn't make sense to wrap a lonely step
-   into a procedure. ;) I'd suggest to break this procedure into
-   paragraphs without the procedure.
-  </remark>
-  <procedure>
-   <title>Setting Up User Permissions</title>
-    <para>
-     The &docker; daemon listens on a local socket which is accessible only by the
-     <systemitem class="username">root</systemitem> user and by the members of
-     the <systemitem class="groupname">docker</systemitem> group. The
-     <systemitem class="groupname">docker</systemitem> group is automatically
-     created at package installation time.
-    </para>
-   <step>
-    <para>
-     To allow a certain user to connect to the local &docker; daemon,
-     use the following command:
-    </para>
-    <screen>&prompt.sudo;/usr/sbin/usermod -aG docker <replaceable>USERNAME</replaceable></screen>
-    <para>
-     The user can communicate with the local &docker; daemon upon their next login.
-    </para>
-   </step>
-  </procedure>
+  <para>
+   The &docker; daemon listens on a local socket which is accessible only by the
+   <systemitem class="username">root</systemitem> user and by the members of
+   the <systemitem class="groupname">docker</systemitem> group. The
+   <systemitem class="groupname">docker</systemitem> group is automatically
+   created at package installation time.
+  </para>
+  <para>
+   To allow a certain user to connect to the local &docker; daemon,
+   use the following command:
+  </para>
+  <screen>&prompt.sudo;/usr/sbin/usermod -aG docker <replaceable>USERNAME</replaceable></screen>
+  <para>
+   The user can communicate with the local &docker; daemon upon their next login.
+  </para>
  </sect1>
-
  <sect1 xml:id="sec.docker.setup.net">
   <title>Configuring Network</title>
   <para>
