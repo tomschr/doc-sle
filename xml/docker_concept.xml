@@ -93,7 +93,7 @@
       Dockerfile which acts as an "recipe". A Docker image is..."
       </remark>
       The changes are stored in a file called a
-      <emphasis>Dockerfile</emphasis>. For more details see
+      <emphasis>Dockerfile</emphasis>. For more details on Docker images, see
       <link xlink:href="http://docs.docker.com/engine/reference/glossary#image">the
        official Docker documentation</link>.
      </para>
