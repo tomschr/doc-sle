@@ -366,9 +366,6 @@
    <emphasis>daemon</emphasis> by using network sockets. The architecture is
    depicted in <xref linkend="Docker_architecture"/>.
   </para>
-  <remark>toms 2019-02-04: The font size in the following picture is too
-   small. Please increase the font size with Inkscape so it's more readable.
-  </remark>
   <figure xml:id="Docker_architecture">
    <title>The &deng; Architecture</title>
    <mediaobject>
