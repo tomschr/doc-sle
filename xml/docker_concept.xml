@@ -379,21 +379,6 @@
    <variablelist>
     <varlistentry>
      <term>
-      User Interface (UI)
-     </term>
-     <listitem>
-      <para>
-       Accessed by users with their browser. Users can browse the contents of
-       &dhub; either manually or by using a search feature. It also allows to
-       create organizations made by different users.
-      </para>
-      <para>
-       This component is closed-source.
-      </para>
-     </listitem>
-    </varlistentry>
-    <varlistentry>
-     <term>
       Authentication Component
      </term>
      <listitem>
@@ -417,6 +402,21 @@
       </para>
       <para>
        This component is open-source.
+      </para>
+     </listitem>
+    </varlistentry>
+    <varlistentry>
+     <term>
+      User Interface (UI)
+     </term>
+     <listitem>
+      <para>
+       Accessed by users with their browser. Users can browse the contents of
+       &dhub; either manually or by using a search feature. It also allows to
+       create organizations made by different users.
+      </para>
+      <para>
+       This component is closed-source.
       </para>
      </listitem>
     </varlistentry>

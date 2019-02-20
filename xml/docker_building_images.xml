@@ -243,7 +243,8 @@ RUN zypper -n in vim</screen>
    <remark>
     taroth 2018-08-08: not sure the content of this file is still correct, as
     SMT has been replaced by RMT (Repository Mirroring Tool) meanwhile - @DEV:
-    please check</remark></para>
+    please check</remark>
+   </para>
 <screen>FROM registry.suse.com/suse/sle15
 
 # Import the crt file of our private SMT server
