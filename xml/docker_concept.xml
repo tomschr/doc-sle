@@ -22,9 +22,7 @@
   virtualization where the Linux kernel controls isolated containers.
  </para>
  <sect1 xml:id="sec.docker.installation.terminology_deng">
-  <title>&deng; Terminology</title>
-  <remark>toms 2019-02-04: check with Tanja, if you need the full title or
-  if "Terminology" is enough.</remark>
+  <title>Terminology</title>
   <para>
    Before going into detail about &deng;, let us define some of the terms used:
   </para>
