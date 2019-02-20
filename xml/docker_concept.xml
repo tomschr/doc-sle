@@ -32,11 +32,6 @@
    <varlistentry>
     <term>Container</term>
     <listitem>
-     <remark>toms 2019-02-04: according to
-      https://docs.docker.com/glossary/?term=container a container consists
-      of a) a Docker image, b) an execution environment, and c) a set of
-      instructions. Maybe add that info after your first sentence?
-     </remark>
      <para>
       A <emphasis>container</emphasis> is an instance based on a particular
       <xref linkend="Docker_Image"/> within an execution environment with a set
@@ -56,7 +51,7 @@
      </para>
     </listitem>
    </varlistentry>
-   <varlistentry>
+   <varlistentry xml:id="Dockerfile">
     <term>Dockerfile</term>
     <listitem>
      <para>
@@ -70,32 +65,18 @@
     </listitem>
    </varlistentry>
    <varlistentry xml:id="Docker_Image">
-    <term>Docker Image</term>
+    <term>&docker; Image</term>
     <listitem>
      <para>
-      An <emphasis>image</emphasis> is a read-only template<remark>toms 2019-02-04:
-      template sounds a bit strange in this context.
-      On Quora.com, I've found an interesting definition:
-      "An image is a compressed, self-contained piece of software which has
-      to be unwrapped in order to use the functionality." Maybe you can add
-      it somehow.</remark> used to create a
-      <emphasis>virtual machine</emphasis> on the host server. A &docker; image is
-      made by a series of layers built one over the other. Each layer
-      corresponds to a permanent change, for example an update of an
-      application.
-      <remark>toms 2019-02-04: The following sentence is dangerous and
-      misleading IMHO. The term "changes" does not relate to a Dockerfile.
-      That file is used merely as a kind of "build recipe".
-      I would propose to rephase/move the sentence at the beginning of this
-      paragraph:
-      "An image is a read-only template used to create a virtual machine on
-      the host server. Such an image is represented/build by using a
-      Dockerfile which acts as an "recipe". A Docker image is..."
-      </remark>
-      The changes are stored in a file called a
-      <emphasis>Dockerfile</emphasis>. For more details on Docker images, see
-      <link xlink:href="http://docs.docker.com/engine/reference/glossary#image">the
-       official Docker documentation</link>.
+      A self-contained piece of software. A <emphasis>&docker; image</emphasis>
+      is a read-only template used to create a
+      <emphasis>virtual machine</emphasis> on the host server. The
+      <emphasis>image</emphasis> is built with a <xref linkend="Dockerfile"/>
+      and is made by a series of layers built one over the other. Each layer
+      corresponds to a permanent modification, for example an update of an
+      application. For more details on Docker images, see
+      <link xlink:href="http://docs.docker.com/engine/reference/glossary#image">
+       the official Docker documentation</link>.
      </para>
     </listitem>
    </varlistentry>
