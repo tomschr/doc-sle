@@ -34,16 +34,14 @@
     <listitem>
      <remark>toms 2019-02-04: according to
       https://docs.docker.com/glossary/?term=container a container consists
-      of a) a Docker image, b) an executation environment, and c) a set of
+      of a) a Docker image, b) an execution environment, and c) a set of
       instructions. Maybe add that info after your first sentence?
      </remark>
      <para>
-      A <emphasis>container</emphasis> is a running<remark>toms 2019-02-04:
-       and a idle/stopped image is not a container? ;) Isn't that term a bit
-       too restrictive?</remark> instance based on a
-      particular <xref linkend="Docker_Image"/>. Each
-      <emphasis>container</emphasis> can be distinguished by a unique container
-      ID.
+      A <emphasis>container</emphasis> is an instance based on a particular
+      <xref linkend="Docker_Image"/> within an execution environment with a set
+      of instructions. Each <emphasis>container</emphasis> can be distinguished
+      by a unique container ID.
      </para>
     </listitem>
    </varlistentry>
