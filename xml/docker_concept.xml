@@ -165,9 +165,9 @@
     <term>Registry</term>
     <listitem>
      <para>
-      A <emphasis>registry</emphasis> is storage for already created images. It
-      typically contains several <emphasis>repositories</emphasis> There are two
-      types of registry:
+      A storage and content distribution for already created images. It
+      typically contains several <emphasis>repositories</emphasis>. There are
+      two types of registry:
      </para>
      <itemizedlist>
       <listitem>
