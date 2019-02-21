@@ -112,12 +112,8 @@
 
   <para>
    Portus is available for &productname; customers as a &docker; image from
-   &suse; Container Registry. For example, to pull the
-   <literal>2.4.0</literal> tag,<remark>toms 2019-02-04: of what?
-   As the command implies, it's a SLE12 image, so I would propose:
-   "... to pull the 2.4.0 tag of the SUSE Linux Enterprise 12 image, ..."
-   </remark>
-   run the following command:
+   &suse; Container Registry. For example, to pull the <literal>2.4.0</literal>
+   tag of the &productname; 12 image, run the following command:
   </para>
 
   <screen>&prompt.user;docker pull registry.suse.com/sles12/portus:2.4.0</screen>
@@ -125,8 +121,8 @@
   <para>
    In addition to the official version of the Portus image from
    &suse; Container Registry, there is a community version that can be found
-   on &dhub;. However, as a &productname; customer, we strongly suggest you use the
-   official Portus image instead.
+   on &dhub;. However, as a &productname; customer, we strongly suggest you use
+   the official Portus image instead.
    The Portus image for &productname; customers has the same code as the one
    from the community. Therefore, the setup instructions from 
    <link xlink:href="http://port.us.org/docs/deploy.html"/>
