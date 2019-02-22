@@ -159,12 +159,6 @@ ENTRYPOINT ["/etc/bin/example"]</screen>
   </orderedlist>
 
   <para>
-   <remark>toms 2019-02-05: maybe rephrase it like:
-   "After you have successfully built the image, run the container based
-   on your image."
-   - OR -
-   integrate it as a step in the procedure above?
-   </remark>
    You can now build the image. After a successful build, you can run a
    container based on your image.
   </para>
