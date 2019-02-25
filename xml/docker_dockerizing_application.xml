@@ -111,52 +111,57 @@ CMD ["-i"]</screen>
    An example with the <emphasis>example</emphasis> application follows:
   </para>
 
-<screen>FROM registry.suse.com/suse/sle15
-RUN zypper ref &amp;&amp; zypper --non-interactive in example
+<screen>FROM registry.suse.com/suse/sle15 <co xml:id="co.dockerfile.specificconf.from"/>
+RUN zypper ref &amp;&amp; zypper --non-interactive in example <co xml:id="co.dockerfile.specificconf.refreshinstall"/>
 
-ENV BACKUP=/backup
+ENV BACKUP=/backup <co xml:id="co.dockerfile.specificconf.env"/>
 
-RUN mkdir -p $BACKUP
-COPY configuration_example /etc/example/
+RUN mkdir -p $BACKUP <co xml:id="co.dockerfile.specificconf.mkdir"/>
+COPY configuration_example /etc/example/ <co xml:id="co.dockerfile.specificconf.configuration"/>
 
-ENTRYPOINT ["/etc/bin/example"]</screen>
+ENTRYPOINT ["/etc/bin/example"] <co xml:id="co.dockerfile.specificconf.entrypoint"/></screen>
 
   <para>
    The above example <filename>Dockerfile</filename> results in the following
    operations:
   </para>
 
-  <orderedlist>
-   <listitem>
+ <calloutlist>
+  <callout arearefs="co.dockerfile.specificconf.from">
+    <para>
+     Base image, taken from <xref linkend="Downloading_Pre-build_Images"/>.
+    </para>
+   </callout>
+   <callout arearefs="co.dockerfile.specificconf.refreshinstall">
     <para>
      Refreshing of repositories and installation of the
      <emphasis>example</emphasis>.
     </para>
-   </listitem>
-   <listitem>
+   </callout>
+   <callout arearefs="co.dockerfile.specificconf.env">
     <para>
-     Sets a <literal>BACKUP</literal> environment variable (the variable
-     persists to containers started from the image). You can always overwrite
-     the value of the variable with a new one while running the container by
-     specifying a new value.
-    </para>
-   </listitem>
-   <listitem>
+      Sets a <literal>BACKUP</literal> environment variable (the variable
+      persists to containers started from the image). You can always overwrite
+      the value of the variable with a new one while running the container by
+      specifying a new value.
+     </para>
+   </callout>
+   <callout arearefs="co.dockerfile.specificconf.mkdir">
     <para>
      Creates the directory <literal>/backup</literal>.
     </para>
-   </listitem>
-   <listitem>
+   </callout>
+   <callout arearefs="co.dockerfile.specificconf.configuration">
     <para>
      Copies the <filename>configuration_example</filename> to the image.
     </para>
-   </listitem>
-   <listitem>
+   </callout>
+   <callout arearefs="co.dockerfile.specificconf.entrypoint">
     <para>
      Runs the <emphasis>example</emphasis> application.
     </para>
-   </listitem>
-  </orderedlist>
+   </callout>
+  </calloutlist>
 
   <para>
    You can now build the image. After a successful build, you can run a
