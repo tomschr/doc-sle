@@ -189,10 +189,20 @@
      </para>
     </listitem>
    </varlistentry>
+   <varlistentry>
+    <term>Tag</term>
+    <listitem>
+     <para>
+      Used like an alias for an <emphasis>image</emphasis>. When an
+      <emphasis>image</emphasis> is built, each image layer has a unique
+      identifier. the final image (layer) can be tagged to make it simple to
+      find and reference. If an image isn't tagged during the build process, its
+      tag defaults to "latest".
+     </para>
+    </listitem>
+   </varlistentry>
   </variablelist>
 
-  <remark>toms 2019-02-04: I would suggest to define some more terms which
-  I think are important: layer &amp; tag.</remark>
  </sect1>
  <sect1 xml:id="sec.docker.concept.advantages_deng">
   <title>Advantages of &deng;</title>
