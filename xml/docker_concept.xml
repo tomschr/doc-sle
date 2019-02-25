@@ -193,11 +193,11 @@
     <term>Tag</term>
     <listitem>
      <para>
-      Used like an alias for an <emphasis>image</emphasis>. When an
+      An alias for an <emphasis>image</emphasis>. When an
       <emphasis>image</emphasis> is built, each image layer has a unique
-      identifier. the final image (layer) can be tagged to make it simple to
-      find and reference. If an image isn't tagged during the build process, its
-      tag defaults to "latest".
+      identifier. The final image (layer) can be tagged to make it simple to
+      find and reference, instead of having to use the identifier. If an image
+      isn't tagged during the build process, its tag defaults to "latest".
      </para>
     </listitem>
    </varlistentry>
