@@ -117,6 +117,17 @@
      </itemizedlist>
     </listitem>
    </varlistentry>
+   <varlistentry xml:id="Docker_layer">
+    <term>Layer</term>
+    <listitem>
+     <para>
+      An <emphasis>image</emphasis> which is created during the
+      <command>docker build</command> process after each instruction. Each
+      <emphasis>layer</emphasis> is a separate read-only image, except the last
+      which is a read/write layer.
+     </para>
+    </listitem>
+   </varlistentry>
    <varlistentry xml:id="vle.docker.namespace">
     <term>Namespace</term>
     <listitem>
