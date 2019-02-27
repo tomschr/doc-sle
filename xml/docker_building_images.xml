@@ -212,10 +212,6 @@ RUN zypper -n in vim</screen>
    <para>
     When the &docker; host machine is registered against an internal &rmt;
     server, the &docker; image requires the SSL certificate used by &rmt;:
-   <remark>
-    taroth 2018-08-08: not sure the content of this file is still correct, as
-    SMT has been replaced by RMT (Repository Mirroring Tool) meanwhile - @DEV:
-    please check</remark>
    </para>
 <screen>FROM suse/sles11sp4
 
@@ -240,10 +236,6 @@ RUN zypper -n in vim</screen>
    <para>
     When the &docker; host machine is registered against an internal &rmt;
     server, the &docker; image requires the SSL certificate used by &rmt;:
-   <remark>
-    taroth 2018-08-08: not sure the content of this file is still correct, as
-    SMT has been replaced by RMT (Repository Mirroring Tool) meanwhile - @DEV:
-    please check</remark>
    </para>
 <screen>FROM registry.suse.com/suse/sle15
 
