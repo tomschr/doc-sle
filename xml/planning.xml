@@ -183,11 +183,11 @@
   </para>
  </sect1>
  <sect1 xml:id="sec.planning.leanos">
-  <title>Changes in Installation from &sls; Version &product-ga;</title>
+  <title>Changes in Installation from &sls; Version 15 Onwards</title>
 
   <para>
    Starting with &productname; 15, all &sle;-based products on each
-   supported architecture are installed using a Unified Installer from a single
+   supported architecture are installed using the new &leanos; from a single
    set of installation media and a supplementary Packages medium. 
   </para>
 
