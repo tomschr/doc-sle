@@ -42,9 +42,18 @@ jobs:
       - name: Install packages
         run: sudo apt-get install docbook5-xml docbook-xsl-ns imagemagick libxslt1.1 make poppler-utils sgml-base sgml-data libxml2 libxml-commons-external-java libxmlgraphics-commons-java libimage-exiftool-perl fop jing w3m xsltproc xmlstarlet
 
-      - name: Checkout
-        uses: actions/checkout@v1
+      - name: Checkout doc-sle repo
+        uses: actions/checkout@v2
+        with:
+           path: doc-sle
+
+      - name: Checkout daps repo
+        uses: actions/checkout@v2
+        with:
+           repository: opensuse/daps
+           path: daps
 
       - name: Echo
-        run:
+        run: |
             echo "Hello XML lovers"
+            ls -l
