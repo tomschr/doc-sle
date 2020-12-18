@@ -1,0 +1,51 @@
+---
+name:  DAPS Validation
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      CI: true
+    steps:
+      - name: Output env variables
+        run: |
+           echo "Default branch=${default-branch}"
+           echo "GITHUB_WORKFLOW=${GITHUB_WORKFLOW}"
+           echo "GITHUB_ACTION=$GITHUB_ACTION"
+           echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
+           echo "GITHUB_ACTOR=$GITHUB_ACTOR"
+           echo "GITHUB_REPOSITORY=$GITHUB_REPOSITORY"
+           echo "GITHUB_EVENT_NAME=$GITHUB_EVENT_NAME"
+           echo "GITHUB_EVENT_PATH=$GITHUB_EVENT_PATH"
+           echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+           echo "GITHUB_SHA=$GITHUB_SHA"
+           echo "GITHUB_REF=$GITHUB_REF"
+           echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
+           echo "GITHUB_BASE_REF=$GITHUB_BASE_REF"
+           echo "::debug::---Start content of file $GITHUB_EVENT_PATH"
+           cat $GITHUB_EVENT_PATH
+           echo "\n"
+           echo "::debug::---end"
+
+      - name: Install packages
+        run: sudo apt-get docbook-xml docbook-xsl-ns docbook5-xml \
+             imagemagick libxslt1.1 make poppler-utils python-libxml2 \
+             python-lxml sgml-base sgml-data libxml2 \
+             libxml-commons-external-java libxmlgraphics-commons-java \
+             libimage-exiftool-perl fop jing w3m xsltproc xmlstarlet
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Echo
+        run:
+            echo "Hello XML lovers"
