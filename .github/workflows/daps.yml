@@ -40,11 +40,7 @@ jobs:
         run: grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*
 
       - name: Install packages
-        run: sudo apt-get \
-             imagemagick libxslt1.1 make poppler-utils python-libxml2 \
-             python-lxml sgml-base sgml-data libxml2 \
-             libxml-commons-external-java libxmlgraphics-commons-java \
-             libimage-exiftool-perl fop jing w3m xsltproc xmlstarlet
+        run: sudo apt-get imagemagick libxslt1.1 make poppler-utils python-libxml2 python-lxml sgml-base sgml-data libxml2 libxml-commons-external-java libxmlgraphics-commons-java libimage-exiftool-perl fop jing w3m xsltproc xmlstarlet
 
       - name: Checkout
         uses: actions/checkout@v1
