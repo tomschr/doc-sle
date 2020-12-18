@@ -38,8 +38,9 @@ jobs:
 
       - name: Show list of all repositories and PPA
         run: grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/*
+
       - name: Install packages
-        run: sudo apt-get docbook-xsl-ns docbook5-xml \
+        run: sudo apt-get \
              imagemagick libxslt1.1 make poppler-utils python-libxml2 \
              python-lxml sgml-base sgml-data libxml2 \
              libxml-commons-external-java libxmlgraphics-commons-java \
