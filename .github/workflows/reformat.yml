@@ -22,6 +22,7 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           config: https://raw.githubusercontent.com/openSUSE/daps/main/etc/docbook-xmlformat.conf
+          xmlformat-use-tag: 1.9
 
       - name: Push
         if: ${{ steps.dbxml.outputs.xmlfound }}
