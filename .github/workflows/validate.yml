@@ -33,26 +33,6 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJSON(github) }}
         run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJSON(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJSON(steps) }}
-        run: echo "$STEPS_CONTEXT"
-      - name: Dump runner context
-        env:
-          RUNNER_CONTEXT: ${{ toJSON(runner) }}
-        run: echo "$RUNNER_CONTEXT"
-      - name: Dump strategy context
-        env:
-          STRATEGY_CONTEXT: ${{ toJSON(strategy) }}
-        run: echo "$STRATEGY_CONTEXT"
-      - name: Dump matrix context
-        env:
-          MATRIX_CONTEXT: ${{ toJSON(matrix) }}
-        run: echo "$MATRIX_CONTEXT"
 
       - uses: actions/checkout@v2
 
@@ -82,27 +62,4 @@ jobs:
       - uses: tomschr/xml-doc-action@main
         with:
           command: |
-            daps -vv --builddir=build/${{matrix.dc-file}} -d ${{matrix.dc-file}} validate
-
-      - name: list the builddir
-        id: builddir
-        run: |
-          ls -lR build/
-          echo "========================="
-          find build -type f
-
-      # - name: Pull Docker container
-      #   run: sudo docker pull susedoc/ci
-
-      # - name: Create build directory
-      #   run: mkdir -p build/${{matrix.dc-file}}
-
-      # - name: ${{matrix.dc-file}}
-      #   id: daps-validate
-      #   run: |
-      #     docker run -v $PWD:/home/ \
-      #       --env TERM=$TERM \
-      #       --workdir /home \
-      #       susedoc/ci \
-      #       daps -vv --builddir=build/${{matrix.dc-file}} \
-      #         -d ${{matrix.dc-file}} validate
+            daps -vv --builddir=build/${{matrix.dc-file}} -d ${{matrix.dc-file}} validate && ls build/
