@@ -11,8 +11,8 @@
  <title>Working with containers</title>
  <para>
   After you have created a custom image, you can start containers based on it.
-  You can run an instance of the image using the <command>docker run</command>
-  command. The command accepts several arguments:
+  You can run an instance of the image using the <command>docker run</command> command.
+  The command accepts several arguments:
  </para>
  <itemizedlist>
   <listitem>
@@ -40,9 +40,9 @@
   <title>Starting and removing containers</title>
 
   <para>
-   Containers normally exit when their main process finishes. For example, if a
-   container starts a particular application, the container exits when
-   the application quits. You can start the container again by running:
+   Containers normally exit when their main process finishes.
+   For example, if a container starts a particular application, the container exits when the application quits.
+   You can start the container again by running:
   </para>
 
 <screen>&prompt.user;docker start -ai &lt;container name&gt;</screen>

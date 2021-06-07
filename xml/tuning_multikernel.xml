@@ -4,7 +4,6 @@
   <!ENTITY % entities SYSTEM "entity-decl.ent">
     %entities;
 ]>
-
 <chapter version="5.0" xml:id="cha-tuning-multikernel"
   xmlns="http://docbook.org/ns/docbook"
   xmlns:xi="http://www.w3.org/2001/XInclude"
@@ -13,18 +12,14 @@
  <info>
   <abstract>
    <para>
-    &productname; supports the parallel installation of multiple kernel
-    versions. When installing a second kernel, a boot entry and an initrd are
-    automatically created, so no further manual configuration is needed. When
-    rebooting the machine, the newly added kernel is available as an additional
-    boot parameter.
+    &productname; supports the parallel installation of multiple kernel versions.
+    When installing a second kernel, a boot entry and an initrd are automatically created, so no further manual configuration is needed.
+    When rebooting the machine, the newly added kernel is available as an additional boot parameter.
    </para>
 
    <para>
-    Using this functionality, you can safely test kernel updates while being
-    able to always fall back to the proven former kernel. To do this, do not use
-    the update tools (such as the &yast; Online Update or the updater applet),
-    but instead follow the process described in this chapter.
+    Using this functionality, you can safely test kernel updates while being able to always fall back to the proven former kernel.
+    To do this, do not use the update tools (such as the &yast; Online Update or the updater applet), but instead follow the process described in this chapter.
    </para>
   </abstract>
   <dm:docmanager xmlns:dm="urn:x-suse:ns:docmanager">
@@ -33,56 +28,47 @@
   </dm:docmanager>
  </info>
  <warning os="sles;sled">
-<!-- cannot think of a better heading... -->
+  <!-- cannot think of a better heading... -->
   <title>Support entitlement</title>
   <para>
-   Be aware that you lose your entire support entitlement for the machine when
-   installing a self-compiled or a third-party kernel. Only kernels shipped
-   with &productname; and kernels delivered via the official update channels
-   for &productname; are supported.
+   Be aware that you lose your entire support entitlement for the machine when installing a self-compiled or a third-party kernel.
+   Only kernels shipped with &productname; and kernels delivered via the official update channels for &productname; are supported.
   </para>
  </warning>
  <tip>
   <title>Check your boot loader configuration kernel</title>
   <para>
-   It is recommended to check your boot loader configuration after having
-   installed another kernel to set the default boot entry of your choice. See
-   <xref linkend="sec-grub2-yast2-config"/> for more information.
+   It is recommended to check your boot loader configuration after having installed another kernel to set the default boot entry of your choice.
+   See <xref linkend="sec-grub2-yast2-config"/> for more information.
   </para>
  </tip>
  <sect1 xml:id="sec-tuning-multikernel-enable">
   <title>Enabling and configuring multiversion support</title>
 
-<!-- bnc#891805: on sle 12 enabled by default -->
+  <!-- bnc#891805: on sle 12 enabled by default -->
 
   <para>
-   Installing multiple versions of a software package (multiversion support) is
-   enabled by default from <phrase os="sles;sled">&sls; 12</phrase><phrase
-   os="osuse">&opensuse; Leap</phrase>. To verify this setting, proceed as
-   follows:
+   Installing multiple versions of a software package (multiversion support) is enabled by default from <phrase os="sles;sled">&sls; 12</phrase><phrase
+   os="osuse">&opensuse; Leap</phrase>.
+   To verify this setting, proceed as follows:
   </para>
 
   <procedure>
    <step>
     <para>
-     Open <filename>/etc/zypp/zypp.conf</filename> with the editor of your
-     choice as &rootuser;.
+     Open <filename>/etc/zypp/zypp.conf</filename> with the editor of your choice as &rootuser;.
     </para>
    </step>
    <step>
     <para>
-     Search for the string <literal>multiversion</literal>. If multiversion is
-     enabled for all kernel packages capable of this feature, the following
-     line appears uncommented:
+     Search for the string <literal>multiversion</literal>.
+     If multiversion is enabled for all kernel packages capable of this feature, the following line appears uncommented:
     </para>
 <screen>multiversion = provides:multiversion(kernel)</screen>
    </step>
    <step>
     <para>
-     To restrict multiversion support to certain kernel flavors, add the
-     package names as a comma-separated list to the
-     <literal>multiversion</literal> option in
-     <filename>/etc/zypp/zypp.conf</filename>&mdash;for example
+     To restrict multiversion support to certain kernel flavors, add the package names as a comma-separated list to the <literal>multiversion</literal> option in <filename>/etc/zypp/zypp.conf</filename>&mdash;for example
     </para>
 <screen>multiversion = kernel-default,kernel-default-base,kernel-source
 </screen>
@@ -97,37 +83,29 @@
   <warning>
    <title>Kernel Module Packages (KMP)</title>
    <para>
-    Make sure that required vendor provided kernel modules (Kernel Module
-    Packages) are also installed for the new updated kernel. The kernel update
-    process will not warn about eventually missing kernel modules because
-    package requirements are still fulfilled by the old kernel that is kept on
-    the system.
+    Make sure that required vendor provided kernel modules (Kernel Module Packages) are also installed for the new updated kernel.
+    The kernel update process will not warn about eventually missing kernel modules because package requirements are still fulfilled by the old kernel that is kept on the system.
    </para>
   </warning>
 
   <sect2 xml:id="sec-tuning-multikernel-enable-keep">
    <title>Automatically deleting unused kernels</title>
    <para>
-    When frequently testing new kernels with multiversion support enabled, the
-    boot menu quickly becomes confusing. Since a <filename>/boot</filename>
-    partition usually has limited space you also might run into trouble with
-    <filename>/boot</filename> overflowing. While you can delete unused kernel
-    versions manually with &yast; or Zypper (as described below), you can also
-    configure <systemitem class="library">libzypp</systemitem> to automatically
-    delete kernels no longer used. By default no kernels are deleted.
+    When frequently testing new kernels with multiversion support enabled, the boot menu quickly becomes confusing.
+    Since a <filename>/boot</filename> partition usually has limited space you also might run into trouble with <filename>/boot</filename> overflowing.
+    While you can delete unused kernel versions manually with &yast; or Zypper (as described below), you can also configure <systemitem class="library">libzypp</systemitem> to automatically delete kernels no longer used.
+    By default no kernels are deleted.
    </para>
    <procedure>
     <step>
      <para>
-      Open <filename>/etc/zypp/zypp.conf</filename> with the editor of your
-      choice as &rootuser;.
+      Open <filename>/etc/zypp/zypp.conf</filename> with the editor of your choice as &rootuser;.
      </para>
     </step>
     <step>
      <para>
-      Search for the string <literal>multiversion.kernels</literal> and
-      activate this option by uncommenting the line. This option takes a
-      comma-separated list of the following values:
+      Search for the string <literal>multiversion.kernels</literal> and activate this option by uncommenting the line.
+      This option takes a comma-separated list of the following values:
      </para>
      <formalpara>
       <title><literal><replaceable>5.3.18-53.3</replaceable></literal>:</title>
@@ -156,8 +134,7 @@
      <formalpara>
       <title><literal>oldest</literal>:</title>
       <para>
-       keep the kernel with the lowest version number (the one that was
-       originally shipped with &productname;)
+       keep the kernel with the lowest version number (the one that was originally shipped with &productname;)
       </para>
      </formalpara>
      <formalpara>
@@ -171,21 +148,16 @@
      </para>
      <variablelist>
       <varlistentry>
-       <term><literal>multiversion.kernels = latest,running</literal>
-       </term>
+       <term><literal>multiversion.kernels = latest,running</literal></term>
        <listitem>
         <para>
-         Keep the latest kernel and the one currently running. This is similar
-         to not enabling the multiversion feature, except that the old kernel
-         is removed <emphasis>after the next reboot</emphasis> and not
-         immediately after the installation.
+         Keep the latest kernel and the one currently running.
+         This is similar to not enabling the multiversion feature, except that the old kernel is removed <emphasis>after the next reboot</emphasis> and not immediately after the installation.
         </para>
        </listitem>
       </varlistentry>
       <varlistentry>
-       <term><literal>multiversion.kernels = latest,latest-1,running
-           </literal>
-       </term>
+       <term><literal>multiversion.kernels = latest,latest-1,running </literal></term>
        <listitem>
         <para>
          Keep the last two kernels and the one currently running.
@@ -193,14 +165,10 @@
        </listitem>
       </varlistentry>
       <varlistentry>
-       <term><literal>
-         multiversion.kernels = latest,running,<replaceable>5.3.18-53.3
-           </replaceable></literal>
-       </term>
+       <term><literal> multiversion.kernels = latest,running,<replaceable>5.3.18-53.3 </replaceable></literal></term>
        <listitem>
         <para>
-         Keep the latest kernel, the one currently running, and
-         <replaceable>5.3.18-53.3</replaceable>.
+         Keep the latest kernel, the one currently running, and <replaceable>5.3.18-53.3</replaceable>.
         </para>
        </listitem>
       </varlistentry>
@@ -208,99 +176,83 @@
      <tip>
       <title>Keep the running kernel</title>
       <para>
-       Unless you are using a special setup, always keep the
-       kernel marked <literal>running</literal>.
+       Unless you are using a special setup, always keep the kernel marked <literal>running</literal>.
       </para>
       <para>
-       If you do not keep the running kernel, it will be deleted when
-       updating the kernel. In turn, this means that all of the running
-       kernel's modules are also deleted and cannot be loaded anymore.
+       If you do not keep the running kernel, it will be deleted when updating the kernel.
+       In turn, this means that all of the running kernel's modules are also deleted and cannot be loaded anymore.
       </para>
       <para>
-       If you decide not to keep the running kernel, always reboot
-       immediately after a kernel upgrade to avoid issues with modules.
+       If you decide not to keep the running kernel, always reboot immediately after a kernel upgrade to avoid issues with modules.
       </para>
      </tip>
     </step>
    </procedure>
   </sect2>
+
   <sect2 xml:id="sec-tuning-multikernel-deleteoldkernel">
    <title>Use case: Deleting an old kernel after reboot only</title>
    <para>
-    You want to make sure that an old kernel will only be deleted after the
-    system has rebooted successfully with the new kernel.
+    You want to make sure that an old kernel will only be deleted after the system has rebooted successfully with the new kernel.
    </para>
    <para>
     Change the following line in <filename>/etc/zypp/zypp.conf</filename>:
    </para>
 <screen>multiversion.kernels = latest,running</screen>
    <para>
-    The previous parameters tell the system to keep the latest kernel and the
-    running one only if they differ.
+    The previous parameters tell the system to keep the latest kernel and the running one only if they differ.
    </para>
   </sect2>
 
   <sect2 xml:id="sec-tuning-multikernel-fallback">
    <title>Use case: Keeping older kernels as fallback</title>
    <para>
-    You want to keep one or more kernel versions to have one or more
-    <quote>spare</quote> kernels.
+    You want to keep one or more kernel versions to have one or more <quote>spare</quote> kernels.
    </para>
    <para>
-    This can be useful if you need kernels for testing. If something goes wrong
-    (for example, your machine does not boot), you
-    still can use one or more kernel versions which are known to be good.
+    This can be useful if you need kernels for testing.
+    If something goes wrong (for example, your machine does not boot), you still can use one or more kernel versions which are known to be good.
    </para>
    <para>
     Change the following line in <filename>/etc/zypp/zypp.conf</filename>:
    </para>
 <screen>multiversion.kernels = latest,latest-1,latest-2,running</screen>
    <para>
-    When you reboot your system after the installation of a new kernel, the
-    system will keep three kernels: the current kernel (configured as
-    <literal>latest,running</literal>) and its two immediate predecessors
-    (configured as <literal>latest-1</literal> and 
-    <literal>latest-2</literal>).
+    When you reboot your system after the installation of a new kernel, the system will keep three kernels: the current kernel (configured as <literal>latest,running</literal>) and its two immediate predecessors (configured as <literal>latest-1</literal> and <literal>latest-2</literal>).
    </para>
   </sect2>
 
   <sect2 xml:id="sec-tuning-multikernel-specificversion">
    <title>Use case: Keeping a specific kernel version</title>
    <para>
-    You make regular system updates and install new kernel versions. However,
-    you are also compiling your own kernel version and want
-    to make sure that the system will keep them.
+    You make regular system updates and install new kernel versions.
+    However, you are also compiling your own kernel version and want to make sure that the system will keep them.
    </para>
    <para>
     Change the following line in <filename>/etc/zypp/zypp.conf</filename>:
    </para>
 <screen>multiversion.kernels = latest,5.3.18-53.3,running</screen>
    <para>
-    When you reboot your system after the installation of a new kernel, the
-    system will keep two kernels: the new and running kernel (configured as
-    <literal>latest,running</literal>) and your self-compiled kernel
-    (configured as <literal>5.3.18-53.3</literal>).
+    When you reboot your system after the installation of a new kernel, the system will keep two kernels: the new and running kernel (configured as <literal>latest,running</literal>) and your self-compiled kernel (configured as <literal>5.3.18-53.3</literal>).
    </para>
   </sect2>
  </sect1>
  <sect1 xml:id="sec-tuning-multikernel-yast">
   <title>Installing/removing multiple kernel versions with &yast;</title>
+
   <para>
    You can install or remove multiple kernels with &yast;:
   </para>
+
   <procedure>
    <step>
     <para>
-     Start &yast; and open the software manager via <menuchoice>
-     <guimenu>Software</guimenu> <guimenu>Software Management</guimenu>
-     </menuchoice>.
+     Start &yast; and open the software manager via <menuchoice> <guimenu>Software</guimenu> <guimenu>Software Management</guimenu> </menuchoice>.
     </para>
    </step>
    <step>
     <para>
-     List all packages capable of providing multiple versions by choosing
-     <menuchoice> <guimenu>View</guimenu> <guimenu>Package Groups</guimenu>
-     <guimenu>Multiversion Packages</guimenu> </menuchoice>.
+     List all packages capable of providing multiple versions by choosing <menuchoice> <guimenu>View</guimenu> <guimenu>Package Groups</guimenu> <guimenu>Multiversion Packages</guimenu> </menuchoice>.
     </para>
     <figure>
      <title>The &yast; software manager: multiversion view</title>
@@ -316,19 +268,16 @@
    </step>
    <step>
     <para>
-     Select a package and open its <guimenu>Version</guimenu> tab in the bottom
-     pane on the left.
+     Select a package and open its <guimenu>Version</guimenu> tab in the bottom pane on the left.
     </para>
    </step>
    <step>
     <para>
-     To install a package, click the check box next to it. A green check mark indicates it
-     is selected for installation.
+     To install a package, click the check box next to it.
+     A green check mark indicates it is selected for installation.
     </para>
     <para>
-     To remove an already installed package (marked with a white check mark),
-     click the check box next to it until a red <literal>X</literal> indicates it is
-     selected for removal.
+     To remove an already installed package (marked with a white check mark), click the check box next to it until a red <literal>X</literal> indicates it is selected for removal.
     </para>
    </step>
    <step>
@@ -340,14 +289,15 @@
  </sect1>
  <sect1 xml:id="sec-tuning-multikernel-zypper">
   <title>Installing/removing multiple kernel versions with Zypper</title>
+
   <para>
    You can install or remove multiple kernels with <command>zypper</command>:
   </para>
+
   <procedure>
    <step>
     <para>
-     Use the command <command>zypper se -s 'kernel*'</command> to display a
-     list of all kernel packages available:
+     Use the command <command>zypper se -s 'kernel*'</command> to display a list of all kernel packages available:
     </para>
 <screen><?dbsuse-fo font-size="7pt"?>
 S  | Name                 | Type    | Version           | Arch   | Repository
@@ -370,23 +320,18 @@ i  | kernel-firmware      | package | 20210208-2.4      | noarch | SLE-Module-Ba
    </step>
    <step>
     <para>
-     When uninstalling a kernel, use the commands <command>zypper se -si
-     'kernel*'</command> to list all kernels installed and <command>zypper
-     rm</command> <replaceable>PACKAGENAME-VERSION</replaceable> to remove the
-     package.
+     When uninstalling a kernel, use the commands <command>zypper se -si 'kernel*'</command> to list all kernels installed and <command>zypper rm</command> <replaceable>PACKAGENAME-VERSION</replaceable> to remove the package.
     </para>
    </step>
   </procedure>
  </sect1>
  <sect1 xml:id="sec-tuning-multikernel-latest" os="osuse">
-  <title>
-   Installing the Latest Kernel Version from the Repository <literal>Kernel:HEAD</literal>
-  </title>
+  <title>Installing the Latest Kernel Version from the Repository <literal>Kernel:HEAD</literal></title>
+
   <procedure>
    <step>
     <para>
-     Add the <literal>Kernel:HEAD</literal> repository with (the repository
-     is added using the alias <literal>kernel-repo</literal>):
+     Add the <literal>Kernel:HEAD</literal> repository with (the repository is added using the alias <literal>kernel-repo</literal>):
     </para>
 <screen>&prompt.sudo;zypper ar \
 http://download.opensuse.org/repositories/Kernel:/HEAD/standard/ \
@@ -396,14 +341,13 @@ kernel-repo</screen>
     <para>
      To refresh repositories, run:
     </para>
-    <screen>&prompt.sudo;zypper ref</screen>
+<screen>&prompt.sudo;zypper ref</screen>
    </step>
    <step>
     <para>
-     To upgrade the kernel to the latest version in the
-     <literal>Kernel:HEAD</literal> repository, run:
+     To upgrade the kernel to the latest version in the <literal>Kernel:HEAD</literal> repository, run:
     </para>
-    <screen>&prompt.sudo;zypper dist-upgrade --allow-vendor-change --from kernel-repo</screen>
+<screen>&prompt.sudo;zypper dist-upgrade --allow-vendor-change --from kernel-repo</screen>
    </step>
    <step>
     <para>
@@ -415,13 +359,10 @@ kernel-repo</screen>
   <warning>
    <title>Installing from <literal>Kernel:HEAD</literal> may break the system</title>
    <para>
-    Installing a kernel from <literal>Kernel:HEAD</literal> should never be
-    necessary, because important fixes are backported by &suse; and are made
-    available as official updates. Installing the latest kernel only makes
-    sense for kernel developers and kernel testers. If installing from
-    <literal>Kernel:HEAD</literal>, be aware that it may break your system.
-    Make sure to always have the original kernel available for booting as
-    well.
+    Installing a kernel from <literal>Kernel:HEAD</literal> should never be necessary, because important fixes are backported by &suse; and are made available as official updates.
+    Installing the latest kernel only makes sense for kernel developers and kernel testers.
+    If installing from <literal>Kernel:HEAD</literal>, be aware that it may break your system.
+    Make sure to always have the original kernel available for booting as well.
    </para>
   </warning>
  </sect1>

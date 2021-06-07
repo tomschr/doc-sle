@@ -4,7 +4,6 @@
   <!ENTITY % entities SYSTEM "entity-decl.ent">
     %entities;
 ]>
-
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0" xml:id="cha-fcoe" xml:lang="en">
  <title>Fibre Channel storage over Ethernet networks: FCoE</title>
  <info>
@@ -14,15 +13,14 @@
   </dm:docmanager>
  </info>
  <para>
-  Many enterprise data centers rely on Ethernet for their LAN and data traffic,
-  and on Fibre Channel networks for their storage infrastructure. Open Fibre
-  Channel over Ethernet (FCoE) Initiator software allows servers with Ethernet
-  adapters to connect to a Fibre Channel storage subsystem over an Ethernet
-  network. This connectivity was previously reserved exclusively for systems
-  with Fibre Channel adapters over a Fibre Channel fabric. The FCoE technology
-  reduces complexity in the data center by aiding network convergence. This
-  helps to preserve your existing investments in a Fibre Channel storage
-  infrastructure and to simplify network management.
+  Many enterprise data centers rely on Ethernet for their LAN and data traffic, and on Fibre Channel networks for their storage infrastructure.
+  Open
+  Fibre
+  Channel over Ethernet (FCoE) Initiator software allows servers with Ethernet adapters to connect to a Fibre Channel storage subsystem over an Ethernet network.
+  This connectivity was previously reserved exclusively for systems with Fibre Channel adapters over a Fibre Channel fabric.
+  The
+  FCoE technology reduces complexity in the data center by aiding network convergence.
+  This helps to preserve your existing investments in a Fibre Channel storage infrastructure and to simplify network management.
  </para>
  <figure>
   <title>Open Fibre channel over ethernet SAN</title>
@@ -36,30 +34,28 @@
   </mediaobject>
  </figure>
  <para>
-  Open-FCoE allows you to run the Fibre Channel protocols on the host, instead
-  of on proprietary hardware on the host bus adapter. It is targeted for 10
-  Gbps (gigabit per second) Ethernet adapters, but can work on any Ethernet
-  adapter that supports pause frames. The initiator software provides a Fibre
-  Channel protocol processing module and an Ethernet-based transport module.
-  The Open-FCoE module acts as a low-level driver for SCSI. The Open-FCoE
-  transport uses <command>net_device</command> to send and receive packets.
-  Data Center Bridging (DCB) drivers provide the quality of service for FCoE.
+  Open-FCoE allows you to run the Fibre Channel protocols on the host, instead of on proprietary hardware on the host bus adapter.
+  It is targeted for 10 Gbps (gigabit per second) Ethernet adapters, but can work on any Ethernet adapter that supports pause frames.
+  The initiator software provides a Fibre Channel protocol processing module and an Ethernet-based transport module.
+  The
+  Open-FCoE module acts as a low-level driver for SCSI.
+  The
+  Open-FCoE transport uses <command>net_device</command> to send and receive packets.
+  Data
+  Center
+  Bridging (DCB) drivers provide the quality of service for FCoE.
  </para>
  <para>
-  FCoE is an encapsulation protocol that moves the Fibre Channel protocol
-  traffic over Ethernet connections without changing the Fibre Channel frame.
-  This allows your network security and traffic management infrastructure to
-  work the same with FCoE as it does with Fibre Channel.
+  FCoE is an encapsulation protocol that moves the Fibre Channel protocol traffic over Ethernet connections without changing the Fibre Channel frame.
+  This allows your network security and traffic management infrastructure to work the same with FCoE as it does with Fibre Channel.
  </para>
  <para>
-  You might choose to deploy FCoE in your enterprise if the following
-  conditions exist:
+  You might choose to deploy FCoE in your enterprise if the following conditions exist:
  </para>
  <itemizedlist mark="bullet" spacing="normal">
   <listitem>
    <para>
-    Your enterprise already has a Fibre Channel storage subsystem and
-    administrators with Fibre Channel skills and knowledge.
+    Your enterprise already has a Fibre Channel storage subsystem and administrators with Fibre Channel skills and knowledge.
    </para>
   </listitem>
   <listitem>
@@ -75,25 +71,18 @@
   <title>Configuring FCoE interfaces during the installation</title>
 
   <para>
-   The &yast; installation for &productname; allows you to configure FCoE disks
-   during the operating system installation if FCoE is enabled at the switch
-   for the connections between the server and the Fibre Channel storage
-   infrastructure. Some system BIOS types can automatically detect the FCoE
-   disks, and report the disks to the &yast; Installation software. However,
-   automatic detection of FCoE disks is not supported by all BIOS types. To
-   enable automatic detection in this case, you can add the
-   <option>withfcoe</option> option to the kernel command line when you begin
-   the installation:
+   The &yast; installation for &productname; allows you to configure FCoE disks during the operating system installation if FCoE is enabled at the switch for the connections between the server and the Fibre Channel storage infrastructure.
+   Some system BIOS types can automatically detect the FCoE disks, and report the disks to the &yast; Installation software.
+   However, automatic detection of FCoE disks is not supported by all BIOS types.
+   To enable automatic detection in this case, you can add the <option>withfcoe</option> option to the kernel command line when you begin the installation:
   </para>
 
 <screen>withfcoe=1</screen>
 
   <para>
-   When the FCoE disks are detected, the &yast; installation offers the option
-   to configure FCoE instances at that time. On the Disk Activation page,
-   select <guimenu>Configure FCoE Interfaces</guimenu> to access the FCoE
-   configuration. For information about configuring the FCoE interfaces, see
-   <xref linkend="sec-fcoe-yast" xrefstyle="SectTitleOnPage"/>.
+   When the FCoE disks are detected, the &yast; installation offers the option to configure FCoE instances at that time.
+   On the Disk Activation page, select <guimenu>Configure FCoE Interfaces</guimenu> to access the FCoE configuration.
+   For information about configuring the FCoE interfaces, see <xref linkend="sec-fcoe-yast" xrefstyle="SectTitleOnPage"/>.
   </para>
 
   <informalfigure>
@@ -106,61 +95,48 @@
     </imageobject>
    </mediaobject>
   </informalfigure>
+
   <note>
    <title>Mount point support</title>
-   <para>FCoE devices will appear asynchronously during the
-    boot process. While the initrd guarantees that those devices are
-    set up correctly for the root file system, there are no such
-    guarantees for any other file systems or mount points like
-    <filename>/usr</filename>. Hence any system mount points like
-    <filename>/usr</filename> or <filename>/var</filename> are not
-    supported. To use those devices, ensure correct
-    synchronization of the respective services and devices.</para>
+   <para>
+    FCoE devices will appear asynchronously during the boot process.
+    While the initrd guarantees that those devices are set up correctly for the root file system, there are no such guarantees for any other file systems or mount points like <filename>/usr</filename>.
+    Hence any system mount points like <filename>/usr</filename> or <filename>/var</filename> are not supported.
+    To use those devices, ensure correct synchronization of the respective services and devices.
+   </para>
   </note>
  </sect1>
  <sect1 xml:id="sec-fcoe-install">
   <title>Installing FCoE and the &yast; FCoE client</title>
 
   <para>
-   You can set up FCoE disks in your storage infrastructure by enabling FCoE at
-   the switch for the connections to a server. If FCoE disks are available when
-   the &productname; operating system is installed, the FCoE Initiator software
-   is automatically installed at that time.
+   You can set up FCoE disks in your storage infrastructure by enabling FCoE at the switch for the connections to a server.
+   If
+   FCoE disks are available when the &productname; operating system is installed, the FCoE Initiator software is automatically installed at that time.
   </para>
 
   <para>
-   If the FCoE Initiator software and the &yast; FCoE Client software are not
-   installed, use the following procedure to manually install them with the
-   following command:
+   If the FCoE Initiator software and the &yast; FCoE Client software are not installed, use the following procedure to manually install them with the following command:
   </para>
 
 <screen>&prompt.sudo;zypper in yast2-fcoe-client fcoe-utils</screen>
 
   <para>
-   Alternatively, use the &yast; Software Manager to install the packages
-   listed above.
+   Alternatively, use the &yast; Software Manager to install the packages listed above.
   </para>
  </sect1>
  <sect1 xml:id="sec-fcoe-yast">
   <title>Managing FCoE services with &yast;</title>
 
   <para>
-   You can use the &yast; FCoE Client Configuration option to create,
-   configure, and remove FCoE interfaces for the FCoE disks in your Fibre
-   Channel storage infrastructure. To use this option, the FCoE Initiator
-   service (the <systemitem class="daemon">fcoemon</systemitem> daemon) and the
-   Link Layer Discovery Protocol agent daemon
-   (<systemitem class="daemon">llpad</systemitem>) must be installed and
-   running, and the FCoE connections must be enabled at the FCoE-capable
-   switch.
+   You can use the &yast; FCoE Client Configuration option to create, configure, and remove FCoE interfaces for the FCoE disks in your Fibre Channel storage infrastructure.
+   To use this option, the FCoE Initiator service (the <systemitem class="daemon">fcoemon</systemitem> daemon) and the Link Layer Discovery Protocol agent daemon (<systemitem class="daemon">llpad</systemitem>) must be installed and running, and the FCoE connections must be enabled at the FCoE-capable switch.
   </para>
 
   <procedure>
    <step>
     <para>
-     Launch &yast; and select <menuchoice><guimenu>Network
-     Services</guimenu><guimenu>FCoE Client
-     Configuration</guimenu></menuchoice>.
+     Launch &yast; and select <menuchoice><guimenu>Network Services</guimenu><guimenu>FCoE Client Configuration</guimenu></menuchoice>.
     </para>
     <informalfigure>
      <mediaobject>
@@ -175,21 +151,16 @@
    </step>
    <step>
     <para>
-     On the <guimenu>Services</guimenu> tab, view or modify the FCoE service
-     and Lldpad (Link Layer Discovery Protocol agent daemon) service start time
-     as necessary.
+     On the <guimenu>Services</guimenu> tab, view or modify the FCoE service and Lldpad (Link Layer Discovery Protocol agent daemon) service start time as necessary.
     </para>
     <itemizedlist mark="bullet" spacing="normal">
      <listitem>
       <formalpara>
        <title>FCoE service start:</title>
        <para>
-        Specifies whether to start the Fibre Channel over Ethernet service
-        <command>fcoemon</command> daemon at the server boot time or manually.
-        The daemon controls the FCoE interfaces and establishes a connection
-        with the <systemitem class="daemon">llpad</systemitem> daemon. The
-        values are <guimenu>When Booting</guimenu> (default) or
-        <guimenu>Manually</guimenu>.
+        Specifies whether to start the Fibre Channel over Ethernet service <command>fcoemon</command> daemon at the server boot time or manually.
+        The daemon controls the FCoE interfaces and establishes a connection with the <systemitem class="daemon">llpad</systemitem> daemon.
+        The values are <guimenu>When Booting</guimenu> (default) or <guimenu>Manually</guimenu>.
        </para>
       </formalpara>
      </listitem>
@@ -197,29 +168,21 @@
       <formalpara>
        <title>Lldpad service start:</title>
        <para>
-        Specifies whether to start the Link Layer Discovery Protocol agent
-        <systemitem class="daemon">llpad</systemitem> daemon at the server boot
-        time or manually. The <systemitem class="daemon">llpad</systemitem>
-        daemon informs the <command>fcoemon</command> daemon about the Data
-        Center Bridging features and the configuration of the FCoE interfaces.
-        The values are <guimenu>When Booting</guimenu> (default) or
-        <guimenu>Manually</guimenu>.
+        Specifies whether to start the Link Layer Discovery Protocol agent <systemitem class="daemon">llpad</systemitem> daemon at the server boot time or manually.
+        The <systemitem class="daemon">llpad</systemitem> daemon informs the <command>fcoemon</command> daemon about the Data Center Bridging features and the configuration of the FCoE interfaces.
+        The values are <guimenu>When Booting</guimenu> (default) or <guimenu>Manually</guimenu>.
        </para>
       </formalpara>
      </listitem>
     </itemizedlist>
     <para>
-     If you modify a setting, click <guimenu>OK</guimenu> to save and apply the
-     change.
+     If you modify a setting, click <guimenu>OK</guimenu> to save and apply the change.
     </para>
    </step>
    <step>
     <para>
-     On the <guimenu>Interfaces</guimenu> tab, view information about all of
-     the detected network adapters on the server, including information about
-     VLAN and FCoE configuration. You can also create an FCoE VLAN interface,
-     change settings for an existing FCoE interface, or remove an FCoE
-     interface.
+     On the <guimenu>Interfaces</guimenu> tab, view information about all of the detected network adapters on the server, including information about VLAN and FCoE configuration.
+     You can also create an FCoE VLAN interface, change settings for an existing FCoE interface, or remove an FCoE interface.
     </para>
     <informalfigure>
      <mediaobject>
@@ -232,18 +195,14 @@
      </mediaobject>
     </informalfigure>
     <para>
-     Use the <guimenu>FCoE VLAN Interface</guimenu> column to determine whether
-     FCoE is available or not:
+     Use the <guimenu>FCoE VLAN Interface</guimenu> column to determine whether FCoE is available or not:
     </para>
     <variablelist>
      <varlistentry>
-      <term><replaceable>Interface Name</replaceable>
-      </term>
+      <term><replaceable>Interface Name</replaceable></term>
       <listitem>
        <para>
-        If a name is assigned to the interface, such as
-        <filename>eth4.200</filename>, FCoE is available on the switch, and the
-        FCoE interface is activated for the adapter.
+        If a name is assigned to the interface, such as <filename>eth4.200</filename>, FCoE is available on the switch, and the FCoE interface is activated for the adapter.
        </para>
       </listitem>
      </varlistentry>
@@ -251,10 +210,8 @@
       <term>Not configured:</term>
       <listitem>
        <para>
-        If the status is <guimenu>not configured</guimenu>, FCoE is enabled on
-        the switch, but an FCoE interface has not been activated for the
-        adapter. Select the adapter, then click <guimenu>Create FCoE VLAN
-        Interface</guimenu> to activate the interface on the adapter.
+        If the status is <guimenu>not configured</guimenu>, FCoE is enabled on the switch, but an FCoE interface has not been activated for the adapter.
+        Select the adapter, then click <guimenu>Create FCoE VLAN Interface</guimenu> to activate the interface on the adapter.
        </para>
       </listitem>
      </varlistentry>
@@ -262,9 +219,7 @@
       <term>Not available:</term>
       <listitem>
        <para>
-        If the status is <guimenu>not available</guimenu>, FCoE is not possible
-        for the adapter because FCoE has not been enabled for that connection
-        on the switch.
+        If the status is <guimenu>not available</guimenu>, FCoE is not possible for the adapter because FCoE has not been enabled for that connection on the switch.
        </para>
       </listitem>
      </varlistentry>
@@ -272,27 +227,23 @@
    </step>
    <step>
     <para>
-     To set up an FCoE-enabled adapter that has not yet been configured, select
-     it and click <guimenu>Create FCoE VLAN Interface</guimenu>. Confirm the
-     query with <guimenu>Yes</guimenu>.
+     To set up an FCoE-enabled adapter that has not yet been configured, select it and click <guimenu>Create FCoE VLAN Interface</guimenu>.
+     Confirm the query with <guimenu>Yes</guimenu>.
     </para>
     <para>
-     The adapter is now listed with an interface name in the <guimenu>FCoE VLAN
-     Interface</guimenu> column.
+     The adapter is now listed with an interface name in the <guimenu>FCoE VLAN Interface</guimenu> column.
     </para>
    </step>
    <step>
     <para>
-     To change the settings for an adapter that is already configured, select
-     it from the list, then click <guimenu>Change Settings</guimenu>.
+     To change the settings for an adapter that is already configured, select it from the list, then click <guimenu>Change Settings</guimenu>.
     </para>
     <para>
      The following options can be configured:
     </para>
     <variablelist>
      <varlistentry>
-      <term><guimenu>FCoE enable</guimenu>
-      </term>
+      <term><guimenu>FCoE enable</guimenu></term>
       <listitem>
        <para>
         Enable or disable the creation of FCoE instances for the adapter.
@@ -300,49 +251,41 @@
       </listitem>
      </varlistentry>
      <varlistentry>
-      <term><guimenu>DCB required</guimenu>
-      </term>
+      <term><guimenu>DCB required</guimenu></term>
       <listitem>
        <para>
-        Specifies whether Data Center Bridging is required for the adapter
-        (usually this is the case).
+        Specifies whether Data Center Bridging is required for the adapter (usually this is the case).
        </para>
       </listitem>
      </varlistentry>
      <varlistentry>
-      <term><guimenu>Auto VLAN</guimenu>
-      </term>
+      <term><guimenu>Auto VLAN</guimenu></term>
       <listitem>
        <para>
-        Specifies whether the <systemitem class="daemon">fcoemon</systemitem>
-        daemon creates the VLAN interfaces automatically.
+        Specifies whether the <systemitem class="daemon">fcoemon</systemitem> daemon creates the VLAN interfaces automatically.
        </para>
       </listitem>
      </varlistentry>
     </variablelist>
     <para>
-     If you modify a setting, click <guimenu>Next</guimenu> to save and apply
-     the change. The settings are written to the
-     <filename>/etc/fcoe/cfg-eth<replaceable>X</replaceable></filename> file.
-     The <systemitem class="daemon">fcoemon</systemitem> daemon reads the
-     configuration files for each FCoE interface when it is initialized.
+     If you modify a setting, click <guimenu>Next</guimenu> to save and apply the change.
+     The settings are written to the <filename>/etc/fcoe/cfg-eth<replaceable>X</replaceable></filename> file.
+     The <systemitem class="daemon">fcoemon</systemitem> daemon reads the configuration files for each FCoE interface when it is initialized.
     </para>
    </step>
    <step>
     <para>
-     To remove an interface that is already configured, select it from the
-     list. Click <guimenu>Remove Interface</guimenu> and
-     <guimenu>Continue</guimenu> to confirm. The FCoE Interface value changes
-     to <guimenu>not configured</guimenu>.
+     To remove an interface that is already configured, select it from the list.
+     Click <guimenu>Remove Interface</guimenu> and <guimenu>Continue</guimenu> to confirm.
+     The
+     FCoE
+     Interface value changes to <guimenu>not configured</guimenu>.
     </para>
    </step>
    <step>
     <para>
-     On the <guimenu>Configuration</guimenu> tab, view or modify the general
-     settings for the FCoE system service. You can enable or disable debugging
-     messages from the FCoE service script and the
-     <systemitem class="daemon">fcoemon</systemitem> daemon and specify whether
-     messages are sent to the system log.
+     On the <guimenu>Configuration</guimenu> tab, view or modify the general settings for the FCoE system service.
+     You can enable or disable debugging messages from the FCoE service script and the <systemitem class="daemon">fcoemon</systemitem> daemon and specify whether messages are sent to the system log.
     </para>
     <informalfigure>
      <mediaobject>
@@ -373,14 +316,12 @@
    </step>
    <step>
     <para>
-     Use &yast; to configure the Ethernet network interface card, such as
-     <filename>eth2</filename>.
+     Use &yast; to configure the Ethernet network interface card, such as <filename>eth2</filename>.
     </para>
    </step>
    <step>
     <para>
-     Start the Link Layer Discovery Protocol agent daemon
-     (<systemitem class="daemon">llpad</systemitem>).
+     Start the Link Layer Discovery Protocol agent daemon (<systemitem class="daemon">llpad</systemitem>).
     </para>
 <screen>&prompt.sudo;systemctl start lldpad</screen>
    </step>
@@ -397,8 +338,7 @@
    </step>
    <step>
     <para>
-     Enable and set the Priority Flow Control (PFC) settings for Data Center
-     Bridging.
+     Enable and set the Priority Flow Control (PFC) settings for Data Center Bridging.
     </para>
 <screen>&prompt.sudo;dcbtool sc eth&lt;x&gt; pfc e:1 a:1 w:1</screen>
     <para>
@@ -417,8 +357,7 @@
       <term>a:&lt;0|1&gt;</term>
       <listitem>
        <para>
-        Controls whether the feature is advertised via Data Center Bridging
-        Exchange protocol to the peer.
+        Controls whether the feature is advertised via Data Center Bridging Exchange protocol to the peer.
        </para>
       </listitem>
      </varlistentry>
@@ -426,8 +365,7 @@
       <term>w:&lt;0|1&gt;</term>
       <listitem>
        <para>
-        Controls whether the feature is willing to change its operational
-        configuration based on what is received from the peer.
+        Controls whether the feature is willing to change its operational configuration based on what is received from the peer.
        </para>
       </listitem>
      </varlistentry>
@@ -435,8 +373,7 @@
    </step>
    <step>
     <para>
-     Enable the Data Center Bridging to accept the switch’s priority setting
-     for FCoE.
+     Enable the Data Center Bridging to accept the switch’s priority setting for FCoE.
     </para>
 <screen>&prompt.sudo;dcbtool sc eth2 app:fcoe e:1
   Version:       2
@@ -447,8 +384,7 @@
    </step>
    <step>
     <para>
-     Copy the default FCoE configuration file to
-     <filename>/etc/fcoe/cfg-eth2</filename>.
+     Copy the default FCoE configuration file to <filename>/etc/fcoe/cfg-eth2</filename>.
     </para>
 <screen>&prompt.sudo;cp /etc/fcoe/cfg-ethx /etc/fcoe/cfg-eth2</screen>
    </step>
@@ -460,9 +396,7 @@
    </step>
    <step>
     <para>
-     Set up the Link Layer Discovery Protocol agent daemon
-     (<systemitem class="daemon">llpad</systemitem>) and the FCoE Initiator
-     service to start when booting.
+     Set up the Link Layer Discovery Protocol agent daemon (<systemitem class="daemon">llpad</systemitem>) and the FCoE Initiator service to start when booting.
     </para>
 <screen>&prompt.user;systemctl enable llpad fcoe</screen>
    </step>
@@ -472,18 +406,14 @@
   <title>Managing FCoE instances with the FCoE administration tool</title>
 
   <para>
-   The <command>fcoeadm</command> utility is the Fibre Channel over Ethernet
-   (FCoE) management tool. It can be used to create, destroy, and reset an FCoE
-   instance on a given network interface. The <command>fcoeadm</command>
-   utility sends commands to a running
-   <systemitem class="daemon">fcoemon</systemitem> process via a socket
-   interface. For information about <command>fcoemon</command>, see the
-   <command>man 8 fcoemon</command>.
+   The <command>fcoeadm</command> utility is the Fibre Channel over Ethernet (FCoE) management tool.
+   It can be used to create, destroy, and reset an FCoE instance on a given network interface.
+   The <command>fcoeadm</command> utility sends commands to a running <systemitem class="daemon">fcoemon</systemitem> process via a socket interface.
+   For information about <command>fcoemon</command>, see the <command>man 8 fcoemon</command>.
   </para>
 
   <para>
-   The <command>fcoeadm</command> utility allows you to query the FCoE
-   instances about the following:
+   The <command>fcoeadm</command> utility allows you to query the FCoE instances about the following:
   </para>
 
   <itemizedlist mark="bullet" spacing="normal">
@@ -505,9 +435,8 @@
   </itemizedlist>
 
   <para>
-   The <command>fcoeadm</command> utility is part of the
-   <filename>fcoe-utils</filename> package. The general syntax for the command
-   looks like the following:
+   The <command>fcoeadm</command> utility is part of the <filename>fcoe-utils</filename> package.
+   The general syntax for the command looks like the following:
   </para>
 
 <screen>fcoeadm
@@ -531,8 +460,7 @@
 
   <variablelist>
    <varlistentry>
-    <term><command>fcoeadm -c eth2.101</command>
-    </term>
+    <term><command>fcoeadm -c eth2.101</command></term>
     <listitem>
      <para>
       Create an FCoE instance on eth2.101.
@@ -540,8 +468,7 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -d eth2.101</command>
-    </term>
+    <term><command>fcoeadm -d eth2.101</command></term>
     <listitem>
      <para>
       Destroy an FCoE instance on eth2.101.
@@ -549,14 +476,12 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -i eth3</command>
-    </term>
+    <term><command>fcoeadm -i eth3</command></term>
     <listitem>
      <para>
-      Show information about all of the FCoE instances on interface
-      <literal>eth3</literal>. If no interface is specified, information for
-      all interfaces that have FCoE instances created will be shown. The
-      following example shows information on connection eth0.201:
+      Show information about all of the FCoE instances on interface <literal>eth3</literal>.
+      If no interface is specified, information for all interfaces that have FCoE instances created will be shown.
+      The following example shows information on connection eth0.201:
      </para>
 <screen>&prompt.sudo;fcoeadm -i eth0.201
   Description:      82599EB 10-Gigabit SFI/SFP+ Network Connection
@@ -580,19 +505,16 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -l eth3.101</command>
-    </term>
+    <term><command>fcoeadm -l eth3.101</command></term>
     <listitem>
      <para>
-      Show detailed information about all of the LUNs discovered on connection
-      eth3.101. If no connection is specified, information about all of the
-      LUNs discovered on all FCoE connections will be shown.
+      Show detailed information about all of the LUNs discovered on connection eth3.101.
+      If no connection is specified, information about all of the LUNs discovered on all FCoE connections will be shown.
      </para>
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -r eth2.101</command>
-    </term>
+    <term><command>fcoeadm -r eth2.101</command></term>
     <listitem>
      <para>
       Reset the FCoE instance on eth2.101.
@@ -600,27 +522,23 @@
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -s eth3 3</command>
-    </term>
+    <term><command>fcoeadm -s eth3 3</command></term>
     <listitem>
      <para>
-      Show statistical information about a specific eth3 port that has FCoE
-      instances, at an interval of three seconds. The statistics are displayed
-      one line per time interval. If no interval is given, the default of one
-      second is used.
+      Show statistical information about a specific eth3 port that has FCoE instances, at an interval of three seconds.
+      The statistics are displayed one line per time interval.
+      If no interval is given, the default of one second is used.
      </para>
     </listitem>
    </varlistentry>
    <varlistentry>
-    <term><command>fcoeadm -t eth3</command>
-    </term>
+    <term><command>fcoeadm -t eth3</command></term>
     <listitem>
      <para>
-      Show information about all of the discovered targets from a given eth3
-      port having FCoE instances. After each discovered target, any associated
-      LUNs are listed. If no instance is specified, targets from all of the
-      ports that have FCoE instances are shown. The following example shows
-      information of targets from the eth0.201 connection:
+      Show information about all of the discovered targets from a given eth3 port having FCoE instances.
+      After each discovered target, any associated LUNs are listed.
+      If no instance is specified, targets from all of the ports that have FCoE instances are shown.
+      The following example shows information of targets from the eth0.201 connection:
      </para>
 <screen>&prompt.sudo;fcoeadm -t eth0.201
   Interface:        eth0.201
@@ -653,26 +571,22 @@ LUN ID  Device Name   Capacity   Block Size  Description
   <itemizedlist mark="bullet" spacing="normal">
    <listitem>
     <para>
-     For information about the Open-FCoE service daemon, see the
-     <command>fcoemon(8)</command> man page.
+     For information about the Open-FCoE service daemon, see the <command>fcoemon(8)</command> man page.
     </para>
    </listitem>
    <listitem>
     <para>
-     For information about the Open-FCoE Administration tool, see the
-     <command>fcoeadm(8)</command> man page.
+     For information about the Open-FCoE Administration tool, see the <command>fcoeadm(8)</command> man page.
     </para>
    </listitem>
    <listitem>
     <para>
-     For information about the Data Center Bridging Configuration tool, see the
-     <command>dcbtool(8)</command> man page.
+     For information about the Data Center Bridging Configuration tool, see the <command>dcbtool(8)</command> man page.
     </para>
    </listitem>
    <listitem>
     <para>
-     For information about the Link Layer Discovery Protocol agent daemon, see
-     the <filename>lldpad(8)</filename> man page.
+     For information about the Link Layer Discovery Protocol agent daemon, see the <filename>lldpad(8)</filename> man page.
     </para>
    </listitem>
   </itemizedlist>

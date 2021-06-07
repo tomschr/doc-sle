@@ -8,53 +8,45 @@
          xmlns:xi="http://www.w3.org/2001/XInclude"
          xmlns:xlink="http://www.w3.org/1999/xlink"
          version="5.0" xml:id="cha-rmt-installation">
-<!-- ==================================================================== -->
+ <!-- ==================================================================== -->
  <title>&rmt; installation and configuration</title>
  <para>
-  &rmt; is included in &sls; starting with version 15. Install &rmt; directly
-  during the installation of &productname; or install it on a running system.
+  &rmt; is included in &sls; starting with version 15.
+  Install &rmt; directly during the installation of &productname; or install it on a running system.
   After the packages are installed, use &yast; to do an initial configuration.
  </para>
  <warning>
   <title>&rmt; server will conflict with installation server</title>
   <para>
-   Configuring a server to be an &rmt; server installs and configures the NGINX
-   Web server, listening on port 80.
+   Configuring a server to be an &rmt; server installs and configures the NGINX Web server, listening on port 80.
   </para>
   <para>
-   However, configuring a machine to be an installation server automatically
-   installs the Apache Web server and configures it to listen on port 80.
+   However, configuring a machine to be an installation server automatically installs the Apache Web server and configures it to listen on port 80.
   </para>
   <para>
-   Do not try to enable both these functions on the same server. It is not
-   possible for a single server to host both simultaneously.
+   Do not try to enable both these functions on the same server.
+   It is not possible for a single server to host both simultaneously.
   </para>
  </warning>
  <sect1 xml:id="sec-rmt-storage-requirements">
   <title>Storage requirements</title>
 
   <para>
-   Downloaded packages are stored in
-   <filename>/usr/share/rmt/public/repo</filename>, which is a symbolic link to
-   <filename>/var/lib/rmt/public/repo/</filename>.
+   Downloaded packages are stored in <filename>/usr/share/rmt/public/repo</filename>, which is a symbolic link to <filename>/var/lib/rmt/public/repo/</filename>.
   </para>
 
   <para>
-   The amount of storage your &rmt; server requires is dependent on several
-   variables: the number of repositories and architectures that you mirror, and
-   the number of products that are enabled. As a general guide, 1.5 times the
-   total size of all enabled repositories should be sufficient. This is about
-   200 GB per &sle; release, including all extensions.
+   The amount of storage your &rmt; server requires is dependent on several variables: the number of repositories and architectures that you mirror, and the number of products that are enabled.
+   As a general guide, 1.5 times the total size of all enabled repositories should be sufficient.
+   This is about 200 GB per &sle; release, including all extensions.
   </para>
  </sect1>
  <sect1 xml:id="sec-rmt-installation-yast">
   <title>Installation during system installation</title>
 
   <para>
-   To install it during installation, select the <package>rmt-server</package>
-   package. The package selection is available in the <emphasis>Installation
-   Settings</emphasis> step of the installation when selecting
-   <emphasis>Software</emphasis>.
+   To install it during installation, select the <package>rmt-server</package> package.
+   The package selection is available in the <emphasis>Installation Settings</emphasis> step of the installation when selecting <emphasis>Software</emphasis>.
   </para>
 
   <figure>
@@ -70,18 +62,14 @@
   </figure>
 
   <para>
-   We recommend to check for available &rmt; updates immediately after
-   installing &sls; using the <command>zypper patch</command> command. &suse;
-   continuously releases maintenance updates for &rmt;, and newer packages are
-   likely to be available.
+   We recommend to check for available &rmt; updates immediately after installing &sls; using the <command>zypper patch</command> command. &suse; continuously releases maintenance updates for &rmt;, and newer packages are likely to be available.
   </para>
  </sect1>
  <sect1 xml:id="sec-rmt-installation-zypper">
   <title>Installation on existing system</title>
 
   <para>
-   To install &rmt; on a running &productname; installation, use
-   <command>zypper</command>:
+   To install &rmt; on a running &productname; installation, use <command>zypper</command>:
   </para>
 
 <screen>&prompt.sudo;<command>zypper in rmt-server</command></screen>
@@ -90,8 +78,8 @@
   <title>&rmt; configuration with &yast;</title>
 
   <para>
-   Configure &rmt; with &yast; as described in the following procedure. It is
-   assumed that this procedure is executed on a newly installed system.
+   Configure &rmt; with &yast; as described in the following procedure.
+   It is assumed that this procedure is executed on a newly installed system.
   </para>
 
   <procedure>
@@ -101,50 +89,44 @@
     </para>
 <screen>&prompt.sudo;<command>yast2 rmt</command></screen>
     <para>
-     Alternatively, start &yast; and select <menuchoice> <guimenu>Network
-     Services</guimenu> <guimenu>RMT Configuration</guimenu> </menuchoice>.
+     Alternatively, start &yast; and select <menuchoice> <guimenu>Network Services</guimenu> <guimenu>RMT Configuration</guimenu> </menuchoice>.
     </para>
    </step>
    <step>
     <para>
-     Enter your organization credentials. To retrieve your credentials, refer
-     to <xref linkend="sec-rmt-mirroring-credentials" />.
+     Enter your organization credentials.
+     To retrieve your credentials, refer to <xref linkend="sec-rmt-mirroring-credentials" />.
     </para>
    </step>
    <step>
     <para>
-     Enter credentials for a new &mariadb; user and database name. This user
-     will then be created. Then select <guimenu>Next</guimenu>.
+     Enter credentials for a new &mariadb; user and database name.
+     This user will then be created.
+     Then select <guimenu>Next</guimenu>.
     </para>
     <para>
-     If a password for the &mariadb; <literal>root</literal> user is already
-     set, you are required to enter it. If no password is set for
-     <literal>root</literal>, you are asked to enter a new one.
+     If a password for the &mariadb; <literal>root</literal> user is already set, you are required to enter it.
+     If no password is set for <literal>root</literal>, you are asked to enter a new one.
     </para>
    </step>
    <step>
     <para>
-     Enter a common name for the SSL certificates. The common name should
-     usually be the <emphasis>fully qualified domain name</emphasis>
-     (<emphasis>FQDN</emphasis>) of the server. Enter all domain names and IP
-     addresses with which you want to reach the &rmt; server as alternative
-     common names.
+     Enter a common name for the SSL certificates.
+     The common name should usually be the <emphasis>fully qualified domain name</emphasis> (<emphasis>FQDN</emphasis>) of the server.
+     Enter all domain names and IP addresses with which you want to reach the &rmt; server as alternative common names.
     </para>
     <para>
      When all common names are entered, select <guimenu>Next</guimenu>.
     </para>
     <tip>
      <title>Certificate locations for RMT</title>
-
      <itemizedlist>
       <listitem>
        <para>
         <filename>/etc/rmt/ssl/rmt-ca.crt</filename>
        </para>
        <para>
-        This is the CA certificate bundle that <command>yast2 rmt</command> uses to
-        certify the &rmt; server certificate. <command>yast2 rmt</command> will only
-        create this file if it does not already exist.
+        This is the CA certificate bundle that <command>yast2 rmt</command> uses to certify the &rmt; server certificate. <command>yast2 rmt</command> will only create this file if it does not already exist.
        </para>
       </listitem>
       <listitem>
@@ -152,9 +134,8 @@
         <filename>/etc/rmt/ssl/rmt-server.crt</filename> and <filename>/etc/rmt/ssl/rmt-server.key</filename>
        </para>
        <para>
-        <command>yast2 rmt</command> will only generate a new server certificate and
-        private key if one does not already exist. To regenerate this certificate,
-        refer to <xref linkend="cha-manage-certificates-https" />.
+        <command>yast2 rmt</command> will only generate a new server certificate and private key if one does not already exist.
+        To regenerate this certificate, refer to <xref linkend="cha-manage-certificates-https" />.
        </para>
       </listitem>
      </itemizedlist>
@@ -162,8 +143,7 @@
    </step>
    <step>
     <para>
-     If &firewalld; is enabled on this system, enable the check box to open the
-     required ports.
+     If &firewalld; is enabled on this system, enable the check box to open the required ports.
     </para>
     <figure>
      <title>Enabling ports in &firewalld;</title>
@@ -177,15 +157,12 @@
      </mediaobject>
     </figure>
     <para>
-     If &firewalld; is not enabled now and you plan to enable it later, you
-     can always open relevant ports by running the <command>yast2 rmt</command>
-     module.
+     If &firewalld; is not enabled now and you plan to enable it later, you can always open relevant ports by running the <command>yast2 rmt</command> module.
     </para>
     <tip>
      <title>Fine-tuning &firewalld; settings</title>
      <para>
-      By clicking <guimenu>Firewall Details</guimenu>, you can open the
-      relevant ports for specific network interfaces only.
+      By clicking <guimenu>Firewall Details</guimenu>, you can open the relevant ports for specific network interfaces only.
      </para>
     </tip>
     <para>
@@ -194,26 +171,24 @@
    </step>
    <step>
     <para>
-     To view the summary, click <guimenu>Next</guimenu>. Close &yast; by
-     clicking <guimenu>Finish</guimenu>. &yast; then enables and starts
-     all &systemd; services and timers.
+     To view the summary, click <guimenu>Next</guimenu>.
+     Close &yast; by clicking <guimenu>Finish</guimenu>. &yast; then enables and starts all &systemd; services and timers.
     </para>
    </step>
   </procedure>
-  </sect1>
-  <sect1>
+ </sect1>
+ <sect1>
   <title>Enabling SLP announcements</title>
 
   <para>
-   &rmt; includes the SLP service description file
-   <filename>/etc/slp.reg.d/rmt-server.reg</filename>. To enable SLP
-   announcements of the &rmt; service, follow these steps:
+   &rmt; includes the SLP service description file <filename>/etc/slp.reg.d/rmt-server.reg</filename>.
+   To enable SLP announcements of the &rmt; service, follow these steps:
   </para>
+
   <procedure>
    <step>
     <para>
-     If &firewalld; is running, open relevant ports and reload the &firewalld;
-     configuration:
+     If &firewalld; is running, open relevant ports and reload the &firewalld; configuration:
     </para>
 <screen>
 &prompt.sudo;firewall-cmd --permanent --add-port=427/tcp
@@ -239,6 +214,5 @@ success
 </screen>
    </step>
   </procedure>
-
  </sect1>
 </chapter>
