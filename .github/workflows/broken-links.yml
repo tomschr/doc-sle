@@ -14,6 +14,12 @@ permissions:
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
+    # Define job-level variables here for easy maintenance
+    env:
+      PREPROCESS: "preprocess.sh"
+      LYCHEE_REPORT: "broken-links.md"
+      DOCBOOK_XSL_PATH: "/usr/share/xml/docbook/stylesheet/docbook-xsl-ns/xhtml/docbook.xsl"
+
     steps:
       - uses: actions/checkout@v5
 
