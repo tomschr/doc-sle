@@ -23,6 +23,11 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y asciidoctor pandoc libxml2-utils xsltproc docbook-xsl-ns
+
       - name: Save PR Number
         if: always()
         run: echo "${{ github.event.number }}" > pr_number.txt
