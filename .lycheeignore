@@ -5,9 +5,10 @@ http://www.w3.org/1999/xlink
 http://www.suse.com/1.0/configns
 
 # Ignore specific schemas:
-mailto:
-ipp://
-sane://
-ftp://
+mailto:.*
+ipp://.*
+scanner.sane:.*
+ftp://.*
+file://.*
 
 ntp\d?.example.com
