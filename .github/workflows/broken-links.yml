@@ -1,0 +1,78 @@
+
+name: Check Broken Links
+
+on:
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Create Lychee config
+        run: |
+          cat > lychee.toml << EOF
+          # Verbose program output
+          # Accepts log level: "error", "warn", "info", "debug", "trace"
+          verbose = "debug"
+          # Path to summary output file.
+          output = "broken-links.md"
+          # Preprocess input files
+          preprocess = { command = "preprocess.sh" }
+          # Only check local files
+          offline = true
+          EOF
+
+      - name: Create preprocess.sh
+        run: |
+          cat > preprocess.sh << EOF
+          #!/usr/bin/env bash
+          # Use 'set -e' to exit on any error in the conversion process
+          set -e
+
+          case "$1" in
+            *.adoc|*.asciidoc)
+                asciidoctor -a stylesheet! "$1" -o -
+                ;;
+
+            *.xml)
+                # It's quick and doesn't requires daps, maybe there is even an easier way:
+                xmllint --noent "$1" | pandoc --from=docbook --to=html -
+                ;;
+
+            *.html|*.htm)
+              # identity function, output input without changes
+              exec cat
+          esac
+          EOF
+
+      - name: Find files
+        id: find_files
+        run: |
+          # Find the files (excluding schemas.xml) and join them into a single string
+          FILES=$(find . -type f \( -name "*.adoc" -o -name "*.xml" \) \
+              -not -name "schemas.xml" \
+             | tr '\n' ' ')
+          echo "file_list=$FILES" >> $GITHUB_OUTPUT
+
+      - name: Check links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Remap live URLs to build directory because the links are potentially not live (not yet on main/master)
+          args: |
+            --root-dir $PWD
+            --exclude-all-private
+            # --remap 'https://lychee\.cli\.rs/(.*)/ file://'$PWD'/dist/$1/index.html'
+            ${{ steps.find_files.outputs.file_list }}
+          fail: true
+
+      - name: Suggestions
+        if: failure()
+        run: |
+          echo -e "\nPlease review the links reported in the 'Check links in PR changes' step above."
+          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,"
+          echo -e "consider adding such links to .lycheeignore file to bypass future checks.\n"
+          exit 1
