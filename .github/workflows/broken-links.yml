@@ -35,7 +35,7 @@ jobs:
       # Maybe fetch that from an external source?
       - name: Create Lychee config
         run: |
-          cat > lychee.toml << EOF
+          cat > lychee.toml << 'EOF'
           # Verbose program output
           # Accepts log level: "error", "warn", "info", "debug", "trace"
           verbose = "debug"
