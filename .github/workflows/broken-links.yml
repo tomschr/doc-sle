@@ -6,11 +6,20 @@ on:
     branches: [main, master]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  packages: read
+  pull-requests: write
+
 jobs:
   linkChecker:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+
+      - name: Save PR Number
+        if: success() && github.event_name == 'pull_request'
+        run: echo ${{ github.event.number }} > pr_number.txt
 
       - name: Create Lychee config
         run: |
@@ -63,16 +72,14 @@ jobs:
         with:
           # Remap live URLs to build directory because the links are potentially not live (not yet on main/master)
           args: |
-            --root-dir $PWD
-            --exclude-all-private
-            # --remap 'https://lychee\.cli\.rs/(.*)/ file://'$PWD'/dist/$1/index.html'
             ${{ steps.find_files.outputs.file_list }}
           fail: true
 
-      - name: Suggestions
-        if: failure()
-        run: |
-          echo -e "\nPlease review the links reported in the 'Check links in PR changes' step above."
-          echo -e "If a link is valid but fails due to a CAPTCHA challenge, IP blocking, login requirements, etc.,"
-          echo -e "consider adding such links to .lycheeignore file to bypass future checks.\n"
-          exit 1
+      - name: Upload Broken Links Artifacts
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v6
+        with:
+          name: broken-links-artifact
+          path: |
+            broken-links.md
+            pr_number.txt
