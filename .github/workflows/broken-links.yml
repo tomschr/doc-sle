@@ -33,6 +33,14 @@ jobs:
           preprocess = { command = "preprocess.sh" }
           # Only check local files
           offline = true
+          #
+          exclude = [ "mailto:.*"]
+          #
+          exclude_path = [
+              "\\.txt$",      # skip .txt extensions
+              "(^|/)test/",   # skip directories named "test"
+              "(^|/)build/",   # skip directories named "build"
+          ]
           EOF
 
       - name: Create preprocess.sh
