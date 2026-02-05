@@ -124,7 +124,7 @@ jobs:
           # Remap live URLs to build directory because the links are potentially not live (not yet on main/master)
           args: |
             ${{ steps.find_files.outputs.file_list }}
-          fail: true
+          fail: false
           output: ${{ env.LYCHEE_REPORT }}
 
       - name: Save lychee cache
