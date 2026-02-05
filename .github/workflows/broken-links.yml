@@ -21,6 +21,7 @@ jobs:
         if: always()
         run: echo "${{ github.event.number }}" > pr_number.txt
 
+      # Maybe fetch that from an external source?
       - name: Create Lychee config
         run: |
           cat > lychee.toml << EOF
@@ -37,7 +38,7 @@ jobs:
           exclude = [ "mailto:.*"]
           #
           exclude_path = [
-              "\.txt$",      # skip .txt extensions
+              "*.txt$",      # skip .txt extensions
               "(^|/)test/",   # skip directories named "test"
               "(^|/)build/",   # skip directories named "build"
           ]
