@@ -1,14 +1,2 @@
-# Namespaces
-http://www.w3.org/2005/11/its
-http://docbook.org/ns/docbook
-http://www.w3.org/1999/xlink
-http://www.suse.com/1.0/configns
-
-# Ignore specific schemas:
-mailto:.*
-ipp://.*
-scanner.sane:.*
-ftp://.*
-file://.*
-
+# Lychee ignore file
 ntp\d?.example.com

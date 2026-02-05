@@ -46,7 +46,18 @@ jobs:
           # Only check local files
           offline = true
           #
-          exclude = [ "mailto:.*"]
+          exclude = [
+            "mailto:.*",
+            # Namespaces. Probably not really used, but you never know:
+            "^http://www\.w3\.org/2005/11/its$",
+            "^http://docbook\.org/ns/docbook",
+            "^http://www\.w3\.org/1999/xlink$",
+            "^http://www\.suse\.com/1.0/configns$",
+            "^ipp://.*",
+            "^scanner\.sane:.*",
+            "^ftp://.*",
+            "^file://.*",
+          ]
           #
           exclude_path = [
               "(^|/)test/",   # skip directories named "test"
