@@ -21,6 +21,15 @@ jobs:
       DOCBOOK_XSL_PATH: "/usr/share/xml/docbook/stylesheet/docbook-xsl-ns/xhtml/docbook.xsl"
 
     steps:
+      # Cache lychee results (e.g. to avoid hitting rate limits)
+      - name: Restore lychee cache
+        id: restore-cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
       - uses: actions/checkout@v5
 
       - name: Install dependencies
@@ -36,28 +45,32 @@ jobs:
       - name: Create Lychee config
         run: |
           cat > lychee.toml << 'EOF'
+          # Enable link caching. This can be helpful to avoid checking the same links on
+          # multiple runs.
+          cache = true
+          max-cache-age = "1d"
           # Verbose program output
           # Accepts log level: "error", "warn", "info", "debug", "trace"
           verbose = "debug"
           # Path to summary output file.
-          output = "broken-links.md"
+          output = "${{ env.LYCHEE_REPORT }}"
           # Preprocess input files
           preprocess = { command = "${{ env.PREPROCESS }}" }
           # Only check local files
-          offline = true
+          # offline = true
           #
-          exclude = [
-            "mailto:.*",
-            # Namespaces. Probably not really used, but you never know:
-            "^http://www\\.w3\\.org/2005/11/its$",
-            "^http://docbook\\.org/ns/docbook",
-            "^http://www\\.w3\\.org/1999/xlink$",
-            "^http://www\\.suse\\.com/1.0/configns$",
-            "^ipp://.*",
-            "^scanner\\.sane:.*",
-            "^ftp://.*",
-            "^file://.*",
-          ]
+          # exclude = [
+          #   "mailto:.*",
+          #   # Namespaces. Probably not really used, but you never know:
+          #   "^http://www\\.w3\\.org/2005/11/its$",
+          #   "^http://docbook\\.org/ns/docbook",
+          #   "^http://www\\.w3\\.org/1999/xlink$",
+          #   "^http://www\\.suse\\.com/1.0/configns$",
+          #   "^ipp://.*",
+          #   "^scanner\\.sane:.*",
+          #   "^ftp://.*",
+          #   "^file://.*",
+          # ]
           #
           exclude_path = [
               "(^|/)test/",   # skip directories named "test"
@@ -66,7 +79,7 @@ jobs:
           ]
           EOF
 
-      - name: Create ${{ env.PREPROCESS }}
+      - name: Create preprocess script
         run: |
           cat > ${{ env.PREPROCESS }} << 'EOF'
           #!/usr/bin/env bash
@@ -111,6 +124,13 @@ jobs:
             ${{ steps.find_files.outputs.file_list }}
           fail: true
           output: ${{ env.LYCHEE_REPORT }}
+
+      - name: Save lychee cache
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: .lycheecache
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
 
       - name: Upload Broken Links Artifacts
         if: always()
