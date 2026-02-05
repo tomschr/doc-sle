@@ -42,7 +42,7 @@ jobs:
           # Path to summary output file.
           output = "broken-links.md"
           # Preprocess input files
-          preprocess = { command = "preprocess.sh" }
+          preprocess = { command = "${{ env.PREPROCESS }}" }
           # Only check local files
           offline = true
           #
@@ -51,13 +51,13 @@ jobs:
           exclude_path = [
               "(^|/)test/",   # skip directories named "test"
               "(^|/)build/",  # skip directories named "build"
-              "(^|/)l10n/",   # skip l10n directories
+              # "(^|/)l10n/",   # skip l10n directories
           ]
           EOF
 
-      - name: Create preprocess.sh
+      - name: Create ${{ env.PREPROCESS }}
         run: |
-          cat > preprocess.sh << EOF
+          cat > ${{ env.PREPROCESS }} << 'EOF'
           #!/usr/bin/env bash
           # Use 'set -e' to exit on any error in the conversion process
           set -e
@@ -69,7 +69,8 @@ jobs:
 
             *.xml)
                 # It's quick and doesn't requires daps, maybe there is even an easier way:
-                xmllint --noent "$1" | pandoc --from=docbook --to=html -
+                # xmllint --noent "$1" | pandoc --from=docbook --to=html -
+                xsltproc --xinclude "${DOCBOOK_XSL_PATH}" "$1"
                 ;;
 
             *.html|*.htm)
@@ -77,6 +78,8 @@ jobs:
               exec cat
           esac
           EOF
+          # Make it executable
+          chmod +x ${{ env.PREPROCESS }}
 
       - name: Find files
         id: find_files
@@ -96,7 +99,7 @@ jobs:
           args: |
             ${{ steps.find_files.outputs.file_list }}
           fail: true
-          output: broken-links.md
+          output: ${{ env.LYCHEE_REPORT }}
 
       - name: Upload Broken Links Artifacts
         if: always()
@@ -104,5 +107,5 @@ jobs:
         with:
           name: link-check-results
           path: |
-            broken-links.md
+            ${{ env.LYCHEE_REPORT }}
             pr_number.txt
