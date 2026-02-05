@@ -30,7 +30,7 @@ jobs:
 
       - name: Save PR Number
         if: always()
-        run: echo "${{ github.event.number }}" > pr_number.txt
+        run: echo "${{ github.event.pull_request.number }}" > pr_number.txt
 
       # Maybe fetch that from an external source?
       - name: Create Lychee config
@@ -49,12 +49,12 @@ jobs:
           exclude = [
             "mailto:.*",
             # Namespaces. Probably not really used, but you never know:
-            "^http://www\.w3\.org/2005/11/its$",
-            "^http://docbook\.org/ns/docbook",
-            "^http://www\.w3\.org/1999/xlink$",
-            "^http://www\.suse\.com/1.0/configns$",
+            "^http://www\\.w3\\.org/2005/11/its$",
+            "^http://docbook\\.org/ns/docbook",
+            "^http://www\\.w3\\.org/1999/xlink$",
+            "^http://www\\.suse\\.com/1.0/configns$",
             "^ipp://.*",
-            "^scanner\.sane:.*",
+            "^scanner\\.sane:.*",
             "^ftp://.*",
             "^file://.*",
           ]
