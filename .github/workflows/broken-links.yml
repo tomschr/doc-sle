@@ -39,7 +39,8 @@ jobs:
           #
           exclude_path = [
               "(^|/)test/",   # skip directories named "test"
-              "(^|/)build/",   # skip directories named "build"
+              "(^|/)build/",  # skip directories named "build"
+              "(^|/)l10n/",   # skip l10n directories
           ]
           EOF
 
