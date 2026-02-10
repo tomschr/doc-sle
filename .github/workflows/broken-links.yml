@@ -1,0 +1,153 @@
+
+name: Check Broken Links
+
+on:
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+  pull-requests: write
+
+jobs:
+  linkChecker:
+    runs-on: ubuntu-latest
+    # Define job-level variables here for easy maintenance
+    env:
+      PREPROCESS: "preprocess.sh"
+      LYCHEE_REPORT: "broken-links.md"
+      DOCBOOK_XSL_PATH: "/usr/share/xml/docbook/stylesheet/docbook-xsl-ns/xhtml/docbook.xsl"
+
+    steps:
+      # Cache lychee results (e.g. to avoid hitting rate limits)
+      - name: Restore lychee cache
+        id: restore-cache
+        uses: actions/cache@v4
+        with:
+          path: .lycheecache
+          key: cache-lychee-${{ github.sha }}
+          restore-keys: cache-lychee-
+
+      - uses: actions/checkout@v5
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y asciidoctor pandoc libxml2-utils xsltproc docbook-xsl-ns
+
+      - name: Save PR Number
+        if: always()
+        run: echo "${{ github.event.pull_request.number }}" > pr_number.txt
+
+      # Maybe fetch that from an external source?
+      - name: Create Lychee config
+        run: |
+          cat > lychee.toml << 'EOF'
+          # Enable link caching. This can be helpful to avoid checking the same links on
+          # multiple runs.
+          cache = true
+          max-cache-age = "1d"
+          # Verbose program output
+          # Accepts log level: "error", "warn", "info", "debug", "trace"
+          verbose = "debug"
+
+          # Fix 404/403 issues:
+          # 1. Set a realistic User-Agent
+          user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          # 2. Accept codes that often fail due to bot protection
+          accept = [200, 403, 401, 429]
+          # 3. Increase timeout for slow servers
+          timeout = 20
+          # 4. Retry once on failure
+          retry = 1
+
+          # Path to summary output file.
+          output = "${{ env.LYCHEE_REPORT }}"
+          # Preprocess input files
+          preprocess = { command = "${{ env.PREPROCESS }}" }
+          # Only check local files
+          offline = false
+          #
+          exclude = [
+             "^http://localhost/.*",
+          #   "mailto:.*",
+          #   # Namespaces. Probably not really used, but you never know:
+          #   "^http://www\\.w3\\.org/2005/11/its$",
+          #   "^http://docbook\\.org/ns/docbook",
+          #   "^http://www\\.w3\\.org/1999/xlink$",
+          #   "^http://www\\.suse\\.com/1.0/configns$",
+          #   "^ipp://.*",
+             "^ftp://.*",
+             "^file://.*",
+          ]
+          #
+          exclude_path = [
+              "(^|/)test/",   # skip directories named "test"
+              "(^|/)build/",  # skip directories named "build"
+              "(^|/)l10n/",   # skip l10n directories
+          ]
+          EOF
+
+      - name: Create preprocess script
+        run: |
+          cat > ${{ env.PREPROCESS }} << 'EOF'
+          #!/usr/bin/env bash
+          # Use 'set -e' to exit on any error in the conversion process
+          set -e
+
+          case "$1" in
+            *.adoc|*.asciidoc)
+                asciidoctor -a stylesheet! "$1" -o -
+                ;;
+
+            *.xml)
+                # It's quick and doesn't requires daps, maybe there is even an easier way:
+                # xmllint --noent "$1" | pandoc --from=docbook --to=html -
+                xsltproc --xinclude "${DOCBOOK_XSL_PATH}" "$1"
+                ;;
+
+            *.html|*.htm)
+              # identity function, output input without changes
+              exec cat
+          esac
+          EOF
+          # Make it executable
+          chmod +x ${{ env.PREPROCESS }}
+
+      - name: Find files
+        id: find_files
+        run: |
+          # Find the files (excluding schemas.xml) and join them into a single string
+          FILES=$(find . -type f \( -name "*.adoc" -o -name "*.xml" \) \
+              -not -name "schemas.xml" \
+             | tr '\n' ' ')
+          echo "file_list=$FILES" >> $GITHUB_OUTPUT
+
+      - name: Check links
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Remap live URLs to build directory because the links are potentially not live (not yet on main/master)
+          args: |
+            ${{ steps.find_files.outputs.file_list }}
+          fail: false
+          output: ${{ env.LYCHEE_REPORT }}
+
+      - name: Save lychee cache
+        uses: actions/cache/save@v3
+        if: always()
+        with:
+          path: .lycheecache
+          key: ${{ steps.restore-cache.outputs.cache-primary-key }}
+
+      - name: Upload Broken Links Artifacts
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: link-check-results
+          path: |
+            ${{ env.LYCHEE_REPORT }}
+            pr_number.txt
