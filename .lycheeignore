@@ -1,2 +1,6 @@
 # Lychee ignore file
 ntp\d?.example.com
+https?://MYSERVER/.*
+https?://myserver/.*
+https?://doccomments.*
+^https?://[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/.*
