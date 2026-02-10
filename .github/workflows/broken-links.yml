@@ -68,11 +68,10 @@ jobs:
           # Preprocess input files
           preprocess = { command = "${{ env.PREPROCESS }}" }
           # Only check local files
-          # offline = true
+          offline = false
           #
           exclude = [
              "^http://localhost/.*",
-             "^http://192.168.*",
           #   "mailto:.*",
           #   # Namespaces. Probably not really used, but you never know:
           #   "^http://www\\.w3\\.org/2005/11/its$",
@@ -80,7 +79,6 @@ jobs:
           #   "^http://www\\.w3\\.org/1999/xlink$",
           #   "^http://www\\.suse\\.com/1.0/configns$",
           #   "^ipp://.*",
-             "sane:.*",
              "^ftp://.*",
              "^file://.*",
           ]

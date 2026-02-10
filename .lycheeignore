@@ -3,7 +3,13 @@ ntp\d?.example.com
 https?://MYSERVER/.*
 https?://myserver/.*
 https?://doccomments.*
+sane:.*
 ^https?://[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}/.*
+https?://server.name.*
+
+# SUSE specific
+https?://api\.suse\.de/.*
+
 # Internal:
 ^https?://fate\.suse\.com/.*
 ^https?://qam\.suse\.de/:*
