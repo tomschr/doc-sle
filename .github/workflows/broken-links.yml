@@ -52,6 +52,17 @@ jobs:
           # Verbose program output
           # Accepts log level: "error", "warn", "info", "debug", "trace"
           verbose = "debug"
+
+          # Fix 404/403 issues:
+          # 1. Set a realistic User-Agent
+          user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+          # 2. Accept codes that often fail due to bot protection
+          accept = [200, 403, 401, 429]
+          # 3. Increase timeout for slow servers
+          timeout = 20
+          # 4. Retry once on failure
+          retry = 1
+
           # Path to summary output file.
           output = "${{ env.LYCHEE_REPORT }}"
           # Preprocess input files
